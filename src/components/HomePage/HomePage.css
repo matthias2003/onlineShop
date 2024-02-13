@@ -1,0 +1,10 @@
+.home--baner {
+    height: 80vh;
+    overflow: hidden;
+}
+
+.new--wrap {
+    font-family: "Archivo Black", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
