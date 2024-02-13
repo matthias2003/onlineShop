@@ -1,0 +1,9 @@
+.nav--wrap {
+    height: 50px;
+    width: 100%;
+}
+.nav--wrap .menu--wrap {
+    width: 25%;
+    display: flex;
+    justify-content: space-evenly;
+}
