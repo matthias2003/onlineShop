@@ -1,9 +1,39 @@
 .nav--wrap {
     height: 50px;
     width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
+
 .nav--wrap .menu--wrap {
     width: 25%;
     display: flex;
-    justify-content: space-evenly;
+    font-weight: bold;
+    list-style-type: none;
+    padding: 0;
+}
+
+.nav--wrap .menu--wrap li {
+    margin: 0 5%;
+}
+
+.nav--wrap .menu--wrap li:hover {
+    cursor: pointer;
+}
+
+.nav--wrap .icons--wrap {
+    display: flex;
+    width: 25%;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.nav--wrap .icons--wrap * {
+    width: 25px;
+    height: auto;
+    margin: 0 5%;
+}
+
+.nav--wrap .icons--wrap *:hover {
+    cursor: pointer;
 }
