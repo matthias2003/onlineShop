@@ -10,7 +10,10 @@ function HomePage() {
             <div className="new--wrap">
                 <p>Freshly added</p>
                 <div className="tiles--wrap">
-
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
                 </div>
             </div>
             <div className="coming--wrap">
