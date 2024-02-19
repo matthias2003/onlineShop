@@ -1,7 +1,19 @@
 import background from "../../assets/images/background.jpg";
+import { getData } from "../../requests"
 import "./HomePage.css";
+import {useEffect, useState} from "react";
 
 function HomePage() {
+    const [ shoeData , setShoeData] = useState({});
+    useEffect(() => {
+        fetchData();
+    },[]);
+    const fetchData = async () => {
+        const data = await getData();
+    }
+
+
+
     return(
         <div className="home--page--container">
             <div className="home--baner">
