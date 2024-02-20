@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getData = async () => {
-    const  data  = axios.get("127.0.0.1:3001/api");
-    console.log(data)
+export const fetchData = async () =>  {
+    const { data } = await axios.get("http://localhost:3001/api");
+    return data;
 }

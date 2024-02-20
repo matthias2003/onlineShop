@@ -1,18 +1,19 @@
 import background from "../../assets/images/background.jpg";
-import { getData } from "../../requests"
+import { fetchData } from "../../requests";
 import "./HomePage.css";
 import {useEffect, useState} from "react";
 
 function HomePage() {
-    const [ shoeData , setShoeData] = useState({});
-    useEffect(() => {
-        fetchData();
+    const [ sneakerData, setSneakerData ] = useState([]);
+
+    useEffect( ()=> {
+        fetchAndPrepareData();
     },[]);
-    const fetchData = async () => {
-        const data = await getData();
+
+    const fetchAndPrepareData = async () => {
+        const data = await fetchData();
+        setSneakerData(data);
     }
-
-
 
     return(
         <div className="home--page--container">
@@ -22,10 +23,17 @@ function HomePage() {
             <div className="new--wrap">
                 <p>Freshly added</p>
                 <div className="tiles--wrap">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                    {sneakerData.map( (element : any) => {
+                        return(
+                            <div className="tile">
+                                <div className="img--wrap">
+                                    <img src={element.img} alt="Sneaker preview" />
+                                </div>
+                                <p>{ element.name }</p>
+                                <p>{ element.price }</p>
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
             <div className="coming--wrap">

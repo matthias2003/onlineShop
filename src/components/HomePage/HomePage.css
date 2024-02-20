@@ -14,8 +14,24 @@
     justify-content: space-evenly;
 }
 
-.new--wrap .tiles--wrap * {
+.new--wrap .tiles--wrap .tile {
+    font-family: "Roboto", sans-serif;
     width: 20%;
+    height: 50vh;
+}
+
+
+.new--wrap .tiles--wrap .tile p {
+    text-align: center;
+}
+
+.new--wrap .tiles--wrap .tile .img--wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 40vh;
-    background-color: black;
+    background-color: #F5F7F8;
+}
+.new--wrap .tiles--wrap .tile .img--wrap img {
+    width: 100%;
 }
