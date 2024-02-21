@@ -9,29 +9,47 @@
     font-style: normal;
 }
 
-.new--wrap .tiles--wrap {
+.tiles--wrap {
     display: flex;
     justify-content: space-evenly;
 }
 
-.new--wrap .tiles--wrap .tile {
+.tiles--wrap .tile {
     font-family: "Roboto", sans-serif;
     width: 20%;
     height: 50vh;
 }
 
-
-.new--wrap .tiles--wrap .tile p {
+.tiles--wrap .tile p {
     text-align: center;
 }
 
-.new--wrap .tiles--wrap .tile .img--wrap {
+.tiles--wrap .tile .img--wrap {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 40vh;
     background-color: #F5F7F8;
 }
-.new--wrap .tiles--wrap .tile .img--wrap img {
+.tiles--wrap .tile .img--wrap img {
     width: 100%;
+}
+
+.coming--wrap .coming--content {
+    background-color: #6D8F6D;
+    height: 50vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.coming--wrap .coming--content p {
+    font-size: 3.2vw;
+    color: #F5F7F8;
+}
+
+.coming--wrap .coming--content img {
+    height: 100%;
+
 }
