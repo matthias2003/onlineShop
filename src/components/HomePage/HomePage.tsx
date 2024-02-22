@@ -1,4 +1,3 @@
-import background from "../../assets/images/background.jpg";
 import { fetchData } from "../../requests";
 import ComingSoonImage from "../../assets/images/Air-Jordan-4-Seafoam-AQ9129-103-04.jpg"
 import {useEffect, useState} from "react";
@@ -17,9 +16,7 @@ function HomePage() {
 
     return(
         <div className="home--page--container">
-            <div className="home--baner">
-                <img src={background} alt="Background"/>
-            </div>
+            <div className="home--baner"></div>
             <div className="new--wrap">
                 <p>Freshly added</p>
                 <div className="tiles--wrap">

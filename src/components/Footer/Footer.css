@@ -1,0 +1,28 @@
+.footer {
+    background-color: #F5F7F8;
+    height: 35vh;
+    width: 100%;
+}
+
+.footer .main--row {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.footer .main--row div {
+    width: 15%;
+}
+
+.footer .main--row div p:first-child {
+    font-weight: bold;
+}
+
+
+.footer .main--row .img--wrap {
+    display: flex;
+}
+
+.footer .main--row .img--wrap img {
+    width: 25px;
+    margin: 10%;
+}
