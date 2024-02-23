@@ -1,0 +1,9 @@
+export const amex = require('./amex-outline.svg');
+export const applePay = require('./applepay-outline.svg');
+export const payPall = require('./paypal-outline.svg');
+export const visa = require('./visa-outline.svg');
+export const mastercard = require('./mastercard-outline.svg');
+export const tiktok = require('./tiktok.png');
+export const instagram = require('./instagram.png');
+export const facebook = require('./facebook.png');
+export const twitter = require('./twitter.png');

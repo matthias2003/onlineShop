@@ -1,4 +1,4 @@
-import * as icon from "../../assets/icons/icons";
+import * as icon from "../../assets/icons/navIcons";
 import "./Nav.css";
 
 function Nav() {

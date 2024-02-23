@@ -1,6 +1,6 @@
-.home--baner {
+.home--banner {
     background-image: url("../../assets/images/background2.jpg");
-    height: 80vh;
+    height: 70vh;
     background-position: center center;
     background-repeat: no-repeat;
 }
@@ -40,7 +40,7 @@
 
 .coming--wrap .coming--content {
     background-color: #6D8F6D;
-    height: 50vh;
+    height: 40vh;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -50,9 +50,10 @@
 .coming--wrap .coming--content p {
     font-size: 3.2vw;
     color: #F5F7F8;
+    text-align: center;
+    flex: 25%;
 }
 
 .coming--wrap .coming--content img {
-    height: 100%;
-
+    max-height: 100%;
 }

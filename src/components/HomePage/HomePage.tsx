@@ -16,7 +16,7 @@ function HomePage() {
 
     return(
         <div className="home--page--container">
-            <div className="home--baner"></div>
+            <div className="home--banner"></div>
             <div className="new--wrap">
                 <p>Freshly added</p>
                 <div className="tiles--wrap">
@@ -37,7 +37,7 @@ function HomePage() {
                 <p>Coming soon</p>
                 <div className="coming--content">
                     <p>AIR JORDAN 4</p>
-                    <img src={ComingSoonImage} alt="Coming soon sneaker" />
+                    <img src={ComingSoonImage} alt="Coming soon sneaker"/>
                     <p>SEA FOAM</p>
                 </div>
             </div>

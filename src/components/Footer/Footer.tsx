@@ -1,4 +1,5 @@
-import * as icon from "../../assets/icons/icons";
+import * as icon from "../../assets/icons/footerIcons";
+
 import "./Footer.css";
 function Footer() {
     return (
@@ -31,14 +32,20 @@ function Footer() {
                 </div>
                 <div>
                     <p>Join The Pack</p>
-                    <p>Turn daily notifications via e-mail to be up to date with our freshly addded sneakers.</p>
-                    <input></input>
-                    <button></button>
+                    <p>Turn daily notifications via e-mail to be up to date with our freshly added sneakers.</p>
+                    <input placeholder="Enter your email"></input>
+                    <button>Sign Up</button>
                 </div>
             </div>
             <div className="payments--row">
                 <p>Payments Methods</p>
-                <div></div>
+                <div className="icons--wrap">
+                    <img src={icon.mastercard} alt="Mastercard" />
+                    <img src={icon.visa} alt="Visa" />
+                    <img src={icon.amex} alt="Amex" />
+                    <img src={icon.applePay} alt="Apple Pay" />
+                    <img src={icon.payPall} alt="Pay Pall" />
+                </div>
             </div>
         </div>
     )
