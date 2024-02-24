@@ -33,8 +33,11 @@ function Footer() {
                 <div>
                     <p>Join The Pack</p>
                     <p>Turn daily notifications via e-mail to be up to date with our freshly added sneakers.</p>
-                    <input placeholder="Enter your email"></input>
-                    <button>Sign Up</button>
+                    <div className="form--wrap">
+                        <input placeholder="Enter your email"></input>
+                        <button><img src={icon.sign} alt="Sign into newsletter"/></button>
+                    </div>
+
                 </div>
             </div>
             <div className="payments--row">

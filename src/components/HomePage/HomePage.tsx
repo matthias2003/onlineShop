@@ -18,7 +18,7 @@ function HomePage() {
         <div className="home--page--container">
             <div className="home--banner"></div>
             <div className="new--wrap">
-                <p>Freshly added</p>
+                <h4>Freshly added</h4>
                 <div className="tiles--wrap">
                     {sneakerData.map( (element : any) => {
                         return(
@@ -34,7 +34,7 @@ function HomePage() {
                 </div>
             </div>
             <div className="coming--wrap">
-                <p>Coming soon</p>
+                <h4>Coming soon</h4>
                 <div className="coming--content">
                     <p>AIR JORDAN 4</p>
                     <img src={ComingSoonImage} alt="Coming soon sneaker"/>
@@ -42,7 +42,7 @@ function HomePage() {
                 </div>
             </div>
             <div className="bestsellers--wrap">
-                <p>Bestsellers</p>
+                <h4>Bestsellers</h4>
                 <div className="tiles--wrap">
                     {sneakerData.map((element: any) => {
                         return (

@@ -1,3 +1,7 @@
+.home--page--container h4 {
+    margin-left: 2%;
+}
+
 .home--banner {
     background-image: url("../../assets/images/background2.jpg");
     height: 70vh;
