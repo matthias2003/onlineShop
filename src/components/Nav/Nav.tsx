@@ -14,12 +14,10 @@ function Nav() {
                     <li>Kids</li>
                 </ul>
             <div className="icons--wrap">
-
                     <div className="search-box">
                         <button className="btn-search"><img src={icon.search} alt="Search button"/></button>
-                        <input type="text" className="input-search" placeholder="Search"/>
+                        <input type="text" className="input-search" placeholder="Type to search..."/>
                     </div>
-
                 <div><img src={icon.heart} alt="Favourites button"/></div>
                 <div><img src={icon.avatar} alt="Avatar button"/></div>
             </div>
