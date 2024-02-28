@@ -1,10 +1,13 @@
 import * as icon from "../../assets/icons/navIcons";
 import "./Nav.css";
-import {useState} from "react";
+import LoginModal  from "../LoginModal/LoginModal"
+import {Dispatch, SetStateAction, useState} from "react";
+import { createPortal } from "react-dom";
+import {facebook} from "../../assets/icons/footerIcons";
 
 function Nav() {
-
-    const  [ searchValue , setSearchValue ] = useState("");
+    const [ isActiveLoginPanel, setIsActiveLoginPanel ] = useState<boolean>(false)
+    const  [ searchValue , setSearchValue ] = useState<string>("");
 
     return (
         <div className="nav--wrap">
@@ -19,10 +22,11 @@ function Nav() {
                         <input type="text" className="input-search" placeholder="Type to search..."/>
                     </div>
                 <div><img src={icon.heart} alt="Favourites button"/></div>
-                <div><img src={icon.avatar} alt="Avatar button"/></div>
+                <div><img onClick={() => {setIsActiveLoginPanel(true)}} src={icon.avatar} alt="Avatar button"/></div>
             </div>
+            { isActiveLoginPanel && createPortal(<LoginModal setIsActiveLoginPanel={setIsActiveLoginPanel} />, document.body)}
         </div>
-    );
+);
 }
 
 export default Nav;
