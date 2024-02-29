@@ -1,9 +1,8 @@
 import * as icon from "../../assets/icons/navIcons";
 import "./Nav.css";
 import LoginModal  from "../LoginModal/LoginModal"
-import {Dispatch, SetStateAction, useState} from "react";
+import { useState } from "react";
 import { createPortal } from "react-dom";
-import {facebook} from "../../assets/icons/footerIcons";
 
 function Nav() {
     const [ isActiveLoginPanel, setIsActiveLoginPanel ] = useState<boolean>(false)
