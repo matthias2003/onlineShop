@@ -17,7 +17,7 @@ function Nav() {
                 </ul>
             <div className="icons--wrap">
                     <div className="search-box">
-                        <button className="btn-search"><img src={icon.search} alt="Search button"/></button>
+                        <button onClick={(event) => {event.currentTarget.focus()}} className="btn-search"><img src={icon.search} alt="Search button"/></button>
                         <input type="text" className="input-search" placeholder="Type to search..."/>
                     </div>
                 <div><img src={icon.heart} alt="Favourites button"/></div>

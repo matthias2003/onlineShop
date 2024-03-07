@@ -27,13 +27,19 @@ function LoginModal( {setIsActiveLoginPanel}:{setIsActiveLoginPanel:Dispatch<Set
                 <div className="modal">
                     <h1>Sign in</h1>
                     <form onSubmit={handleSubmit}>
-                        <input type="text" value={username} onChange={( event) => { setUsername(event.target.value) }} />
-                        <input type="text" value={password} onChange={( event) => { setPassword(event.target.value) }} />
+                        <input type="text" value={username} onChange={(event) => {
+                            setUsername(event.target.value)
+                        }}/>
+                        <input type="text" value={password} onChange={(event) => {
+                            setPassword(event.target.value)
+                        }}/>
+                        <p>Forgot your password?</p>
                         <div className="remember-me">
-                            <input readOnly checked={isChecked} onClick={(event) => {setIsChecked(!isChecked)}} type="checkbox"/>
+                            <input readOnly checked={isChecked} onClick={(event) => {
+                                setIsChecked(!isChecked)
+                            }} type="checkbox"/>
                             <p>Remember me</p>
                         </div>
-                        <p>Forget your password?</p>
                         <button>SIGN IN</button>
                     </form>
                 </div>
