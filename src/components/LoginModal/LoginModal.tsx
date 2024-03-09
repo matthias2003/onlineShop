@@ -4,7 +4,7 @@ import { sendLoginInfo } from "../../requests";
 
 
 function LoginModal( {setIsActiveLoginPanel}:{setIsActiveLoginPanel:Dispatch<SetStateAction<boolean>>} ) {
-    const [username, setUsername] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [isChecked, setIsChecked ] = useState<boolean>(false);
 
@@ -12,9 +12,8 @@ function LoginModal( {setIsActiveLoginPanel}:{setIsActiveLoginPanel:Dispatch<Set
     const handleSubmit = async (event:any) => {
         event.preventDefault();
         const data = {
-            username:username,
+            email:email,
             password:password,
-            checked:isChecked
         }
 
         await sendLoginInfo(data);
@@ -27,10 +26,10 @@ function LoginModal( {setIsActiveLoginPanel}:{setIsActiveLoginPanel:Dispatch<Set
                 <div className="modal">
                     <h1>Sign in</h1>
                     <form onSubmit={handleSubmit}>
-                        <input type="text" value={username} onChange={(event) => {
-                            setUsername(event.target.value)
+                        <input type="text" value={email} onChange={(event) => {
+                            setEmail(event.target.value)
                         }}/>
-                        <input type="text" value={password} onChange={(event) => {
+                        <input type="password" value={password} onChange={(event) => {
                             setPassword(event.target.value)
                         }}/>
                         <p>Forgot your password?</p>
