@@ -6,7 +6,7 @@
     background-image: url("../../assets/images/background2.jpg");
     height: 70vh;
     background-position: center center;
-    background-repeat: no-repeat;
+    background-repeat: repeat-x;
 }
 
 .new--wrap, .coming--wrap, .bestsellers--wrap {
@@ -15,6 +15,7 @@
     font-style: normal;
     margin-top: 5vh;
 }
+
 
 .tiles--wrap {
     display: flex;
@@ -25,6 +26,7 @@
     font-family: "Roboto", sans-serif;
     width: 20%;
     height: 50vh;
+
 }
 
 .tiles--wrap .tile p {
@@ -60,4 +62,32 @@
 
 .coming--wrap .coming--content img {
     max-height: 100%;
+}
+
+@media screen and (max-width: 992px)  {
+    .tiles--wrap {
+        flex-wrap: wrap;
+    }
+
+    .tiles--wrap .tile {
+        width: 40%;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .home--banner {
+        height: 40vh;
+    }
+
+    .coming--wrap .coming--content {
+        height: 20vh;
+    }
+    .tiles--wrap .tile {
+        height: 30vh;
+    }
+
+    .tiles--wrap .tile .img--wrap {
+        height: 20vh;
+    }
+
 }
