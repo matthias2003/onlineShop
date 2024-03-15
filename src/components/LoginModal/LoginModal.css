@@ -38,15 +38,63 @@
 
 .centered .modal form input {
     width: 70%;
-    padding: 2%;
+    padding: 15px;
     margin: 2%;
-    /*-webkit-appearance: none;*/
+    border-radius: 8px;
+    border: 1px solid #616467;
+}
+
+/*testowe*/
+
+.form--group {
+    width: 100%;
+    position: relative;
+}
+
+.form--group label {
+    position: absolute;
+    top: 12px;
+    left: 24px;
+    color: grey;
+    font-size: 12px;
+    z-index: 2;
+    visibility: hidden;
+}
+
+
+form button{
+    color: #fff;
+    /*background-color: #616467;*/
+    background: rgb(127,131,135);
+    background: linear-gradient(45deg, rgba(127,131,135,1) 0%, rgba(78,80,82,1) 100%);
+    width: 30%;
+    height: 20%;
+    padding: 3%;
+    border: none;
+    border-radius: 8px;
+}
+
+form button:hover {
+    cursor: pointer;
+    background: rgb(58,60,62);
+    background: linear-gradient(45deg, rgba(58,60,62,1) 0%, rgba(78,80,82,1) 100%);
 
 }
+
+
+.form--group input:focus-within + label{
+    transform: translateY(-14px);
+    visibility: visible;
+    transition: 0.4s transform ease;
+}
+
+.form--group input:focus-within::placeholder {
+    visibility: hidden;
+}
+/*testowe*/
 
 .centered .modal form .remember-me {
     display: flex;
     align-items: center;
     justify-content: center;
-
 }

@@ -1,8 +1,8 @@
 .footer {
     background-color: #F5F7F8;
-    height: 30vh;
+    height: 100%;
     width: 100%;
-    margin-top: 5vh;
+    margin-top: 10vh;
     font-weight: 500;
     font-size: 14px;
 }

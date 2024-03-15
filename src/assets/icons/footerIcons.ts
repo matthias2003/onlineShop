@@ -8,3 +8,4 @@ export const instagram = require('./instagram.png');
 export const facebook = require('./facebook.png');
 export const twitter = require('./twitter.png');
 export const sign = require('./sign-in.png');
+export const arrowDown = require('./arrow-down.svg')

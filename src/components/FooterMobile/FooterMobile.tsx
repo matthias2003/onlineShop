@@ -1,27 +1,34 @@
 import "./FooterMobile.css";
 import * as icon from "../../assets/icons/footerIcons";
+import {useState} from "react";
 function FooterMobile() {
+    const [ isClicked, setIsClicked ] = useState<boolean>(false)
+    const toggleClass = () => {
+        setIsClicked(!isClicked);
+
+    }
+
     return (
         <div className="footer--mobile">
             <div className="main--row--mobile">
                 <div>
-                    <p>Customer Service</p>
+                    <h4 onClick={toggleClass}>Customer Service</h4>
                     <ul>
                         <li>Contact Us</li>
-                        <li>Size Guide</li>oĽp
+                        <li>Size Guide</li>
                         <li>Order Tracking</li>
                         <li>Shipping & Delivery</li>
                     </ul>
                 </div>
                 <div>
-                    <p>About The Sneakers</p>
+                    <h4>About The Sneakers</h4>
                     <ul>
                         <li>About Us</li>
                         <li>Careers</li>
                     </ul>
                 </div>
                 <div>
-                    <p>Socials</p>
+                    <h4>Socials</h4>
                     <div className="img--wrap--mobile">
                         <img src={icon.twitter} alt="Twitter"/>
                         <img src={icon.facebook} alt="Facebook"/>
@@ -30,17 +37,16 @@ function FooterMobile() {
                     </div>
                 </div>
                 <div>
-                    <p>Join The Pack</p>
+                    <h4>Join The Pack</h4>
                     <p>Turn daily notifications via e-mail to be up to date with our freshly added sneakers.</p>
                     <div className="form--wrap--mobile">
                         <input placeholder="Enter your email"></input>
                         <button><img src={icon.sign} alt="Sign into newsletter"/></button>
                     </div>
-
                 </div>
             </div>
             <div className="payments--row--mobile">
-                <p>Payments Methods</p>
+                <h4>Payments Methods</h4>
                 <div className="icons--wrap--mobile">
                     <img src={icon.mastercard} alt="Mastercard"/>
                     <img src={icon.visa} alt="Visa"/>

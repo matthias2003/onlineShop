@@ -15,7 +15,6 @@ function LoginModal( {setIsActiveLoginPanel}:{setIsActiveLoginPanel:Dispatch<Set
             email:email,
             password:password,
         }
-
         await sendLoginInfo(data);
     }
 
@@ -26,12 +25,18 @@ function LoginModal( {setIsActiveLoginPanel}:{setIsActiveLoginPanel:Dispatch<Set
                 <div className="modal">
                     <h1>Sign in</h1>
                     <form onSubmit={handleSubmit}>
-                        <input type="text" value={email} onChange={(event) => {
-                            setEmail(event.target.value)
-                        }}/>
-                        <input type="password" value={password} onChange={(event) => {
-                            setPassword(event.target.value)
-                        }}/>
+                        <div className={"form--group"}>
+                            <input type="text" id={"email"} placeholder={"E-mail"} value={email} onChange={(event) => {
+                                setEmail(event.target.value)
+                            }}/>
+                            <label htmlFor={"email"} className={"form--label"}>E-mail</label>
+                        </div>
+                        <div className={"form--group"}>
+                            <input type="password" id={"password"} placeholder={"Password"} value={password} onChange={(event) => {
+                                setPassword(event.target.value)
+                            }}/>
+                            <label htmlFor={"password"} className={"form--label"}>Password</label>
+                        </div>
                         <p>Forgot your password?</p>
                         <div className="remember-me">
                             <input readOnly checked={isChecked} onClick={(event) => {
@@ -40,6 +45,7 @@ function LoginModal( {setIsActiveLoginPanel}:{setIsActiveLoginPanel:Dispatch<Set
                             <p>Remember me</p>
                         </div>
                         <button>SIGN IN</button>
+                        <p>Don't have an account? Sign Up</p>
                     </form>
                 </div>
             </div>
