@@ -18,49 +18,80 @@
 
 .centered .modal {
     padding: 5%;
-    width: 30vw;
-    height: 50vh;
+    width: 25vw;
     background: white;
     z-index: 10;
     border-radius: 16px;
     box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
 }
 
+@media screen and (max-width: 1200px) {
+    .centered .modal {
+        width: 40vw;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .centered .modal {
+        width: 60vw;
+    }
+}
+
 .centered .modal h1 {
     text-align: center;
+    margin-bottom: 40px;
 }
 
 .centered .modal form {
     display: flex;
+    height: 80%;
     flex-direction: column;
     align-items: center;
 }
 
-.centered .modal form input {
-    width: 70%;
+.centered .modal form .form--group input {
+    width: 100%;
     padding: 15px;
-    margin: 2%;
+    margin: 5px 0;
     border-radius: 8px;
     border: 1px solid #616467;
 }
 
+.centered .modal form .form--group + p {
+    margin: 0;
+}
+
+.centered .modal form p {
+    font-size: 12px;
+}
+
+
 /*testowe*/
 
 .form--group {
-    width: 100%;
+    width: 70%;
     position: relative;
+    display: flex;
+    justify-content: center;
+    margin: 5px;
 }
+
 
 .form--group label {
     position: absolute;
+    background-color: white;
     top: 12px;
-    left: 24px;
+    left: 16px;
     color: grey;
     font-size: 12px;
-    z-index: 2;
     visibility: hidden;
+    transition: 0.2s transform ease;
 }
 
+.form--group input:focus {
+    outline: 1px solid #4e5052;
+    box-shadow: none;
+}
 
 form button{
     color: #fff;
@@ -68,8 +99,8 @@ form button{
     background: rgb(127,131,135);
     background: linear-gradient(45deg, rgba(127,131,135,1) 0%, rgba(78,80,82,1) 100%);
     width: 30%;
-    height: 20%;
-    padding: 3%;
+    margin: 40px 20px 20px 20px;
+    padding: 10px;
     border: none;
     border-radius: 8px;
 }
@@ -78,14 +109,16 @@ form button:hover {
     cursor: pointer;
     background: rgb(58,60,62);
     background: linear-gradient(45deg, rgba(58,60,62,1) 0%, rgba(78,80,82,1) 100%);
-
 }
 
-
 .form--group input:focus-within + label{
-    transform: translateY(-14px);
+    transform: translateY(-15px);
     visibility: visible;
-    transition: 0.4s transform ease;
+}
+
+.form--group input:not(:placeholder-shown) + label {
+    transform: translateY(-15px);
+    visibility: visible;
 }
 
 .form--group input:focus-within::placeholder {

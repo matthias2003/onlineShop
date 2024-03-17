@@ -38,12 +38,12 @@ function LoginModal( {setIsActiveLoginPanel}:{setIsActiveLoginPanel:Dispatch<Set
                             <label htmlFor={"password"} className={"form--label"}>Password</label>
                         </div>
                         <p>Forgot your password?</p>
-                        <div className="remember-me">
-                            <input readOnly checked={isChecked} onClick={(event) => {
-                                setIsChecked(!isChecked)
-                            }} type="checkbox"/>
-                            <p>Remember me</p>
-                        </div>
+                        {/*<div className="remember-me">*/}
+                        {/*    <input readOnly checked={isChecked} onClick={(event) => {*/}
+                        {/*        setIsChecked(!isChecked)*/}
+                        {/*    }} type="checkbox"/>*/}
+                        {/*    <p>Remember me</p>*/}
+                        {/*</div>*/}
                         <button>SIGN IN</button>
                         <p>Don't have an account? Sign Up</p>
                     </form>
