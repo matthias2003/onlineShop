@@ -4,15 +4,35 @@
     margin-top: 10vh;
     font-weight: 500;
     font-size: 14px;
-    padding: 20px 0;
+    padding: 10px 0;
 }
 
 .collapsible .content {
-    padding: 0 20px;
+    padding: 0 20px 20px 20px;
 }
 .collapsible .header {
     padding: 10px;
     cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.collapsible .header .collapse--arrow {
+    width: 15px;
+    padding-right: 10px;
+}
+
+.collapse--arrow--down{
+    transform: rotate(180deg);
+    padding-left: 10px;
+    transition: 0.4s all ease;
+}
+
+.collapse--arrow--up{
+    transform: rotate(0deg);
+    padding-left: 10px;
+    transition: 0.4s all ease;
 }
 
 .footer--mobile .content ul {

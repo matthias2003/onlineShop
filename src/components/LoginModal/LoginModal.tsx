@@ -1,6 +1,7 @@
 import "./LoginModal.css";
 import { Dispatch, SetStateAction, useState } from "react";
 import { sendLoginInfo } from "../../requests";
+import { motion } from "framer-motion";
 
 
 function LoginModal( {setIsActiveLoginPanel}:{setIsActiveLoginPanel:Dispatch<SetStateAction<boolean>>} ) {
