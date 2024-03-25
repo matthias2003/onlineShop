@@ -3,7 +3,8 @@ import "./Nav.css";
 import LoginModal  from "../LoginModal/LoginModal"
 import { useState } from "react";
 import { createPortal } from "react-dom";
-
+import Modal from "../LoginModal/Modal/Modal";
+import { AnimatePresence } from "framer-motion";
 function Nav() {
     const [ isActiveLoginPanel, setIsActiveLoginPanel ] = useState<boolean>(false)
     const  [ searchValue , setSearchValue ] = useState<string>("");
@@ -11,8 +12,8 @@ function Nav() {
     return (
         <div className="nav--wrap">
                 <ul className="menu--wrap">
-                    <li>Mens</li>
-                    <li>Womens</li>
+                    <li>Men</li>
+                    <li>Women</li>
                     <li>Kids</li>
                 </ul>
             <div className="icons--wrap">
@@ -23,9 +24,11 @@ function Nav() {
                 <div><img src={icon.heart} alt="Favourites button"/></div>
                 <div><img onClick={() => {setIsActiveLoginPanel(true)}} src={icon.avatar} alt="Avatar button"/></div>
             </div>
-            { isActiveLoginPanel && createPortal(<LoginModal setIsActiveLoginPanel={setIsActiveLoginPanel} />, document.body)}
+            <AnimatePresence>
+                {isActiveLoginPanel && <Modal setIsActiveLoginPanel={setIsActiveLoginPanel}></Modal>}
+            </AnimatePresence>
         </div>
-);
+    );
 }
 
 export default Nav;

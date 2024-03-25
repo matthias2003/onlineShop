@@ -1,8 +1,9 @@
-import "./LoginModal.css";
-import { Dispatch, SetStateAction, useState } from "react";
-import { sendLoginInfo } from "../../requests";
-
-function LoginModal( {setIsActiveLoginPanel}:{setIsActiveLoginPanel:Dispatch<SetStateAction<boolean>>} ) {
+import { motion } from "framer-motion";
+import "./Modal.css"
+import Backdrop from "../Backdrop/Backdrop";
+import {Dispatch, SetStateAction, useState} from "react";
+import {sendLoginInfo} from "../../../requests";
+function Modal({setIsActiveLoginPanel}:{setIsActiveLoginPanel:Dispatch<SetStateAction<boolean>>}) {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
@@ -14,12 +15,38 @@ function LoginModal( {setIsActiveLoginPanel}:{setIsActiveLoginPanel:Dispatch<Set
         }
         await sendLoginInfo(data);
     }
+    const options = {
+        hidden: {
+            y: "-100vh",
+            opacity: 0,
+        },
+        visible: {
+            y:"0",
+            opacity: 1,
+            transition: {
+                duration:0.1,
+                type:"spring",
+                stiffness:500,
+                damping:25,
+            },
+        },
+        exit: {
+            y:"100vh",
+            opacity: 0,
+        }
+    }
 
-    return (
-        <>
-            <div onClick={()=> { setIsActiveLoginPanel(false) }} className="background--overlay"></div>
-            <div className="centered">
-                <div className="modal">
+    return(
+        <Backdrop setIsActiveLoginPanel={setIsActiveLoginPanel}>
+            <motion.div
+                onClick={(e) => {
+                    e.stopPropagation()
+                }}
+                className={"modal"}
+                variants={options}
+                initial={"hidden"}
+                animate={"visible"}
+                exit={"exit"}>
                     <h1>Sign in</h1>
                     <form onSubmit={handleSubmit}>
                         <div className={"form--group"}>
@@ -29,9 +56,10 @@ function LoginModal( {setIsActiveLoginPanel}:{setIsActiveLoginPanel:Dispatch<Set
                             <label htmlFor={"email"} className={"form--label"}>E-mail</label>
                         </div>
                         <div className={"form--group"}>
-                            <input type="password" id={"password"} placeholder={"Password"} value={password} onChange={(event) => {
-                                setPassword(event.target.value)
-                            }}/>
+                            <input type="password" id={"password"} placeholder={"Password"} value={password}
+                                   onChange={(event) => {
+                                       setPassword(event.target.value)
+                                   }}/>
                             <label htmlFor={"password"} className={"form--label"}>Password</label>
                         </div>
                         <p>Forgot your password?</p>
@@ -44,10 +72,9 @@ function LoginModal( {setIsActiveLoginPanel}:{setIsActiveLoginPanel:Dispatch<Set
                         <button>SIGN IN</button>
                         <p>Don't have an account? Sign Up</p>
                     </form>
-                </div>
-            </div>
-        </>
+            </motion.div>
+        </Backdrop>
     )
 }
 
-export default LoginModal;
+export default Modal;
