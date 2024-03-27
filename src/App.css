@@ -1,3 +1,7 @@
+:root {
+    --grey:#616467;
+}
+
 .container {
     /*width: 98%;*/
     margin: 0 auto;

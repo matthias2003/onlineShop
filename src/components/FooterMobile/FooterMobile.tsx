@@ -16,7 +16,7 @@ function FooterMobile() {
         const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
         return(
         <div className="collapsible" ref={content}>
-            <div className="header" {...getToggleProps()}>  {/* TODO: onClick Arrow class toggle to rotate */}
+            <div className="header" {...getToggleProps()}>
                 {props.title}
                 <img className={`collapse--arrow ${isExpanded?"collapse--arrow--down":"collapse--arrow--up"}`} src={icon.arrowDown} alt={"Arrow down"}/>
             </div>

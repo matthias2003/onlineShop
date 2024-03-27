@@ -15,7 +15,7 @@ function HomePage() {
     }
 
     return(
-        <div className="home--page--container">
+        <main className="home--page--container">
             <div className="home--banner"></div>
             <div className="new--wrap">
                 <h4>Freshly added</h4>
@@ -57,7 +57,7 @@ function HomePage() {
                     })}
                 </div>
             </div>
-        </div>
+        </main>
     );
 }
 

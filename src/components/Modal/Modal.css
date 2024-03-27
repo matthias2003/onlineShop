@@ -1,4 +1,4 @@
- .modal {
+.modal {
     padding: 5%;
     width: clamp(30vw,25vw,40vw);
     background: white;
@@ -8,19 +8,43 @@
     margin: 0 auto;
 }
 
- h1 {
+
+
+.close-modal {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 20px;
+    right:20px;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.close-modal:hover {
+    cursor: pointer;
+}
+
+.close-modal img {
+    height: 25px;
+}
+
+
+h1 {
     text-align: center;
     margin-bottom: 40px;
 }
 
- form {
+form {
     display: flex;
     height: 80%;
     flex-direction: column;
     align-items: center;
 }
 
- form .form--group input {
+form .form--group input {
     width: 100%;
     padding: 15px;
     margin: 5px 0;
@@ -28,11 +52,11 @@
     border: 1px solid #616467;
 }
 
-  form .form--group + p {
+form .form--group + p {
     margin: 0;
 }
 
-  form p {
+form p {
     font-size: 12px;
 }
 
@@ -91,7 +115,9 @@ form button:hover {
     visibility: visible;
 }
 
+/* TODO: Firefox placeholder nie znika */
 .form--group input:focus-within::placeholder {
     visibility: hidden;
 }
+
 /*testowe*/
