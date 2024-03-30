@@ -1,32 +1,10 @@
 import "./FooterMobile.css";
 import * as icon from "../../assets/icons/footerIcons";
 import { useCollapse } from "react-collapsed";
-import React, {LegacyRef , useEffect, useRef, useState} from "react";
+import React, { useRef, useState} from "react";
+import Collapsible from "./Collapsible/Collapsible";
 function FooterMobile() {
-    const content = useRef<HTMLDivElement>(null);
-    const [height, setHeight] = useState(0);
-
-    useEffect(()=> {
-
-
-    })
-
-
-    const Collapsible = (props:any) => {
-        const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
-        return(
-        <div className="collapsible" ref={content}>
-            <div className="header" {...getToggleProps()}>
-                {props.title}
-                <img className={`collapse--arrow ${isExpanded?"collapse--arrow--down":"collapse--arrow--up"}`} src={icon.arrowDown} alt={"Arrow down"}/>
-            </div>
-            <div {...getCollapseProps()}>
-                <div  className="content">
-                    {props.children}
-                </div>
-            </div>
-        </div>
-        )};
+    const [ height, setHeight] = useState(0);
 
     return (
     <div className={"footer--mobile"}>

@@ -7,34 +7,6 @@
     padding: 10px 0;
 }
 
-.collapsible .content {
-    padding: 0 20px 20px 20px;
-}
-.collapsible .header {
-    padding: 10px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.collapsible .header .collapse--arrow {
-    width: 15px;
-    padding-right: 10px;
-}
-
-.collapse--arrow--down{
-    transform: rotate(180deg);
-    padding-left: 10px;
-    transition: 0.4s all ease;
-}
-
-.collapse--arrow--up{
-    transform: rotate(0deg);
-    padding-left: 10px;
-    transition: 0.4s all ease;
-}
-
 .footer--mobile .content ul {
     list-style-type: none;
     padding-left: 0;
@@ -44,7 +16,6 @@
 .header h4 {
     margin: 0;
 }
-
 
 .footer--mobile .form--wrap--mobile {
     display: flex;
