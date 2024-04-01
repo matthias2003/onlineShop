@@ -1,13 +1,12 @@
 import * as icon from "../../assets/icons/footerIcons";
 import { useState, useEffect } from "react";
-
-import "./Footer.css";
 import FooterMobile from "../FooterMobile/FooterMobile";
+import "./Footer.css";
 function Footer() {
-    const [width, setWidth] = useState<number>(window.innerWidth);
+    const [ width, setWidth ] = useState<number>(window.innerWidth);
 
     useEffect( () => {
-        const handleWindowResize = () => setWidth(window.innerWidth);
+        const handleWindowResize = () => { setWidth(window.innerWidth) };
         window.addEventListener("resize", handleWindowResize);
         return () => window.removeEventListener("resize", handleWindowResize);
     }, [])
@@ -17,10 +16,10 @@ function Footer() {
         <>
             {width > 776 ?
             <div className="footer">
-                <div className="main--row">
+                <div className="footer__main-row">
                     <div>
                         <h4>Customer Service</h4>
-                        <ul>
+                        <ul className="footer__list">
                             <li>Contact Us</li>
                             <li>Size Guide</li>
                             <li>Order Tracking</li>
@@ -29,14 +28,14 @@ function Footer() {
                     </div>
                     <div>
                         <h4>About The Sneakers</h4>
-                        <ul>
+                        <ul className="footer__list">
                             <li>About Us</li>
                             <li>Careers</li>
                         </ul>
                     </div>
                     <div>
                         <h4>Socials</h4>
-                        <div className="img--wrap">
+                        <div className="footer__socials">
                             <img src={icon.twitter} alt="Twitter" />
                             <img src={icon.facebook} alt="Facebook" />
                             <img src={icon.instagram} alt="Instagram" />
@@ -46,16 +45,16 @@ function Footer() {
                     <div>
                         <h4>Join The Pack</h4>
                         <p>Turn daily notifications via e-mail to be up to date with our freshly added sneakers.</p>
-                        <div className="form--wrap">
+                        <div className="footer__form">
                             <input placeholder="Enter your email"></input>
-                            <button><img src={icon.sign} alt="Sign into newsletter"/></button>
+                            <button><img className="footer__button-icon" src={icon.sign} alt="Sign into newsletter" /></button>
                         </div>
 
                     </div>
                 </div>
-                <div className="payments--row">
+                <div className="footer__payments">
                     <h4>Payments Methods</h4>
-                    <div className="icons--wrap">
+                    <div className="footer__payments-icons">
                         <img src={icon.mastercard} alt="Mastercard" />
                         <img src={icon.visa} alt="Visa" />
                         <img src={icon.amex} alt="Amex" />

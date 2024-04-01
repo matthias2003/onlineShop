@@ -5,15 +5,15 @@
     transition: 0.4s all ease;
 }
 
-.collapsible.expanded {
+.collapsible--expanded {
     grid-template-rows: 1fr;
 }
 
-.collapsible .content {
+.collapsible__content {
     overflow: hidden;
     padding: 0 20px 20px 20px;
 }
-.collapsible .header {
+.collapsible__header {
     padding: 10px;
     cursor: pointer;
     display: flex;
@@ -21,18 +21,22 @@
     align-items: center;
 }
 
-.collapsible .header .collapse--arrow {
+.collapsible__header > h4 {
+    margin: 0;
+}
+
+.collapsible__collapse-arrow {
     width: 15px;
     padding-right: 10px;
 }
 
-.collapse--arrow--down{
+.collapsible__collapse-arrow--down {
     transform: rotate(180deg);
     padding-left: 10px;
     transition: 0.4s all ease;
 }
 
-.collapse--arrow--up{
+.collapsible__collapse-arrow--up {
     transform: rotate(0deg);
     padding-left: 10px;
     transition: 0.4s all ease;

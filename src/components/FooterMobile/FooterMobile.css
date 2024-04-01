@@ -1,4 +1,4 @@
-.footer--mobile {
+.footer-mobile {
     background-color: #F5F7F8;
     width: 100%;
     margin-top: 10vh;
@@ -7,21 +7,18 @@
     padding: 10px 0;
 }
 
-.footer--mobile .content ul {
+.footer-mobile__list {
     list-style-type: none;
     padding-left: 0;
     flex-direction: column;
     margin: 0;
 }
-.header h4 {
-    margin: 0;
-}
 
-.footer--mobile .form--wrap--mobile {
+.footer-mobile__form {
     display: flex;
 }
 
-.footer--mobile .form--wrap--mobile input {
+.footer-mobile__form input {
     width: 30vw;
     border-radius: 8px 0 0 8px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, .1),0 3px 6px rgba(0, 0, 0, .05);
@@ -29,11 +26,11 @@
     border: none;
 }
 
-.footer--mobile .form--wrap--mobile input:focus {
+.footer-mobile__form input:focus {
     outline: none;
 }
 
-.footer--mobile .form--wrap--mobile button {
+.footer-mobile__form button {
     background-image: linear-gradient(#464d55, #25292e);
     border-radius: 0 8px 8px 0;
     border: none;
@@ -48,42 +45,37 @@
     transition: all 150ms;
 }
 
-.footer--mobile .form--wrap--mobile button img {
+.footer-mobile__button-icon {
     width: 15px;
 }
 
-.footer--mobile .form--wrap--mobile  button:hover {
+.footer-mobile__form button:hover {
     box-shadow: rgba(0, 1, 0, .2) 0 2px 8px;
     opacity: .85;
 }
 
-.footer--mobile .form--wrap--mobile  button:active {
+.footer-mobile__form button:active {
     outline: 0;
 }
 
-.footer--mobile .form--wrap--mobile button:focus {
+.footer-mobile__form button:focus {
     box-shadow: rgba(0, 0, 0, .5) 0 0 0 3px;
 }
 
-.footer--mobile .img--wrap--mobile {
+.footer-mobile__socials {
     display: flex;
 }
 
-.footer--mobile .img--wrap--mobile img {
+.footer-mobile__socials img {
     width: 25px;
-    margin: 2%;
+    margin: 0 10px;
 }
 
-.footer--mobile .icons--wrap--mobile {
+.footer-mobile__payments {
     display: flex;
-    width: 100%;
 }
 
-.footer--mobile .icons--wrap--mobile img {
+.footer-mobile__payments img {
     max-width: 50px;
     margin: 0 5px;
-}
-
-.footer--mobile .icons--wrap--mobile img:first-child {
-    margin-left: 0;
 }

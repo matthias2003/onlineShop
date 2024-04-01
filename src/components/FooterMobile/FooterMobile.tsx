@@ -1,15 +1,14 @@
 import "./FooterMobile.css";
 import * as icon from "../../assets/icons/footerIcons";
-import { useCollapse } from "react-collapsed";
-import React, { useRef, useState} from "react";
+import React, { useState } from "react";
 import Collapsible from "./Collapsible/Collapsible";
 function FooterMobile() {
-    const [ height, setHeight] = useState(0);
+    const [ height, setHeight] = useState(0); /*TODO: move page when list is expanded */
 
     return (
-    <div className={"footer--mobile"}>
+    <div className="footer-mobile">
         <Collapsible title={<h4>Customer Service</h4>}>
-        <ul>
+        <ul className="footer-mobile__list">
                 <li>Contact Us</li>
                 <li>Size Guide</li>
                 <li>Order Tracking</li>
@@ -18,14 +17,14 @@ function FooterMobile() {
         </Collapsible>
 
         <Collapsible title={<h4>About The Sneakers</h4>}>
-            <ul>
+            <ul className="footer-mobile__list">
             <li>About Us</li>
                 <li>Careers</li>
             </ul>
         </Collapsible>
 
         <Collapsible title={<h4>Socials</h4>}>
-            <div className="img--wrap--mobile">
+            <div className="footer-mobile__socials">
                 <img src={icon.twitter} alt="Twitter"/>
                 <img src={icon.facebook} alt="Facebook"/>
                 <img src={icon.instagram} alt="Instagram"/>
@@ -35,14 +34,14 @@ function FooterMobile() {
 
         <Collapsible title={<h4>Join The Pack</h4>}>
             <p>Turn daily notifications via e-mail to be up to date with our freshly added sneakers.</p>
-            <div className="form--wrap--mobile">
+            <div className="footer-mobile__form">
                 <input placeholder="Enter your email"></input>
-                <button><img src={icon.sign} alt="Sign into newsletter"/></button>
+                <button><img className="footer-mobile__button-icon" src={icon.sign} alt="Sign into newsletter"/></button>
             </div>
         </Collapsible>
 
         <Collapsible title={<h4>Payments Methods</h4>}>
-            <div className="icons--wrap--mobile">
+            <div className="footer-mobile__payments">
                 <img src={icon.mastercard} alt="Mastercard"/>
                 <img src={icon.visa} alt="Visa"/>
                 <img src={icon.amex} alt="Amex"/>

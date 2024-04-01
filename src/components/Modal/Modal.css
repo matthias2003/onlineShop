@@ -1,4 +1,4 @@
-.modal {
+.login-modal {
     padding: 5%;
     width: clamp(30vw,25vw,40vw);
     background: white;
@@ -8,9 +8,7 @@
     margin: 0 auto;
 }
 
-
-
-.close-modal {
+.login-modal__button--close {
     width: 25px;
     height: 25px;
     position: absolute;
@@ -23,46 +21,28 @@
     justify-content: center;
     align-items: center;
 }
-.close-modal:hover {
+
+.login-modal__button--close:hover {
     cursor: pointer;
 }
 
-.close-modal img {
+.login-modal__icon--close {
     height: 25px;
 }
 
-
-h1 {
+.login-modal__header {
     text-align: center;
     margin-bottom: 40px;
 }
 
-form {
+.login-modal__form {
     display: flex;
     height: 80%;
     flex-direction: column;
     align-items: center;
 }
 
-form .form--group input {
-    width: 100%;
-    padding: 15px;
-    margin: 5px 0;
-    border-radius: 8px;
-    border: 1px solid #616467;
-}
-
-form .form--group + p {
-    margin: 0;
-}
-
-form p {
-    font-size: 12px;
-}
-
-/*testowe*/
-
-.form--group {
+.login-modal__form-wrap {
     width: 70%;
     position: relative;
     display: flex;
@@ -70,8 +50,20 @@ form p {
     margin: 5px;
 }
 
+.login-modal__input {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0;
+    border-radius: 8px;
+    border: 1px solid #616467;
+}
 
-.form--group label {
+.login-modal__input:focus {
+    outline: 1px solid #4e5052;
+    box-shadow: none;
+}
+
+.login-modal__label{
     position: absolute;
     background-color: white;
     top: 12px;
@@ -82,14 +74,22 @@ form p {
     transition: 0.2s transform ease;
 }
 
-.form--group input:focus {
-    outline: 1px solid #4e5052;
-    box-shadow: none;
+.login-modal__input:focus-within + .login-modal__label {
+    transform: translateY(-15px);
+    visibility: visible;
 }
 
-form button{
+.login-modal__input:not(:placeholder-shown) + .login-modal__label {
+    transform: translateY(-15px);
+    visibility: visible;
+}
+
+.login-modal__input:focus-within::placeholder { /* TODO: Firefox placeholder nie znika */
+    visibility: hidden;
+}
+
+.login-modal__button {
     color: #fff;
-    /*background-color: #616467;*/
     background: rgb(127,131,135);
     background: linear-gradient(45deg, rgba(127,131,135,1) 0%, rgba(78,80,82,1) 100%);
     width: 30%;
@@ -99,25 +99,16 @@ form button{
     border-radius: 8px;
 }
 
-form button:hover {
+.login-modal__button:hover {
     cursor: pointer;
     background: rgb(58,60,62);
     background: linear-gradient(45deg, rgba(58,60,62,1) 0%, rgba(78,80,82,1) 100%);
 }
 
-.form--group input:focus-within + label{
-    transform: translateY(-15px);
-    visibility: visible;
+.login-modal__form-wrap + p {
+    margin: 0;
 }
 
-.form--group input:not(:placeholder-shown) + label {
-    transform: translateY(-15px);
-    visibility: visible;
+.login-modal__form > p {
+    font-size: 12px;
 }
-
-/* TODO: Firefox placeholder nie znika */
-.form--group input:focus-within::placeholder {
-    visibility: hidden;
-}
-
-/*testowe*/

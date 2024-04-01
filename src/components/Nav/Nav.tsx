@@ -8,22 +8,22 @@ function Nav() {
     const  [ searchValue , setSearchValue ] = useState<string>("");
 
     return (
-        <nav className="nav--wrap">
-                <ul className="menu--wrap">
-                    <li>Men</li>
-                    <li>Women</li>
-                    <li>Kids</li>
+        <nav className="nav">
+                <ul className="nav__menu">
+                    <li className="nav__menu-item">Men</li>
+                    <li className="nav__menu-item">Women</li>
+                    <li className="nav__menu-item">Kids</li>
                 </ul>
-            <div className="icons--wrap">
-                <div className={"search-box"}>
-                        <input type={"text"} value={searchValue} onChange={(event) => {setSearchValue(event.target.value)}} className={"search-bar-input"} placeholder={"Search"} />
-                        <button className={"search-button"}><img src={icon.search} alt={"Search"}/></button>
+            <div className="nav__icons">
+                <div className="nav__search-wrap">
+                        <input className="nav__search-input" type="text" value={searchValue} onChange={(event) => {setSearchValue(event.target.value)}} placeholder={"Search"} />
+                        <button className="nav__button nav__button--search"><img className="nav__icon nav__icon--search" src={icon.search} alt="Search" /></button>
                 </div>
-                <div><img src={icon.heart} alt="Favourites button"/></div>
-                <div><img onClick={() => {setIsActiveLoginPanel(true)}} src={icon.avatar} alt="Avatar button"/></div>
+                <button className="nav__button"><img className="nav__icon" src={icon.heart} alt="Favourites button"/></button>
+                <button className="nav__button" onClick={() => {setIsActiveLoginPanel(true)}}><img className="nav__icon" src={icon.avatar} alt="Avatar button"/></button>
             </div>
             <AnimatePresence>
-                {isActiveLoginPanel && <Modal setIsActiveLoginPanel={setIsActiveLoginPanel}></Modal>}
+                { isActiveLoginPanel && <Modal setIsActiveLoginPanel={setIsActiveLoginPanel}></Modal> }
             </AnimatePresence>
         </nav>
     );
