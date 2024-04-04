@@ -1,6 +1,6 @@
 .login-modal {
     padding: 5%;
-    width: clamp(30vw,25vw,40vw);
+    width: clamp(25vw,30vw,40vw);
     background: white;
     z-index: 10;
     border-radius: 16px;
@@ -111,4 +111,18 @@
 
 .login-modal__form > p {
     font-size: 12px;
+}
+
+@media screen and (max-width: 576px) {
+    .login-modal {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .login-modal__button--close {
+        top: 25px;
+        right: 5px;
+    }
 }

@@ -1,18 +1,19 @@
 .collapsible {
     display: grid;
-    grid-template-rows: [firs] 1fr [second] 0;
+    grid-template-rows: [first] 1fr [second] 0;
     overflow: hidden;
-    transition: 0.4s all ease;
+    transition: grid-template-rows 2s ease; /*TODO: animation doesnt work*/
 }
 
 .collapsible--expanded {
-    grid-template-rows: 1fr;
+    grid-template-rows: auto;
 }
 
 .collapsible__content {
     overflow: hidden;
     padding: 0 20px 20px 20px;
 }
+
 .collapsible__header {
     padding: 10px;
     cursor: pointer;

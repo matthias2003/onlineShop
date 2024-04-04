@@ -1,14 +1,13 @@
 import { motion } from "framer-motion";
 import './Backdrop.css';
-import {Dispatch, SetStateAction} from "react";
+import { Dispatch, SetStateAction } from "react";
 
 interface propTypes {
     children: any,
     setIsActiveLoginPanel:Dispatch<SetStateAction<boolean>>
-};
+}
 
 function Backdrop({setIsActiveLoginPanel, children }:propTypes) {
-
     return(
         <motion.div
             className={"backdrop"}

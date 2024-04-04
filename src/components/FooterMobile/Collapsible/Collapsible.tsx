@@ -1,8 +1,15 @@
 import "./Collapsible.css"
 import * as icon from "../../../assets/icons/footerIcons";
-import React, { useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 function Collapsible( props:any ) {
     const [ isExpanded, setIsExpanded ] = useState(false);
+    const endDivRef = useRef<null | HTMLDivElement>(null);
+
+    useEffect(() => {
+        if(isExpanded) {
+            endDivRef.current?.scrollIntoView({ behavior: "smooth" })
+        }
+    }, [isExpanded]);
 
     return (
         <div className={`collapsible ${isExpanded ? "collapsible--expanded":""}`} >
@@ -11,7 +18,7 @@ function Collapsible( props:any ) {
                 <img className={`collapsible__collapse-arrow ${isExpanded ? "collapsible__collapse-arrow--down":"collapsible__collapse-arrow--up"}`}
                      src={icon.arrowDown} alt="Arrow down"/>
             </div>
-            <div className="collapsible__content">
+            <div className="collapsible__content" ref={endDivRef}>
                 {props.children}
             </div>
         </div>

@@ -23,7 +23,7 @@ function Nav() {
                 <button className="nav__button" onClick={() => {setIsActiveLoginPanel(true)}}><img className="nav__icon" src={icon.avatar} alt="Avatar button"/></button>
             </div>
             <AnimatePresence>
-                { isActiveLoginPanel && <Modal setIsActiveLoginPanel={setIsActiveLoginPanel}></Modal> }
+                { isActiveLoginPanel && <Modal isActiveLoginPanel={isActiveLoginPanel} setIsActiveLoginPanel={setIsActiveLoginPanel}></Modal> }
             </AnimatePresence>
         </nav>
     );
