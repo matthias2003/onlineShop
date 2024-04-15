@@ -13,7 +13,6 @@ function HomePage() {
     const fetchAndPrepareData = async () => {
         const data = await fetchData();
         setSneakerData(data);
-        console.log(sneakerData)
     }
 
     return(

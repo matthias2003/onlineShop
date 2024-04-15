@@ -1,15 +1,15 @@
 .footer-mobile {
     background-color: #F5F7F8;
     width: 100%;
-    margin-top: 10vh;
     font-weight: 500;
     font-size: 14px;
+    margin-top: 50px;
     padding: 10px 0;
 }
 
 .footer-mobile__list {
     list-style-type: none;
-    padding-left: 0;
+    padding-left: 10px;
     flex-direction: column;
     margin: 0;
 }

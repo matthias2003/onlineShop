@@ -1,6 +1,6 @@
 import {Dispatch, SetStateAction, useEffect, useRef, useState} from "react";
 import { motion, useInView } from "framer-motion";
-import Backdrop from "./Backdrop/Backdrop";
+import Backdrop from "../Backdrop/Backdrop";
 import { sendLoginInfo } from "../../requests";
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import * as icon from "../../assets/icons/navIcons";
@@ -19,11 +19,10 @@ function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
 
     useEffect(() => {
         if (isInView) {
-            disableBodyScroll(modalRef as unknown as Element | HTMLElement); /* TODO: casting*/
+            disableBodyScroll(modalRef as unknown as Element | HTMLElement);
         } else {
-            enableBodyScroll(modalRef as unknown as Element | HTMLElement); /* TODO: casting*/
+            enableBodyScroll(modalRef as unknown as Element | HTMLElement);
         }
-
     }, [isInView]);
 
     const handleSubmit = async (event:any) => {
@@ -37,7 +36,7 @@ function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
 
     const options = {
         hidden: {
-            y: "-100vh",
+            y: "-105vh",
             opacity: 0
         },
         visible: {
@@ -51,13 +50,13 @@ function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
             },
         },
         exit: {
-            y:"-100vh",
+            y:"-105vh",
             opacity: 0,
         }
     };
 
     return(
-        <Backdrop setIsActiveLoginPanel={ setIsActiveLoginPanel }>
+        <Backdrop setIsActive={ setIsActiveLoginPanel }>
             <motion.div
                 onClick={( event ) => { event.stopPropagation() }}
                 className="login-modal"

@@ -7,7 +7,7 @@ function Collapsible( props:any ) {
 
     useEffect(() => {
         if(isExpanded) {
-            endDivRef.current?.scrollIntoView({ behavior: "smooth" })
+            endDivRef.current?.scrollIntoView()
         }
     }, [isExpanded]);
 
@@ -18,7 +18,7 @@ function Collapsible( props:any ) {
                 <img className={`collapsible__collapse-arrow ${isExpanded ? "collapsible__collapse-arrow--down":"collapsible__collapse-arrow--up"}`}
                      src={icon.arrowDown} alt="Arrow down"/>
             </div>
-            <div className="collapsible__content" ref={endDivRef}>
+            <div className="collapsible__content" ref={endDivRef} >
                 {props.children}
             </div>
         </div>

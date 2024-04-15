@@ -1,17 +1,18 @@
 .collapsible {
     display: grid;
-    grid-template-rows: [first] 1fr [second] 0;
-    overflow: hidden;
-    transition: grid-template-rows 2s ease; /*TODO: animation doesnt work*/
+    grid-template-rows: auto 0fr;
+    margin: 0;
+    padding: 0;
+    grid-row-gap: 0;
+    transition: grid-template-rows 0.3s ease;
 }
 
 .collapsible--expanded {
-    grid-template-rows: auto;
+    grid-template-rows: auto 1fr;
 }
 
 .collapsible__content {
     overflow: hidden;
-    padding: 0 20px 20px 20px;
 }
 
 .collapsible__header {
@@ -34,11 +35,11 @@
 .collapsible__collapse-arrow--down {
     transform: rotate(180deg);
     padding-left: 10px;
-    transition: 0.4s all ease;
+    transition: 0.3s all ease;
 }
 
 .collapsible__collapse-arrow--up {
     transform: rotate(0deg);
     padding-left: 10px;
-    transition: 0.4s all ease;
+    transition: 0.3s all ease;
 }

@@ -4,14 +4,14 @@ import { Dispatch, SetStateAction } from "react";
 
 interface propTypes {
     children: any,
-    setIsActiveLoginPanel:Dispatch<SetStateAction<boolean>>
+    setIsActive:Dispatch<SetStateAction<boolean>>
 }
 
-function Backdrop({setIsActiveLoginPanel, children }:propTypes) {
+function Backdrop({setIsActive, children }:propTypes) {
     return(
         <motion.div
             className={"backdrop"}
-            onClick={ () => {setIsActiveLoginPanel(false)}}
+            onClick={ () => {setIsActive(false)}}
             initial={{ opacity:0 }}
             animate={{ opacity:1 }}
             exit={{ opacity:0 }}>
