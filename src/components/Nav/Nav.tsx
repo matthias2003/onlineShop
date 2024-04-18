@@ -9,17 +9,16 @@ function Nav() {
     const [ isActiveLoginPanel, setIsActiveLoginPanel ] = useState<boolean>(false)
     const  [ searchValue , setSearchValue ] = useState<string>("");
     const [ isActiveSideNav, setIsActiveSideNav ] = useState<boolean>(false)
-    const sideRef = useRef<HTMLDivElement | null>(null);
-    const isInViewNav = useInView(sideRef);
+    const sideNavRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        console.log(isInViewNav)
-        if (isInViewNav) {
-            disableBodyScroll(sideRef as unknown as Element | HTMLElement);
+        console.log(isActiveSideNav)
+        if (isActiveSideNav) {
+            disableBodyScroll(sideNavRef as unknown as Element | HTMLElement);
         } else {
-            enableBodyScroll(sideRef as unknown as Element | HTMLElement);
+            enableBodyScroll(sideNavRef as unknown as Element | HTMLElement);
         }
-    }, [isInViewNav]);
+    },[isActiveSideNav]);
 
 
     const optionsSideNav = {
@@ -41,9 +40,9 @@ function Nav() {
                 <Backdrop setIsActive={setIsActiveSideNav}>
                     <motion.aside
                         onClick={( event ) => { event.stopPropagation() }}
-                        ref={sideRef}
                         className={"aside-nav"}
                         variants={optionsSideNav}
+                        ref={sideNavRef}
                         initial="initial"
                         transition={{ type: "ease"}}
                         animate="shown"
