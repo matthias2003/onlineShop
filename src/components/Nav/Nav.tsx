@@ -3,7 +3,7 @@ import "./Nav.css";
 import Backdrop from "../Backdrop/Backdrop";
 import {useEffect, useRef, useState} from "react";
 import Modal from "../Modal/Modal";
-import {AnimatePresence, motion, useInView} from "framer-motion";
+import { AnimatePresence, motion, useInView } from "framer-motion";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 function Nav() {
     const [ isActiveLoginPanel, setIsActiveLoginPanel ] = useState<boolean>(false)
@@ -28,7 +28,6 @@ function Nav() {
         },
         shown: {
             x:"0",
-
         },
         closed: {
             x:"-100vw",
@@ -42,8 +41,8 @@ function Nav() {
                 <Backdrop setIsActive={setIsActiveSideNav}>
                     <motion.aside
                         onClick={( event ) => { event.stopPropagation() }}
-                        className={"aside-nav"}
                         ref={sideRef}
+                        className={"aside-nav"}
                         variants={optionsSideNav}
                         initial="initial"
                         transition={{ type: "ease"}}
