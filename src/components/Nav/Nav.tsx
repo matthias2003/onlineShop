@@ -12,7 +12,6 @@ function Nav() {
     const sideNavRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        console.log(isActiveSideNav)
         if (isActiveSideNav) {
             disableBodyScroll(sideNavRef as unknown as Element | HTMLElement);
         } else {
@@ -48,17 +47,25 @@ function Nav() {
                         animate="shown"
                         exit="closed">
                         <motion.div
-                            >
-                            <button className="aside-nav__close" onClick={() => {setIsActiveSideNav(!isActiveSideNav)}}>
+                        >
+                            <button className="aside-nav__close" onClick={() => {
+                                setIsActiveSideNav(!isActiveSideNav)
+                            }}>
                                 <img className="aside-nav__icon" src={icon.arrow} alt="Close"/>
                             </button>
+                            <ul className="nav__mobile">
+                                <li className="nav__mobile-item">Men</li>
+                                <li className="nav__mobile-item">Women</li>
+                                <li className="nav__mobile-item">Kids</li>
+                            </ul>
                         </motion.div>
                     </motion.aside>
                 </Backdrop>
             }
             </AnimatePresence>
             <nav className="nav">
-                <button className="nav__burger" onClick={()  => {setIsActiveSideNav(!isActiveSideNav)}}>
+                <button className="nav__burger" onClick={() => {
+                    setIsActiveSideNav(!isActiveSideNav)}}>
                     <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none"
                      xmlns="http://www.w3.org/2000/svg">
                     <path d="M4 18H10" stroke="#000000" strokeWidth="2" strokeLinecap="round"/>
