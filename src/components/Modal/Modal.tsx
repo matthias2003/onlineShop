@@ -3,6 +3,7 @@ import { motion, useInView } from "framer-motion";
 import Backdrop from "../Backdrop/Backdrop";
 import { sendLoginInfo } from "../../requests";
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+import Cookies, { Cookie } from "universal-cookie";
 import * as icon from "../../assets/icons/navIcons";
 import "./Modal.css"
 
@@ -12,10 +13,12 @@ interface propTypes {
 }
 
 function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
-    const [ email, setEmail ] = useState<string>('');
-    const [ password, setPassword ] = useState<string>('');
+    const emailRef = useRef<HTMLInputElement | null >(null);
+    const passwordRef = useRef<HTMLInputElement | null >(null)
+    const [ errorInfo, setErrorInfo ] = useState<string>("")
     const modalRef = useRef<HTMLDivElement | null>(null);
     const isInView = useInView(modalRef)
+    const cookie = new Cookies();
 
     useEffect(() => {
         if (isInView) {
@@ -25,13 +28,23 @@ function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
         }
     }, [isInView]);
 
+
     const handleSubmit = async (event:any) => {
         event.preventDefault();
         const data = {
-            email:email,
-            password:password
+            email:emailRef.current?.value,
+            password:passwordRef.current?.value
         };
-        await sendLoginInfo(data);
+        const loginData  = await sendLoginInfo(data);
+        if (loginData.status) {
+            setIsActiveLoginPanel(!isActiveLoginPanel);
+            cookie.set("loggedIn",loginData.status,{maxAge:172800})
+            // setCookie("loggedIn",loginData.status,{maxAge:172800}); // TODO: FIX COOKIE
+
+        } else if (!loginData.status) {
+            setErrorInfo("Incorrect email or password");
+            //TODO: ADD RED INPUT STYLE HERE
+        }
     }
 
     const options = {
@@ -70,13 +83,14 @@ function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
                     <h1 className="login-modal__header">Sign in</h1>
                     <form className="login-modal__form" onSubmit={ handleSubmit }>
                         <div className="login-modal__form-wrap">
-                            <input className="login-modal__input" type="text" id="email" placeholder="E-mail" value={email} onChange={( event ) => { setEmail(event.target.value) }}/>
+                            <input ref={emailRef} className="login-modal__input" type="text" id="email" placeholder="E-mail" />
                             <label className="login-modal__label" htmlFor="email">E-mail</label>
                         </div>
                         <div className="login-modal__form-wrap">
-                            <input className="login-modal__input" type="password" id="password" placeholder="Password" value={password} onChange={ ( event ) => { setPassword(event.target.value) }}/>
+                            <input ref={passwordRef} className="login-modal__input" type="password" id="password" placeholder="Password" />
                             <label className="login-modal__label" htmlFor="password">Password</label>
                         </div>
+                        <p className="login-modal_error-info">{errorInfo}</p>
                         <p>Forgot your password?</p>
                         <button className="login-modal__button">SIGN IN</button>
                         <p>Don't have an account? Sign Up</p>

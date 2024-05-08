@@ -114,6 +114,10 @@
     font-size: 12px;
 }
 
+.login-modal_error-info {
+    color: red;
+}
+
 @media screen and (max-width: 576px) {
     .login-modal {
         width: 100vw;

@@ -1,15 +1,17 @@
 import * as icon from "../../assets/icons/navIcons";
 import "./Nav.css";
 import Backdrop from "../Backdrop/Backdrop";
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import Modal from "../Modal/Modal";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+import Cookies, { Cookie } from "universal-cookie";
 function Nav() {
     const [ isActiveLoginPanel, setIsActiveLoginPanel ] = useState<boolean>(false)
     const  [ searchValue , setSearchValue ] = useState<string>("");
     const [ isActiveSideNav, setIsActiveSideNav ] = useState<boolean>(false)
     const sideNavRef = useRef<HTMLDivElement | null>(null);
+    const cookie = new Cookies();
 
     useEffect(() => {
         if (isActiveSideNav) {
