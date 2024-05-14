@@ -1,9 +1,8 @@
-import {Dispatch, SetStateAction, useEffect, useRef, useState} from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import Backdrop from "../Backdrop/Backdrop";
 import { sendLoginInfo } from "../../requests";
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
-import Cookies, { Cookie } from "universal-cookie";
 import * as icon from "../../assets/icons/navIcons";
 import "./Modal.css"
 
@@ -18,7 +17,6 @@ function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
     const [ errorInfo, setErrorInfo ] = useState<string>("")
     const modalRef = useRef<HTMLDivElement | null>(null);
     const isInView = useInView(modalRef)
-    const cookie = new Cookies();
 
     useEffect(() => {
         if (isInView) {
@@ -37,10 +35,7 @@ function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
         };
         const loginData  = await sendLoginInfo(data);
         if (loginData.status) {
-            setIsActiveLoginPanel(!isActiveLoginPanel);
-            cookie.set("loggedIn",loginData.status,{maxAge:172800})
-            // setCookie("loggedIn",loginData.status,{maxAge:172800}); // TODO: FIX COOKIE
-
+            setIsActiveLoginPanel(false); // TODO: change logic of logging in
         } else if (!loginData.status) {
             setErrorInfo("Incorrect email or password");
             //TODO: ADD RED INPUT STYLE HERE

@@ -1,17 +1,20 @@
 import * as icon from "../../assets/icons/navIcons";
 import "./Nav.css";
 import Backdrop from "../Backdrop/Backdrop";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState} from "react";
 import Modal from "../Modal/Modal";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
-import Cookies, { Cookie } from "universal-cookie";
+import { useNavigate } from "react-router-dom";
+import { checkLoginStatus } from "../../requests";
+
 function Nav() {
     const [ isActiveLoginPanel, setIsActiveLoginPanel ] = useState<boolean>(false)
-    const  [ searchValue , setSearchValue ] = useState<string>("");
+    const [ searchValue , setSearchValue ] = useState<string>("");
     const [ isActiveSideNav, setIsActiveSideNav ] = useState<boolean>(false)
     const sideNavRef = useRef<HTMLDivElement | null>(null);
-    const cookie = new Cookies();
+    const [ loggedIn, setLoggedIn ] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (isActiveSideNav) {
@@ -21,6 +24,14 @@ function Nav() {
         }
     },[isActiveSideNav]);
 
+    const profileHandler = async () => { // ONLY FOR DEV, NEED TO REWORK IN THE FUTURE
+        const loggedIn = await checkLoginStatus();
+        if (!loggedIn) {
+            setIsActiveLoginPanel(true);
+        } else if (loggedIn) {
+            navigate("/profile")
+        }
+    }
 
     const optionsSideNav = {
         initial: {
@@ -35,7 +46,7 @@ function Nav() {
     };
 
     return (
-        <>
+    <>
             <AnimatePresence>
             { isActiveSideNav &&
                 <Backdrop setIsActive={setIsActiveSideNav}>
@@ -48,8 +59,7 @@ function Nav() {
                         transition={{ type: "ease"}}
                         animate="shown"
                         exit="closed">
-                        <motion.div
-                        >
+                        <motion.div>
                             <button className="aside-nav__close" onClick={() => {
                                 setIsActiveSideNav(!isActiveSideNav)
                             }}>
@@ -90,12 +100,11 @@ function Nav() {
                     </div>
                     <button className="nav__button"><img className="nav__icon" src={icon.heart} alt="Favourites button"/>
                     </button>
-                    <button className="nav__button" onClick={() => {
-                        setIsActiveLoginPanel(true)
-                    }}><img className="nav__icon" src={icon.avatar} alt="Avatar button"/></button>
+                    <button className="nav__button" onClick={profileHandler}><img className="nav__icon" src={icon.avatar} alt="Avatar button"/></button>
                 </div>
+
                 <AnimatePresence>
-                    {isActiveLoginPanel && <Modal isActiveLoginPanel={isActiveLoginPanel} setIsActiveLoginPanel={setIsActiveLoginPanel}></Modal>}
+                    { isActiveLoginPanel && <Modal isActiveLoginPanel={isActiveLoginPanel} setIsActiveLoginPanel={setIsActiveLoginPanel}></Modal> }
                 </AnimatePresence>
             </nav>
         </>
