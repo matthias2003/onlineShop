@@ -1,7 +1,8 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState, useContext } from "react";
 import { motion, useInView } from "framer-motion";
 import Backdrop from "../Backdrop/Backdrop";
 import { sendLoginInfo } from "../../requests";
+import { AuthContext } from "../Context/AuthProvider";
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import * as icon from "../../assets/icons/navIcons";
 import "./Modal.css"
@@ -16,7 +17,8 @@ function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
     const passwordRef = useRef<HTMLInputElement | null >(null)
     const [ errorInfo, setErrorInfo ] = useState<string>("")
     const modalRef = useRef<HTMLDivElement | null>(null);
-    const isInView = useInView(modalRef)
+    const isInView = useInView(modalRef);
+    const { setAuth } = useContext(AuthContext);
 
     useEffect(() => {
         if (isInView) {
@@ -26,19 +28,24 @@ function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
         }
     }, [isInView]);
 
-
     const handleSubmit = async (event:any) => {
         event.preventDefault();
         const data = {
             email:emailRef.current?.value,
             password:passwordRef.current?.value
         };
-        const loginData  = await sendLoginInfo(data);
-        if (loginData.status) {
-            setIsActiveLoginPanel(false); // TODO: change logic of logging in
-        } else if (!loginData.status) {
-            setErrorInfo("Incorrect email or password");
-            //TODO: ADD RED INPUT STYLE HERE
+
+        try {
+            const loginData  = await sendLoginInfo(data);
+            if (loginData.status) {
+                setIsActiveLoginPanel(false); // TODO: change logic of logging in
+                setAuth(loginData.accessToken)
+            } else if (!loginData.status) {
+                setErrorInfo("Incorrect email or password");
+                //TODO: ADD RED INPUT STYLE HERE
+            }
+        } catch (err) {
+            console.log("Not working") // TODO: add messages related to status codes returned from API
         }
     }
 
@@ -78,11 +85,11 @@ function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
                     <h1 className="login-modal__header">Sign in</h1>
                     <form className="login-modal__form" onSubmit={ handleSubmit }>
                         <div className="login-modal__form-wrap">
-                            <input ref={emailRef} className="login-modal__input" type="text" id="email" placeholder="E-mail" />
+                            <input ref={emailRef} required className="login-modal__input" type="text" id="email" placeholder="E-mail" />
                             <label className="login-modal__label" htmlFor="email">E-mail</label>
                         </div>
                         <div className="login-modal__form-wrap">
-                            <input ref={passwordRef} className="login-modal__input" type="password" id="password" placeholder="Password" />
+                            <input ref={passwordRef} required className="login-modal__input" type="password" id="password" placeholder="Password" />
                             <label className="login-modal__label" htmlFor="password">Password</label>
                         </div>
                         <p className="login-modal_error-info">{errorInfo}</p>

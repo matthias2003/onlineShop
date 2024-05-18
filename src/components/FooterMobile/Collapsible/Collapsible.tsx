@@ -6,7 +6,6 @@ function Collapsible( props:any ) {
     const endDivRef = useRef<null | HTMLDivElement>(null);
 
     useEffect(() => {
-        console.log(isExpanded)
         if(isExpanded) {
             endDivRef.current?.scrollIntoView();
         }

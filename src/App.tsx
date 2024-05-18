@@ -19,12 +19,13 @@ function App() {
     //     console.log(data)
     // }
 
+
     return (
         <BrowserRouter>
             <Nav />
             <Routes>
                 <Route path="/" element={<HomePage />}></Route>
-                <Route path="/profile" element={<Profile />}></Route>
+                <Route path="/profile" element={<Profile />}></Route> {/*HAS TO BE PROTECTED*/}
             </Routes>
             <Footer />
         </BrowserRouter>

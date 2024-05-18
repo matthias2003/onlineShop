@@ -1,12 +1,13 @@
 import * as icon from "../../assets/icons/navIcons";
 import "./Nav.css";
 import Backdrop from "../Backdrop/Backdrop";
-import { useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import Modal from "../Modal/Modal";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { useNavigate } from "react-router-dom";
 import { checkLoginStatus } from "../../requests";
+import { AuthContext } from "../Context/AuthProvider";
 
 function Nav() {
     const [ isActiveLoginPanel, setIsActiveLoginPanel ] = useState<boolean>(false)
@@ -15,6 +16,7 @@ function Nav() {
     const sideNavRef = useRef<HTMLDivElement | null>(null);
     const [ loggedIn, setLoggedIn ] = useState<boolean>(false);
     const navigate = useNavigate();
+    const { auth } = useContext(AuthContext);
 
     useEffect(() => {
         if (isActiveSideNav) {
@@ -25,7 +27,7 @@ function Nav() {
     },[isActiveSideNav]);
 
     const profileHandler = async () => { // ONLY FOR DEV, NEED TO REWORK IN THE FUTURE
-        const loggedIn = await checkLoginStatus();
+        const loggedIn = await checkLoginStatus(auth);
         if (!loggedIn) {
             setIsActiveLoginPanel(true);
         } else if (loggedIn) {
