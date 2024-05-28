@@ -2,6 +2,7 @@ import { fetchData } from "../../requests";
 import ComingSoonImage from "../../assets/images/Air-Jordan-4-Seafoam-AQ9129-103-04.jpg"
 import { useEffect, useState } from "react";
 import "./HomePage.css";
+import {UNSAFE_useRouteId} from "react-router-dom";
 
 function HomePage() {
     const [ sneakerData, setSneakerData ] = useState<Array<object>>([]);
@@ -23,7 +24,7 @@ function HomePage() {
                 <div className="home__tiles">
                     {sneakerData.map( (element : any ) => {
                         return(
-                            <div className="home__tile">
+                            <div className="home__tile" key={element._id}>
                                 <div className="home__image-wrap">
                                     <img className="home__sneaker-image" src={element.img} alt="Sneaker preview" />
                                 </div>
@@ -47,7 +48,7 @@ function HomePage() {
                 <div className="home__tiles">
                     {sneakerData.map((element:any ) => {
                         return (
-                            <div className="home__tile">
+                            <div className="home__tile" key={element._id}>
                                 <div className="home__image-wrap">
                                     <img className="home__sneaker-image" src={element.img} alt="Sneaker preview"/>
                                 </div>

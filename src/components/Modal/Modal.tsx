@@ -83,7 +83,11 @@ function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
                 <div className="login-modal__wrap">
                     <button className="login-modal__button--close" onClick={ () => { setIsActiveLoginPanel(false)} }><img className="login-modal__icon--close" src={icon.close} alt="Close"/></button>
                     <h1 className="login-modal__header">Sign in</h1>
-                    <form className="login-modal__form" onSubmit={ handleSubmit }>
+                    <form className="login-modal__form" onSubmit={ handleSubmit } onKeyDown={(e) => {
+                        if(e.key === "Enter") {
+                            handleSubmit(e);
+                        }
+                    }}>
                         <div className="login-modal__form-wrap">
                             <input ref={emailRef} required className="login-modal__input" type="text" id="email" placeholder="E-mail" />
                             <label className="login-modal__label" htmlFor="email">E-mail</label>

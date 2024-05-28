@@ -14,7 +14,6 @@ function Nav() {
     const [ searchValue , setSearchValue ] = useState<string>("");
     const [ isActiveSideNav, setIsActiveSideNav ] = useState<boolean>(false)
     const sideNavRef = useRef<HTMLDivElement | null>(null);
-    const [ loggedIn, setLoggedIn ] = useState<boolean>(false);
     const navigate = useNavigate();
     const { auth } = useContext(AuthContext);
 
@@ -28,6 +27,7 @@ function Nav() {
 
     const profileHandler = async () => { // ONLY FOR DEV, NEED TO REWORK IN THE FUTURE
         const loggedIn = await checkLoginStatus(auth);
+        console.log(Object.keys(auth).length)
         if (!loggedIn) {
             setIsActiveLoginPanel(true);
         } else if (loggedIn) {
@@ -102,7 +102,7 @@ function Nav() {
                     </div>
                     <button className="nav__button"><img className="nav__icon" src={icon.heart} alt="Favourites button"/>
                     </button>
-                    <button className="nav__button" onClick={profileHandler}><img className="nav__icon" src={icon.avatar} alt="Avatar button"/></button>
+                    <button className="nav__button" onClick={profileHandler}><img className="nav__icon" src={Object.keys(auth).length ? icon.avatarLoggedIn:icon.avatar} alt="Avatar button"/></button>
                 </div>
 
                 <AnimatePresence>

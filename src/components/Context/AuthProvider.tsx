@@ -1,6 +1,11 @@
-import {createContext, useState } from "react";
+import {createContext, Dispatch, SetStateAction, useState} from "react";
 
-export const AuthContext = createContext({})
+interface AuthContextInterface {
+    auth: any
+    setAuth: Dispatch<SetStateAction<any>> //TODO: FIX INTERFACE
+}
+
+export const AuthContext = createContext<AuthContextInterface>({ auth: {}, setAuth: () => {}})
 export const AuthProvider = ({ children }:any) => {
     const [ auth, setAuth ] = useState({})
     return(
