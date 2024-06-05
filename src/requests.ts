@@ -7,7 +7,7 @@ export const fetchData = async ()=>  {
 }
 
 export const sendLoginInfo =  async ( loginData:object ) => {
-    const { data } =  await axios.post("https://online-shop-backend.maciejkloda.pl/login",JSON.stringify(loginData), {headers:{"Content-Type": 'application/json'}});
+    const { data } =  await axios.post("https://online-shop-backend.maciejkloda.pl/login", JSON.stringify(loginData), {headers:{"Content-Type": 'application/json'}});
     //const { data } = await axios.post("http://127.0.0.1:3001/login", JSON.stringify(loginData), {headers:{"Content-Type": 'application/json'}});
     return data;
 }
@@ -27,3 +27,9 @@ export const checkLoginStatus = async (token:any) => { //ANY FOR DEV
     //const data = await axios.post("http://127.0.0.1:3001/logout");
     return data;
  }
+
+export const registerUser = async ( registerData:object) => {
+    console.log(registerData)
+    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/register", JSON.stringify(registerData), {headers:{"Content-Type": 'application/json'}})
+    return data;
+}

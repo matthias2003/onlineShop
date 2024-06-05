@@ -27,6 +27,7 @@ function Nav() {
 
     const profileHandler = async () => { // ONLY FOR DEV, NEED TO REWORK IN THE FUTURE
         const loggedIn = await checkLoginStatus(auth);
+        //const loggedIn = Object.keys(auth).length
         console.log(Object.keys(auth).length)
         if (!loggedIn) {
             setIsActiveLoginPanel(true);
@@ -100,7 +101,7 @@ function Nav() {
                         <button className="nav__button nav__button--search"><img className="nav__icon nav__icon--search"
                                                                                  src={icon.search} alt="Search"/></button>
                     </div>
-                    <button className="nav__button"><img className="nav__icon" src={icon.heart} alt="Favourites button"/>
+                    <button className="nav__button" onClick={() => {navigate("/register") /* TODO: ONLY TEMPORARY*/}}><img className="nav__icon" src={icon.heart} alt="Favourites button"/>
                     </button>
                     <button className="nav__button" onClick={profileHandler}><img className="nav__icon" src={Object.keys(auth).length ? icon.avatarLoggedIn:icon.avatar} alt="Avatar button"/></button>
                 </div>

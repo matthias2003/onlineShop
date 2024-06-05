@@ -89,11 +89,11 @@ function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
                         }
                     }}>
                         <div className="login-modal__form-wrap">
-                            <input ref={emailRef} required className="login-modal__input" type="text" id="email" placeholder="E-mail" />
+                            <input ref={emailRef} required className="login-modal__input" type="text" id="email" name="email" placeholder="E-mail" />
                             <label className="login-modal__label" htmlFor="email">E-mail</label>
                         </div>
                         <div className="login-modal__form-wrap">
-                            <input ref={passwordRef} required className="login-modal__input" type="password" id="password" placeholder="Password" />
+                            <input ref={passwordRef} required className="login-modal__input" type="password" id="password" name="password" placeholder="Password" />
                             <label className="login-modal__label" htmlFor="password">Password</label>
                         </div>
                         <p className="login-modal_error-info">{errorInfo}</p>

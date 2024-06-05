@@ -1,0 +1,83 @@
+.register-modal {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 600px;
+    margin: 100px auto;
+    border-radius: 10px;
+    background-color: #F6F5F5;
+}
+
+.register-modal__header {
+    text-align: center;
+}
+
+.register-modal__form {
+    display: flex;
+    height: 80%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register-modal__form-wrap {
+    width: 70%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+}
+
+.register-modal__input {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0;
+    border-radius: 8px;
+    border: 1px solid #616467;
+}
+
+.register-modal__input:focus {
+    outline: 1px solid #4e5052;
+    box-shadow: none;
+}
+
+.register-modal__label{
+    position: absolute;
+    background-color: white;
+    top: 12px;
+    left: 16px;
+    color: grey;
+    font-size: 12px;
+    visibility: hidden;
+    transition: 0.2s transform ease;
+}
+
+.register-modal__input:focus-within + .register-modal__label {
+    transform: translateY(-15px);
+    visibility: visible;
+}
+
+.register-modal__input:not(:placeholder-shown) + .register-modal__label {
+    transform: translateY(-15px);
+    visibility: visible;
+}
+
+.register-modal__input:focus-within::placeholder { /* TODO: Firefox placeholder nie znika */
+    visibility: hidden;
+}
+
+.register-modal__button {
+    color: #fff;
+    background: rgb(127,131,135);
+    background: linear-gradient(45deg, rgba(127,131,135,1) 0%, rgba(78,80,82,1) 100%);
+    width: 30%;
+    margin: 40px 20px 20px 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+}
+
+.register-modal__button:hover {
+    cursor: pointer;
+    background: rgb(58,60,62);
+    background: linear-gradient(45deg, rgba(58,60,62,1) 0%, rgba(78,80,82,1) 100%);
+}
