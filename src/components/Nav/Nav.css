@@ -54,6 +54,13 @@
     background: transparent;
 }
 
+.nav__logo {
+    width: 100px;
+    height: auto;
+    display: flex;
+    align-items: center;
+}
+
 .nav__menu {
     width: 25%;
     display: flex;

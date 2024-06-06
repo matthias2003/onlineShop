@@ -2,7 +2,7 @@ import { fetchData } from "../../requests";
 import ComingSoonImage from "../../assets/images/Air-Jordan-4-Seafoam-AQ9129-103-04.jpg"
 import { useEffect, useState } from "react";
 import "./HomePage.css";
-import {UNSAFE_useRouteId} from "react-router-dom";
+import {Outlet, UNSAFE_useRouteId} from "react-router-dom";
 
 function HomePage() {
     const [ sneakerData, setSneakerData ] = useState<Array<object>>([]);

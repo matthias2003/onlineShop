@@ -1,4 +1,4 @@
-import {createContext, Dispatch, SetStateAction, useState} from "react";
+import { createContext, Dispatch, SetStateAction, useState } from "react";
 
 interface AuthContextInterface {
     auth: any

@@ -1,5 +1,5 @@
 import * as icon from "../../assets/icons/footerIcons";
-import { useState, useEffect } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import FooterMobile from "../FooterMobile/FooterMobile";
 import "./Footer.css";
 function Footer() {
@@ -11,6 +11,11 @@ function Footer() {
         return () => window.removeEventListener("resize", handleWindowResize);
     }, [])
 
+    const newsletterSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        //TODO: NEWSLETTER REQUEST TO BACKEND
+    }
 
     return (
         <>
@@ -46,8 +51,10 @@ function Footer() {
                         <h4>Join The Pack</h4>
                         <p>Turn daily notifications via e-mail to be up to date with our freshly added sneakers.</p>
                         <div className="footer__form">
-                            <input placeholder="Enter your email"></input>
-                            <button><img className="footer__button-icon" src={icon.sign} alt="Sign into newsletter" /></button>
+                            <form onSubmit={newsletterSubmit}>
+                                <input placeholder="Enter your email"></input>
+                                <button><img className="footer__button-icon" src={icon.sign} alt="Sign into newsletter" /></button>
+                            </form>
                         </div>
 
                     </div>

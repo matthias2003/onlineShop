@@ -2,23 +2,25 @@ import { Dispatch, SetStateAction, useEffect, useRef, useState, useContext } fro
 import { motion, useInView } from "framer-motion";
 import Backdrop from "../Backdrop/Backdrop";
 import { sendLoginInfo } from "../../requests";
-import { AuthContext } from "../Context/AuthProvider";
+import { useAuth } from "../../hooks/useAuth";
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import * as icon from "../../assets/icons/navIcons";
-import "./Modal.css"
+import "./Login.css"
+import {Link} from "react-router-dom";
 
 interface propTypes {
     setIsActiveLoginPanel:Dispatch<SetStateAction<boolean>>,
     isActiveLoginPanel: boolean
 }
 
-function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
+function Login({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
     const emailRef = useRef<HTMLInputElement | null >(null);
     const passwordRef = useRef<HTMLInputElement | null >(null)
     const [ errorInfo, setErrorInfo ] = useState<string>("")
     const modalRef = useRef<HTMLDivElement | null>(null);
     const isInView = useInView(modalRef);
-    const { setAuth } = useContext(AuthContext);
+    const { setAuth } = useAuth();
+
 
     useEffect(() => {
         if (isInView) {
@@ -39,7 +41,7 @@ function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
             const loginData  = await sendLoginInfo(data);
             if (loginData.status) {
                 setIsActiveLoginPanel(false); // TODO: change logic of logging in
-                setAuth(loginData.accessToken)
+                setAuth({token:loginData.accessToken})
             } else if (!loginData.status) {
                 setErrorInfo("Incorrect email or password");
                 //TODO: ADD RED INPUT STYLE HERE
@@ -99,7 +101,7 @@ function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
                         <p className="login-modal_error-info">{errorInfo}</p>
                         <p>Forgot your password?</p>
                         <button className="login-modal__button">SIGN IN</button>
-                        <p>Don't have an account? Sign Up</p>
+                        <p>Don't have an account? <Link to="/register">Sign Up</Link></p>
                     </form>
                 </div>
             </motion.div>
@@ -107,4 +109,4 @@ function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
     )
 }
 
-export default Modal;
+export default Login;

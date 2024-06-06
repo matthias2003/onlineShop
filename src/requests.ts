@@ -22,6 +22,11 @@ export const checkLoginStatus = async (token:any) => { //ANY FOR DEV
     }
  }
 
+ export const getNewToken = async () => {
+    const { data } = await axios.get("https://online-shop-backend.maciejkloda.pl/refresh");
+    return data;
+ }
+
  export const logoutUser = async () => {
     const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/logout");
     //const data = await axios.post("http://127.0.0.1:3001/logout");
