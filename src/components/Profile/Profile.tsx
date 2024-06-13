@@ -1,7 +1,4 @@
-import { logoutUser } from "../../requests";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "../Context/AuthProvider";
 import { useLogout } from "../../hooks/useLogout";
 
 function Profile() {
@@ -11,6 +8,7 @@ function Profile() {
         await logout();
         navigate("/");
     }
+
     return(
         <div>
             <h1>PROFILE</h1><br />

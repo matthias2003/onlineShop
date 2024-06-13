@@ -6,7 +6,8 @@ import { useAuth } from "../../hooks/useAuth";
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import * as icon from "../../assets/icons/navIcons";
 import "./Login.css"
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { z } from "zod";
 
 interface propTypes {
     setIsActiveLoginPanel:Dispatch<SetStateAction<boolean>>,
@@ -20,6 +21,11 @@ function Login({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
     const modalRef = useRef<HTMLDivElement | null>(null);
     const isInView = useInView(modalRef);
     const { setAuth } = useAuth();
+
+    const loginSchema = z.object({
+        email:z.string().email("Invalid email").min(5).max(30),
+        password:z.string().min(5).max(30)
+    })
 
 
     useEffect(() => {
@@ -38,6 +44,7 @@ function Login({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
         };
 
         try {
+            loginSchema.parse(data);
             const loginData  = await sendLoginInfo(data);
             if (loginData.status) {
                 setIsActiveLoginPanel(false); // TODO: change logic of logging in
@@ -47,7 +54,7 @@ function Login({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
                 //TODO: ADD RED INPUT STYLE HERE
             }
         } catch (err) {
-            console.log("Not working") // TODO: add messages related to status codes returned from API
+            console.log(err) // TODO: add messages related to status codes returned from API
         }
     }
 

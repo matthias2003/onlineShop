@@ -4,10 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from "./components/Context/AuthProvider";
+import { disableReactDevTools } from "@fvilers/disable-react-devtools"
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+if (process.env.NODE_ENV === 'production') {
+    disableReactDevTools();
+}
+
 root.render(
   <React.StrictMode>
       <AuthProvider>

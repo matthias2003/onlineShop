@@ -9,26 +9,29 @@ const UserStatus = () => {
     const { auth } = useAuth();
 
     useEffect(() => {
-        !auth?.token ? verify() : setIsLoading(false);
-    }, []);
 
-    const verify = async () => {
-        try {
-            await refresh();
+        let isMounted = true;
+        const verify = async () => {
+            try {
+                await refresh();
+            }
+            catch (err) {
+            }
+            finally {
+                isMounted && setIsLoading(false);
+            }
         }
-        catch (err) {
-        }
-        finally {
-           setIsLoading(false);
-        }
-    }
+
+        !auth?.token ? verify() : setIsLoading(false);
+        return () => { isMounted = false };
+    }, []);
 
     return (
         <>
-            { !isLoading
-                ? <Outlet />
-                : <p>Loading...</p>
-            }
+            {/*{ !isLoading*/}
+                <Outlet />
+                {/*: <p>Loading...</p>*/}
+            {/*}*/}
         </>
     )
 }
