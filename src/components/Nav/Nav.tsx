@@ -1,14 +1,14 @@
 import "./Nav.css";
 import Backdrop from "../Backdrop/Backdrop";
-import {useEffect, useRef, useState, useContext, createContext, Dispatch, SetStateAction} from "react";
-import Login from "../Login/Login";
+import {useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import {Link, useNavigate} from "react-router-dom";
-import { checkLoginStatus, getNewToken } from "../../requests";
 import * as icon from "../../assets/icons/navIcons";
 import logo from "../../assets/logo/logo.svg";
 import { useAuth } from "../../hooks/useAuth"
+import Modal from "../Modal/Modal";
+import { useLogout } from "../../hooks/useLogout";
 
 
 function Nav() {
@@ -17,6 +17,7 @@ function Nav() {
     const [ isActiveSideNav, setIsActiveSideNav ] = useState<boolean>(false)
     const sideNavRef = useRef<HTMLDivElement | null>(null);
     const navigate = useNavigate();
+    const logout = useLogout();
     const { auth } = useAuth();
 
     useEffect(() => {
@@ -29,13 +30,15 @@ function Nav() {
 
     },[isActiveSideNav]);
 
+    const logoutHandler = async () => {
+        await logout();
+        navigate("/");
+    }
+
     const profileHandler = async () => { // ONLY FOR DEV, NEED TO REWORK IN THE FUTURE
-        //const loggedIn = await checkLoginStatus(auth);
         const loggedIn = auth.token
         if (!loggedIn) {
             setIsActiveLoginPanel(true);
-        } else if (loggedIn) {
-            navigate("/profile")
         }
     }
 
@@ -106,18 +109,27 @@ function Nav() {
                     <button className="nav__button nav__button--search"><img className="nav__icon nav__icon--search"
                                                                              src={icon.search} alt="Search"/></button>
                 </div>
-                <button className="nav__button" onClick={() => {
-                    navigate("/register") /* TODO: ONLY TEMPORARY*/
-                }}><img className="nav__icon" src={icon.heart} alt="Favourites button"/>
+                <button className="nav__button" onClick={() => navigate("/favourites")}><img className="nav__icon"
+                                                                                             src={icon.heart}
+                                                                                             alt="Favourites button"/>
                 </button>
-                <button className="nav__button" onClick={profileHandler}><img className="nav__icon"
-                                                                              src={Object.keys(auth).length ? icon.avatarLoggedIn : icon.avatar}
-                                                                              alt="Avatar button"/></button>
+                <button className="nav__button" onClick={profileHandler}>
+                    <img className="nav__icon" src={Object.keys(auth).length ? icon.avatarLoggedIn : icon.avatar} alt="Avatar button"/>
+                </button>
+                { auth.token ?
+                <div className="nav__dropdown">
+                    <div className="dropdown__links">
+                        <Link to="/profile" className="dropdown__link"><p>Profile</p></Link>
+                        <Link to="/favourites" className="dropdown__link"><p>Favourites</p></Link>
+                        <Link to="/profile/orders" className="dropdown__link"><p>Orders</p></Link>
+                        <Link to="/profile/settings" className="dropdown__link"><p>Settings</p></Link>
+                        <p className="dropdown__logout" onClick={logoutHandler}>Logout</p>
+                    </div>
+                </div> : "" }
             </div>
 
             <AnimatePresence>
-                {isActiveLoginPanel && <Login isActiveLoginPanel={isActiveLoginPanel}
-                                              setIsActiveLoginPanel={setIsActiveLoginPanel}></Login>}
+            {isActiveLoginPanel && <Modal isActiveLoginPanel={isActiveLoginPanel} setIsActiveLoginPanel={setIsActiveLoginPanel}></Modal>}
             </AnimatePresence>
         </nav>
     </>

@@ -1,0 +1,22 @@
+.favourites {
+    width: 90%;
+    margin: auto;
+    min-height: 85vh;
+    display: flex;
+}
+
+.favourites__container {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.favourites__image-empty {
+    width: 200px;
+}
+
+.favourites__headline {
+    font-family: "Archivo Black",sans-serif;
+}

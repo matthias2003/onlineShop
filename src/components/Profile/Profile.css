@@ -1,0 +1,110 @@
+.profile {
+    margin: auto;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 900px;
+}
+
+.profile__dashboard-wrap {
+    display: flex;
+    height: 400px;
+    justify-content: space-between;
+}
+
+.profile__avatar {
+    width: 38%;
+    background-color: #6D8F6D;
+    border-radius: 10px;
+}
+
+.avatar__image-wrap {
+    width: 20vw;
+    height: 20vw;
+    margin: 30px auto 0;
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+.profile__avatar-img {
+    width: 15vw;
+}
+
+.profile__name {
+    font-family: "Archivo Black", sans-serif;
+    color: white;
+    font-size: 25px;
+    text-align: center;
+}
+
+.profile__action-box {
+    width: 58%;
+    background-color: #F5F7F8;
+    border-radius: 10px;
+}
+
+.profile__with-us {
+    font-size: 15px;
+    text-align:center;
+    margin-top: 0;
+}
+
+.profile__last-orders {
+    width: 100%;
+    margin-top: 4%;
+    height: 300px;
+    background-color: #F5F7F8;
+    border-radius: 10px;
+}
+
+.margin-bottom {
+    margin-bottom: 5px;
+}
+
+.profile__headline {
+    text-align: center;
+    font-family: "Archivo Black",sans-serif;
+    font-size: 25px;
+}
+
+.profile__menu-wrap {
+    padding: 10px 40px;
+}
+
+.profile__menu-item {
+    display: flex;
+    font-size: 18px;
+}
+
+.profile__menu-img {
+    width: 25px;
+    padding-right: 50px;
+}
+.profile__menu-link {
+    color: black;
+    text-decoration: none;
+}
+
+@media (max-width: 800px) {
+    .profile {
+        width: 90%;
+        margin: 30px auto;
+    }
+
+    .profile__dashboard-wrap {
+        flex-direction: column;
+        height: auto;
+    }
+    .profile__avatar, .profile__action-box, .profile__last-orders {
+        width: 100%;
+        margin-top: 20px;
+    }
+    .avatar__image-wrap {
+        width: 35vw;
+        height: 35vw;
+    }
+}

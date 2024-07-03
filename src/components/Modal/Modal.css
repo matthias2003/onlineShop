@@ -1,0 +1,42 @@
+.modal {
+    padding: 5%;
+    width: clamp(25vw,30vw,40vw);
+    background: white;
+    z-index: 10;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+    margin: 0 auto;
+    position: relative;
+}
+
+.modal__button--close {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 20px;
+    right:20px;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal__button--close:hover {
+    cursor: pointer;
+}
+
+.modal__icon--close {
+    height: 25px;
+}
+
+@media screen and (max-width: 576px) {
+    .modal {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}

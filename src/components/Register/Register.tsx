@@ -1,10 +1,16 @@
 import "./Register.css";
-import { SyntheticEvent, useState } from "react";
+import {Dispatch, SetStateAction, SyntheticEvent, useContext, useState} from "react";
 import { registerUser } from "../../requests";
 import { z } from "zod";
+import * as icon from "../../assets/icons/navIcons";
+import { FormContext } from "../Modal/Modal";
 
+interface propTypes {
+    setIsActiveLoginPanel:Dispatch<SetStateAction<boolean>>
+}
 
-function Register() {
+function Register({ setIsActiveLoginPanel } :propTypes) {
+    const { setSwitchForm }  = useContext(FormContext);
     const [ formData, setFormData ] = useState({
         name: "",
         surname: "",
@@ -17,7 +23,7 @@ function Register() {
     const getCurrentDate = () => {
         const today = new Date();
         const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero indexed
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
         const dd = String(today.getDate()).padStart(2, '0');
         return `${yyyy}-${mm}-${dd}`;
     };
@@ -62,29 +68,32 @@ function Register() {
     }
     return(
         <div className="register-modal">
-            <h1 className="register-modal__header">SING UP</h1>
+            <button className="modal__button--close" onClick={() => {setIsActiveLoginPanel(false)}}><img className="modal__icon--close" src={icon.close} alt="Close"/></button>
+            <h1 className="register-modal__header">Sing up</h1>
             <form className="register-modal__form" onSubmit={handleSubmit}>
                 <div className="register-modal__form-wrap">
-                    <input
-                        className="register-modal__input"
-                        type="text"
-                        id="name"
-                        name="name"
-                        placeholder="First name"
-                        onChange={updateFormData}
-                    />
-                    <label className="register-modal__label" htmlFor="firstName">First Name</label>
-                </div>
-                <div className="register-modal__form-wrap">
-                    <input
-                        className="register-modal__input"
-                        type="text"
-                        id="surname"
-                        name="surname"
-                        placeholder="Last Name"
-                        onChange={updateFormData}
-                    />
-                    <label className="register-modal__label" htmlFor="lastName">Last Name</label>
+                    <div className="register-modal__form-wrap " style={{margin:"0 5px 0 0"}}>
+                        <input
+                            className="register-modal__input"
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="First name"
+                            onChange={updateFormData}
+                        />
+                        <label className="register-modal__label" htmlFor="firstName">First Name</label>
+                    </div>
+                    <div className="register-modal__form-wrap" style={{margin:"0 0 0 5px"}}>
+                        <input
+                            className="register-modal__input"
+                            type="text"
+                            id="surname"
+                            name="surname"
+                            placeholder="Last Name"
+                            onChange={updateFormData}
+                        />
+                        <label className="register-modal__label" htmlFor="lastName">Last Name</label>
+                    </div>
                 </div>
                 <div className="register-modal__form-wrap">
                     <input
@@ -133,6 +142,7 @@ function Register() {
                     <label className="register-modal__label" htmlFor="birthDate">Date of birth</label>
                 </div>
                 <button className="register-modal__button">SING UP</button>
+                <p>Already have an account? <span className="register-modal__link" onClick={() => {setSwitchForm(false)}}>Sign In</span></p>
             </form>
         </div>
     )

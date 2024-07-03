@@ -12,16 +12,6 @@ export const sendLoginInfo =  async ( loginData:object ) => {
     return data;
 }
 
-export const checkLoginStatus = async (token:any) => { //ANY FOR DEV
-    try {
-        const { data } = await  axios.post("https://online-shop-backend.maciejkloda.pl/loggedIn",{},{headers: {Authorization: `Bearer ${token}`}});
-        //const { data } = await  axios.post("http://127.0.0.1:3001/loggedIn",{},{headers: {Authorization: `Bearer ${token}`}})
-        return data;
-    } catch (err) {
-        console.log(false);
-    }
- }
-
  export const getNewToken = async () => {
     const { data } = await axios.get("https://online-shop-backend.maciejkloda.pl/refresh");
     return data;
@@ -34,7 +24,12 @@ export const checkLoginStatus = async (token:any) => { //ANY FOR DEV
  }
 
 export const registerUser = async ( registerData:object) => {
-    console.log(registerData)
-    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/register", JSON.stringify(registerData), {headers:{"Content-Type": 'application/json'}})
+    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/register", JSON.stringify(registerData), {headers:{"Content-Type": 'application/json'}});
+    return data;
+}
+
+export const getUserData = async ( id:string )=> {
+    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/user", {id}, {headers: {"Content-Type": 'application/json'}});
+    //const { data } = await axios.post("http://127.0.0.1:3001/user", {id},{headers:{"Content-Type": 'application/json'}});
     return data;
 }

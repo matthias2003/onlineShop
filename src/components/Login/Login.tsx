@@ -1,32 +1,30 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState, useContext } from "react";
-import { motion, useInView } from "framer-motion";
-import Backdrop from "../Backdrop/Backdrop";
+import { useInView } from "framer-motion";
 import { sendLoginInfo } from "../../requests";
 import { useAuth } from "../../hooks/useAuth";
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import * as icon from "../../assets/icons/navIcons";
 import "./Login.css"
-import { Link } from "react-router-dom";
 import { z } from "zod";
+import { FormContext } from "../Modal/Modal";
 
 interface propTypes {
-    setIsActiveLoginPanel:Dispatch<SetStateAction<boolean>>,
-    isActiveLoginPanel: boolean
+    setIsActiveLoginPanel:Dispatch<SetStateAction<boolean>>
 }
 
-function Login({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
+function Login({ setIsActiveLoginPanel } :propTypes) {
     const emailRef = useRef<HTMLInputElement | null >(null);
     const passwordRef = useRef<HTMLInputElement | null >(null)
     const [ errorInfo, setErrorInfo ] = useState<string>("")
     const modalRef = useRef<HTMLDivElement | null>(null);
     const isInView = useInView(modalRef);
     const { setAuth } = useAuth();
+    const { setSwitchForm }  = useContext(FormContext);
 
     const loginSchema = z.object({
         email:z.string().email("Invalid email").min(5).max(30),
         password:z.string().min(5).max(30)
     })
-
 
     useEffect(() => {
         if (isInView) {
@@ -58,61 +56,29 @@ function Login({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
         }
     }
 
-    const options = {
-        hidden: {
-            y: "-105vh",
-            opacity: 0
-        },
-        visible: {
-            y:"0",
-            opacity: 1,
-            transition: {
-                duration:0.1,
-                type:"spring",
-                stiffness:500,
-                damping:25
-            },
-        },
-        exit: {
-            y:"-105vh",
-            opacity: 0,
-        }
-    };
-
     return(
-        <Backdrop setIsActive={ setIsActiveLoginPanel }>
-            <motion.div
-                onClick={( event ) => { event.stopPropagation() }}
-                className="login-modal"
-                variants={options}
-                initial="hidden"
-                animate="visible"
-                ref={modalRef}
-                exit="exit">
-                <div className="login-modal__wrap">
-                    <button className="login-modal__button--close" onClick={ () => { setIsActiveLoginPanel(false)} }><img className="login-modal__icon--close" src={icon.close} alt="Close"/></button>
-                    <h1 className="login-modal__header">Sign in</h1>
-                    <form className="login-modal__form" onSubmit={ handleSubmit } onKeyDown={(e) => {
-                        if(e.key === "Enter") {
-                            handleSubmit(e);
-                        }
-                    }}>
-                        <div className="login-modal__form-wrap">
-                            <input ref={emailRef} required className="login-modal__input" type="text" id="email" name="email" placeholder="E-mail" />
-                            <label className="login-modal__label" htmlFor="email">E-mail</label>
-                        </div>
-                        <div className="login-modal__form-wrap">
-                            <input ref={passwordRef} required className="login-modal__input" type="password" id="password" name="password" placeholder="Password" />
-                            <label className="login-modal__label" htmlFor="password">Password</label>
-                        </div>
-                        <p className="login-modal_error-info">{errorInfo}</p>
-                        <p>Forgot your password?</p>
-                        <button className="login-modal__button">SIGN IN</button>
-                        <p>Don't have an account? <Link to="/register">Sign Up</Link></p>
-                    </form>
+        <div className="login-modal__wrap">
+            <button className="modal__button--close" onClick={ () => { setIsActiveLoginPanel(false)} }><img className="modal__icon--close" src={icon.close} alt="Close"/></button>
+            <h1 className="login-modal__header">Sign in</h1>
+            <form className="login-modal__form" onSubmit={ handleSubmit } onKeyDown={(e) => {
+                if(e.key === "Enter") {
+                    handleSubmit(e);
+                }
+            }}>
+                <div className="login-modal__form-wrap">
+                    <input ref={emailRef} required className="login-modal__input" type="text" id="email" name="email" placeholder="E-mail" />
+                    <label className="login-modal__label" htmlFor="email">E-mail</label>
                 </div>
-            </motion.div>
-        </Backdrop>
+                <div className="login-modal__form-wrap">
+                    <input ref={passwordRef} required className="login-modal__input" type="password" id="password" name="password" placeholder="Password" />
+                    <label className="login-modal__label" htmlFor="password">Password</label>
+                </div>
+                <p className="login-modal_error-info">{errorInfo}</p>
+                <p>Forgot your password?</p>
+                <button className="login-modal__button">SIGN IN</button>
+                <p>Don't have an account? <span className="login-modal__link" onClick={() => {setSwitchForm(true) }}>Sign Up</span></p>
+            </form>
+        </div>
     )
 }
 
