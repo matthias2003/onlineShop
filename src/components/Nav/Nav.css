@@ -9,8 +9,8 @@
 }
 
 .aside-nav__close {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     padding: 0;
     display: flex;
     align-items: center;
@@ -18,17 +18,66 @@
     outline: none;
     border: none;
     appearance: none;
-    margin: 10px;
     background: transparent;
+    position: absolute;
+    right: 10px;
+    top:10px;
 }
 
 .aside-nav__icon {
-    width: 25px;
+    width: 20px;
     height: auto;
     cursor: pointer;
     transform: rotate(90deg);
-    position: absolute;
-    right: 0;
+    /*position: absolute;*/
+    /*right: 0;*/
+}
+
+.aside-nav__logo-wrap {
+    margin: 40px auto 5px auto;
+    width: 35%;
+}
+
+.aside-nav__underline {
+    width: 75px;
+    height: 1px;
+    background-color: black;
+    margin: auto;
+}
+
+.nav__mobile {
+    font-family: Roboto, sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.nav__mobile-list {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 50px;
+}
+
+.nav__mobile-list a {
+    text-decoration: none;
+    color: black;
+}
+
+.nav__mobile-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav__mobile-p {
+    margin: 0;
+}
+
+.nav__mobile-item {
+    padding: 5px 30px;
+}
+
+.nav_mobile-arrow {
+    width: 20px;
+    height:auto;
 }
 
 .nav {
@@ -48,6 +97,7 @@
     width: 25px;
     height: 25px;
     padding: 0;
+    margin-left: 10px;
     align-items: center;
     justify-content: center;
     outline: none;

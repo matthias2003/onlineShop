@@ -3,7 +3,7 @@ import Backdrop from "../Backdrop/Backdrop";
 import {useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as icon from "../../assets/icons/navIcons";
 import logo from "../../assets/logo/logo.svg";
 import { useAuth } from "../../hooks/useAuth"
@@ -74,11 +74,62 @@ function Nav() {
                             }}>
                                 <img className="aside-nav__icon" src={icon.arrow} alt="Close"/>
                             </button>
-                            <ul className="nav__mobile">
-                                <li className="nav__mobile-item">Men</li>
-                                <li className="nav__mobile-item">Women</li>
-                                <li className="nav__mobile-item">Kids</li>
-                            </ul>
+
+                            <div className="aside-nav__logo-wrap">
+                                <Link to="/" onClick={() => { setIsActiveSideNav(!isActiveSideNav) }}>
+                                    <img className="aside-nav__logo" src={logo} alt="Logo" />
+                                </Link>
+                            </div>
+
+                            <div className="aside-nav__underline"></div>
+
+                            <div className="nav__mobile">
+                                <ul className="nav__mobile-list">
+                                    <li className="nav__mobile-item">
+                                        <div className="nav__mobile-content">
+                                            <p className="nav__mobile-p">Men</p>
+                                            <img className="nav_mobile-arrow" src={icon.arrow} alt="Arrow icon"/>
+                                        </div>
+                                    </li>
+
+                                    <li className="nav__mobile-item">
+                                        <div className="nav__mobile-content">
+                                            <p className="nav__mobile-p">Women</p>
+                                            <img className="nav_mobile-arrow" src={icon.arrow} alt="Arrow icon"/>
+                                        </div>
+                                    </li>
+
+                                    <li className="nav__mobile-item">
+                                        <div className="nav__mobile-content">
+                                            <p className="nav__mobile-p">Kids</p>
+                                            <img className="nav_mobile-arrow" src={icon.arrow} alt="Arrow icon"/>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div className="nav__mobile">
+                                <ul className="nav__mobile-list">
+                                    <Link to="/profile" onClick={() => {
+                                        setIsActiveSideNav(!isActiveSideNav)}} >
+                                        <li className="nav__mobile-item">
+                                            <div className="nav__mobile-content">
+                                                <p className="nav__mobile-p">Profile</p>
+                                                <img className="nav_mobile-arrow" src={icon.arrow} alt="Arrow icon"/>
+                                            </div>
+                                        </li>
+                                    </Link>
+                                    <Link to="/favourites" onClick={() => {
+                                        setIsActiveSideNav(!isActiveSideNav)}}>
+                                        <li className="nav__mobile-item">
+                                            <div className="nav__mobile-content">
+                                                <p className="nav__mobile-p">Favourites</p>
+                                                <img className="nav_mobile-arrow" src={icon.arrow} alt="Arrow icon"/>
+                                            </div>
+                                        </li>
+                                    </Link>
+                                </ul>
+                            </div>
                         </motion.div>
                     </motion.aside>
                 </Backdrop>
