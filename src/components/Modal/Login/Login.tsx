@@ -1,12 +1,13 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState, useContext } from "react";
 import { useInView } from "framer-motion";
-import { sendLoginInfo } from "../../requests";
-import { useAuth } from "../../hooks/useAuth";
+import { sendLoginInfo } from "../../../requests";
+import { useAuth } from "../../../hooks/useAuth";
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
-import * as icon from "../../assets/icons/navIcons";
+import * as icon from "../../../assets/icons/navIcons";
 import "./Login.css"
 import { z } from "zod";
-import { FormContext } from "../Modal/Modal";
+import { FormContext } from "../Modal";
+import { motion } from "framer-motion";
 
 interface propTypes {
     setIsActiveLoginPanel:Dispatch<SetStateAction<boolean>>
@@ -58,25 +59,36 @@ function Login({ setIsActiveLoginPanel } :propTypes) {
 
     return(
         <div className="login-modal__wrap">
-            <button className="modal__button--close" onClick={ () => { setIsActiveLoginPanel(false)} }><img className="modal__icon--close" src={icon.close} alt="Close"/></button>
+            <motion.button
+                className="modal__button--close"
+                whileHover={{scale: 1.1}}
+                whileTap={{scale: 0.8}}
+                onClick={() => { setIsActiveLoginPanel(false) }}
+            >
+                <img className="modal__icon--close" src={icon.close} alt="Close"/>
+            </motion.button>
             <h1 className="login-modal__header">Sign in</h1>
-            <form className="login-modal__form" onSubmit={ handleSubmit } onKeyDown={(e) => {
-                if(e.key === "Enter") {
+            <form className="login-modal__form" onSubmit={handleSubmit} onKeyDown={(e) => {
+                if (e.key === "Enter") {
                     handleSubmit(e);
                 }
             }}>
                 <div className="login-modal__form-wrap">
-                    <input ref={emailRef} required className="login-modal__input" type="text" id="email" name="email" placeholder="E-mail" />
+                    <input ref={emailRef} required className="login-modal__input" type="text" id="email" name="email"
+                           placeholder="E-mail"/>
                     <label className="login-modal__label" htmlFor="email">E-mail</label>
                 </div>
                 <div className="login-modal__form-wrap">
-                    <input ref={passwordRef} required className="login-modal__input" type="password" id="password" name="password" placeholder="Password" />
+                    <input ref={passwordRef} required className="login-modal__input" type="password" id="password"
+                           name="password" placeholder="Password"/>
                     <label className="login-modal__label" htmlFor="password">Password</label>
                 </div>
                 <p className="login-modal_error-info">{errorInfo}</p>
                 <p>Forgot your password?</p>
                 <button className="login-modal__button">SIGN IN</button>
-                <p>Don't have an account? <span className="login-modal__link" onClick={() => {setSwitchForm(true) }}>Sign Up</span></p>
+                <p>Don't have an account? <span className="login-modal__link" onClick={() => {
+                    setSwitchForm(true)
+                }}>Sign Up</span></p>
             </form>
         </div>
     )

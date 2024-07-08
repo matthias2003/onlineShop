@@ -28,8 +28,8 @@ export const registerUser = async ( registerData:object) => {
     return data;
 }
 
-export const getUserData = async ( id:string )=> {
-    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/user", {id}, {headers: {"Content-Type": 'application/json'}});
+export const getUserData = async ( id:string, token:string )=> {
+    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/user", {id}, {headers: {"Content-Type": 'application/json',Authorization: `Bearer ${token}`}});
     //const { data } = await axios.post("http://127.0.0.1:3001/user", {id},{headers:{"Content-Type": 'application/json'}});
     return data;
 }

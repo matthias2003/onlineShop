@@ -29,7 +29,7 @@ function Profile() {
     },[])
 
     const fetchUserInfo = async (id:string) => {
-        const data = await getUserData(id);
+        const data = await getUserData(id, auth.token);
         setUserInfo(data);
     }
 

@@ -1,9 +1,10 @@
 import "./Register.css";
 import {Dispatch, SetStateAction, SyntheticEvent, useContext, useState} from "react";
-import { registerUser } from "../../requests";
+import { registerUser } from "../../../requests";
 import { z } from "zod";
-import * as icon from "../../assets/icons/navIcons";
-import { FormContext } from "../Modal/Modal";
+import * as icon from "../../../assets/icons/navIcons";
+import { FormContext } from "../Modal";
+import {motion} from "framer-motion";
 
 interface propTypes {
     setIsActiveLoginPanel:Dispatch<SetStateAction<boolean>>
@@ -68,11 +69,20 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
     }
     return(
         <div className="register-modal">
-            <button className="modal__button--close" onClick={() => {setIsActiveLoginPanel(false)}}><img className="modal__icon--close" src={icon.close} alt="Close"/></button>
+            <motion.button
+                className="modal__button--close"
+                whileHover={{scale: 1.1}}
+                whileTap={{scale: 0.8}}
+                onClick={() => {
+                    setIsActiveLoginPanel(false)
+                }}
+            >
+                <img className="modal__icon--close" src={icon.close} alt="Close"/>
+            </motion.button>
             <h1 className="register-modal__header">Sing up</h1>
             <form className="register-modal__form" onSubmit={handleSubmit}>
                 <div className="register-modal__form-wrap">
-                    <div className="register-modal__form-wrap " style={{margin:"0 5px 0 0"}}>
+                    <div className="register-modal__form-wrap " style={{margin: "0 5px 0 0"}}>
                         <input
                             className="register-modal__input"
                             type="text"
@@ -83,7 +93,7 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
                         />
                         <label className="register-modal__label" htmlFor="firstName">First Name</label>
                     </div>
-                    <div className="register-modal__form-wrap" style={{margin:"0 0 0 5px"}}>
+                    <div className="register-modal__form-wrap" style={{margin: "0 0 0 5px"}}>
                         <input
                             className="register-modal__input"
                             type="text"
@@ -142,7 +152,9 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
                     <label className="register-modal__label" htmlFor="birthDate">Date of birth</label>
                 </div>
                 <button className="register-modal__button">SING UP</button>
-                <p>Already have an account? <span className="register-modal__link" onClick={() => {setSwitchForm(false)}}>Sign In</span></p>
+                <p>Already have an account? <span className="register-modal__link" onClick={() => {
+                    setSwitchForm(false)
+                }}>Sign In</span></p>
             </form>
         </div>
     )

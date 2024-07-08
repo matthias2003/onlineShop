@@ -3,9 +3,8 @@ import { motion, useInView } from "framer-motion";
 import Backdrop from "../Backdrop/Backdrop";
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import "./Modal.css";
-import Login from "../Login/Login";
-import Register from "../Register/Register";
-import {boolean} from "zod";
+import Login from "./Login/Login";
+import Register from "./Register/Register";
 
 interface propTypes {
     setIsActiveLoginPanel:Dispatch<SetStateAction<boolean>>,
