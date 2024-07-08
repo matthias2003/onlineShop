@@ -108,3 +108,14 @@
         height: 35vw;
     }
 }
+
+@media (min-width: 1500px) {
+    .avatar__image-wrap {
+        width: 16vw;
+        height: 16vw;
+    }
+
+    .profile__avatar-img {
+        width: 10vw;
+    }
+}

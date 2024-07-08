@@ -15,6 +15,7 @@ function Nav() {
     const [ isActiveLoginPanel, setIsActiveLoginPanel ] = useState<boolean>(false)
     const [ searchValue , setSearchValue ] = useState<string>("");
     const [ isActiveSideNav, setIsActiveSideNav ] = useState<boolean>(false)
+    const [ toggleButton, setToggleButton ] = useState<boolean>(false)
     const sideNavRef = useRef<HTMLDivElement | null>(null);
     const navigate = useNavigate();
     const logout = useLogout();
@@ -25,6 +26,7 @@ function Nav() {
             disableBodyScroll(sideNavRef as unknown as Element | HTMLElement);
         } else {
             enableBodyScroll(sideNavRef as unknown as Element | HTMLElement);
+            setToggleButton(false);
         }
 
 
@@ -61,7 +63,7 @@ function Nav() {
                 <Backdrop setIsActive={setIsActiveSideNav}>
                     <motion.aside
                         onClick={( event ) => { event.stopPropagation() }}
-                        className={"aside-nav"}
+                        className="aside-nav"
                         variants={optionsSideNav}
                         ref={sideNavRef}
                         initial="initial"
@@ -69,11 +71,12 @@ function Nav() {
                         animate="shown"
                         exit="closed">
                         <motion.div>
-                            <button className="aside-nav__close" onClick={() => {
-                                setIsActiveSideNav(!isActiveSideNav)
-                            }}>
-                                <img className="aside-nav__icon" src={icon.arrow} alt="Close"/>
-                            </button>
+
+                            {/*<button className="aside-nav__close" onClick={() => {*/}
+                            {/*    setIsActiveSideNav(!isActiveSideNav)*/}
+                            {/*}}>*/}
+                            {/*    <img className="aside-nav__icon" src={icon.close} alt="Close"/>*/}
+                            {/*</button>*/}
 
                             <div className="aside-nav__logo-wrap">
                                 <Link to="/" onClick={() => { setIsActiveSideNav(!isActiveSideNav) }}>
@@ -135,15 +138,27 @@ function Nav() {
                 </Backdrop>
             }
             </AnimatePresence>
+
         <nav className="nav">
-            <button className="nav__burger" onClick={() => {
-                setIsActiveSideNav(!isActiveSideNav)
-            }}>
-                <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none"
-                     xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4 18H10" stroke="#000000" strokeWidth="2" strokeLinecap="round"/>
-                    <path d="M4 12L16 12" stroke="#000000" strokeWidth="2" strokeLinecap="round"/>
-                    <path d="M4 6L20 6" stroke="#000000" strokeWidth="2" strokeLinecap="round"/>
+            <button className={ !toggleButton ? "nav__burger" : "nav__burger opened"}
+                    // onClick={() => {setIsActiveSideNav(!isActiveSideNav)}}
+                    onClick={() => {
+                        setToggleButton(!toggleButton);
+                        setIsActiveSideNav(!isActiveSideNav);
+                    }}
+            >
+                {/*<svg width="25px" height="25px" viewBox="0 0 24 24" fill="none"*/}
+                {/*     xmlns="http://www.w3.org/2000/svg">*/}
+                {/*    <path d="M4 18H10" stroke="#000000" strokeWidth="2" strokeLinecap="round"/>*/}
+                {/*    <path d="M4 12L16 12" stroke="#000000" strokeWidth="2" strokeLinecap="round"/>*/}
+                {/*    <path d="M4 6L20 6" stroke="#000000" strokeWidth="2" strokeLinecap="round"/>*/}
+                {/*</svg>*/}
+                <svg width="100" height="100" viewBox="0 0 100 100">
+                    <path className="line line1"
+                          d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058"/>
+                    <path className="line line2" d="M 20,50 H 80"/>
+                    <path className="line line3"
+                          d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942"/>
                 </svg>
             </button>
             <ul className="nav__menu">
@@ -160,7 +175,7 @@ function Nav() {
                     <button className="nav__button nav__button--search"><img className="nav__icon nav__icon--search"
                                                                              src={icon.search} alt="Search"/></button>
                 </div>
-                <button className="nav__button" onClick={() => navigate("/favourites")}><img className="nav__icon"
+                <button className="nav__button nav__button-heart" onClick={() => navigate("/favourites")}><img className="nav__icon"
                                                                                              src={icon.heart}
                                                                                              alt="Favourites button"/>
                 </button>
