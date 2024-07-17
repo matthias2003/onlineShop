@@ -31,10 +31,9 @@
     border: 1px solid #616467;
 }
 
-.register-modal__input-error {
-    border: 1px solid red;
+.register-modal__input--invalid {
+    border: 1px solid #cc0000;
 }
-
 
 .register-modal__input:focus {
     outline: 1px solid #4e5052;
@@ -53,9 +52,6 @@
 }
 
 
-.register-modal__label-error {
-    color:red;
-}
 
 .register-modal__input:focus-within + .register-modal__label {
     transform: translateY(-15px);
@@ -73,6 +69,10 @@
 
 .register-modal__input:focus-within::-moz-placeholder {
     color: transparent;
+}
+
+.register-modal__input--invalid + .register-modal__label {
+    color:red;
 }
 
 .register-modal__button {

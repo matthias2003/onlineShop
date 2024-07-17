@@ -42,7 +42,8 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
     }
 
     const changeStyle = (event:any) => {
-        registerRefs[event.target.name].current.style.border = "";
+        // registerRefs[event.target.name].current.style.border = "";
+        registerRefs[event.target.name].current.classList.remove("register-modal__input--invalid")
     };
 
     const getCurrentDate = () => {
@@ -83,15 +84,12 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
             setTimeout( () => { setSwitchForm(false)},1000)
         } catch (err:any) {
             setToggleLoader(false);
-
-            // registerRefs.forEach((item) => {
-            //     item.current?.classList.add("register-modal__input-error");
-            // })
             console.log(err.inner)
 
             err.inner.forEach((item:any) => {
                 if (item.path in registerRefs) {
-                    registerRefs[item.path].current.style.border = "1px solid #cc0000";
+                    // registerRefs[item.path].current.style.border = "1px solid #cc0000";
+                    registerRefs[item.path].current.classList.add("register-modal__input--invalid")
                 }
             })
         }
@@ -125,7 +123,7 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
                                 changeStyle(e);
                             }}
                         />
-                        <label className="register-modal__label" htmlFor="firstName">First Name</label>
+                        <label className="register-modal__label" htmlFor="name">First Name</label>
                     </div>
                     <div className="register-modal__form-wrap" style={{margin: "0 0 0 5px"}}>
                         <input
@@ -140,7 +138,7 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
                                 changeStyle(e);
                             }}
                         />
-                        <label className="register-modal__label" htmlFor="lastName">Last Name</label>
+                        <label className="register-modal__label" htmlFor="surname">Last Name</label>
                     </div>
                 </div>
                 <div className="register-modal__form-wrap">
@@ -186,13 +184,13 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
                             changeStyle(e);
                         }}
                     />
-                    <label className="register-modal__label" htmlFor="password">Confirm Password</label>
+                    <label className="register-modal__label" htmlFor="confirmPassword">Confirm Password</label>
                 </div>
                 <div className="register-modal__form-wrap">
                     <input
                         className="register-modal__input"
                         type="date"
-                        id="birthDate"
+                        id="dateOfBirth"
                         name="dateOfBirth"
                         ref={dateRef}
                         placeholder="dateOfBirth"
@@ -203,7 +201,7 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
                             changeStyle(e);
                         }}
                     />
-                    <label className="register-modal__label" htmlFor="birthDate">Date of birth</label>
+                    <label className="register-modal__label" htmlFor="dateOfBirth">Date of birth</label>
                 </div>
 
                 <div className={ toggleLoader ? "register-modal__loader" : "register-modal__loader-off"} >
