@@ -1,11 +1,12 @@
 import "./Register.css";
-import {Dispatch, SetStateAction, SyntheticEvent, useContext, useState} from "react";
+import {createRef, Dispatch, SetStateAction, SyntheticEvent, useContext, useRef, useState} from "react";
 import { registerUser } from "../../../requests";
-import { z } from "zod";
+import {util, z} from "zod";
 import * as icon from "../../../assets/icons/navIcons";
 import { FormContext } from "../Modal";
 import { motion } from "framer-motion";
 import * as yup from 'yup';
+import objectKeys = util.objectKeys;
 
 interface propTypes {
     setIsActiveLoginPanel:Dispatch<SetStateAction<boolean>>
@@ -24,6 +25,25 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
         confirmPassword: "",
         dateOfBirth: Date
     })
+    const nameRef = useRef<HTMLInputElement | null>(null);
+    const surnameRef = useRef<HTMLInputElement | null>(null);
+    const emailRef = useRef<HTMLInputElement | null>(null);
+    const passwordRef = useRef<HTMLInputElement | null>(null);
+    const repPasswordRef = useRef<HTMLInputElement | null>(null);
+    const dateRef = useRef<HTMLInputElement | null>(null);
+
+    const registerRefs= {
+        name:nameRef,
+        surname:surnameRef,
+        email:emailRef,
+        password:passwordRef,
+        confirmPassword:repPasswordRef,
+        dateOfBirth:dateRef
+    }
+
+    const changeStyle = (event:any) => {
+        registerRefs[event.target.name].current.style.border = "";
+    };
 
     const getCurrentDate = () => {
         const today = new Date();
@@ -36,27 +56,7 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
     const passwordReg = new RegExp(/^(?=.*[0-9])(?=.*[- ?!@#$%^&*\/\\])(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9- ?!@#$%^&*\/\\]{8,30}$/)
     const emailReg = new RegExp(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/);
 
-    const registerSchema = z.object({
-        name:z.string().min(1).max(20),
-        surname:z.string().min(1).max(20),
-        email: z.string().email().min(5).max(30).regex(emailReg),
-        password: z.string().min(8).max(30).regex(passwordReg),
-        confirmPassword: z.string().min(8).max(30),
-        dateOfBirth: z.coerce.date()
-    }).refine((data) => {
-        const minDate = new Date('1900-01-01');
-        const maxDate = new Date();
-        return data.dateOfBirth >= minDate && data.dateOfBirth <= maxDate;
-    }, {
-        message: "Date of birth must be between 1900-01-01 and 2023-12-31",
-        path: ["dateOfBirth"],
-    }).refine((data) => data.password === data.confirmPassword,
-        {
-            message: "Password doesn't match",
-            path: ["confirmPassword"],
-        });
-
-    const registerSchema2 = yup.object({
+    const registerSchema = yup.object({
         name: yup.string().min(1).max(20).required("Name is required"),
         surname:yup.string().min(1).max(20).required("Surname is required"),
         email: yup.string().email().min(5).max(30).matches(emailReg, "Invalid email"),
@@ -77,13 +77,23 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
         setToggleLoader(true);
 
         try {
-            await registerSchema2.validate( formData,{abortEarly: false});
+            await registerSchema.validate( formData,{abortEarly: false});
             await registerUser(formData);
             setLoadComplete(true);
             setTimeout( () => { setSwitchForm(false)},1000)
         } catch (err:any) {
             setToggleLoader(false);
-            // console.log(err.inner)
+
+            // registerRefs.forEach((item) => {
+            //     item.current?.classList.add("register-modal__input-error");
+            // })
+            console.log(err.inner)
+
+            err.inner.forEach((item:any) => {
+                if (item.path in registerRefs) {
+                    registerRefs[item.path].current.style.border = "1px solid #cc0000";
+                }
+            })
         }
     }
     return(
@@ -99,7 +109,7 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
                 <img className="modal__icon--close" src={icon.close} alt="Close"/>
             </motion.button>
 
-            <h1 className="register-modal__header">Sing up</h1>
+            <h1 className="register-modal__header">Sign up</h1>
             <form className="register-modal__form" onSubmit={handleSubmit}>
                 <div className="register-modal__form-wrap">
                     <div className="register-modal__form-wrap " style={{margin: "0 5px 0 0"}}>
@@ -108,8 +118,12 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
                             type="text"
                             id="name"
                             name="name"
+                            ref={nameRef}
                             placeholder="First name"
-                            onChange={updateFormData}
+                            onChange={ (e) => {
+                                updateFormData(e);
+                                changeStyle(e);
+                            }}
                         />
                         <label className="register-modal__label" htmlFor="firstName">First Name</label>
                     </div>
@@ -119,8 +133,12 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
                             type="text"
                             id="surname"
                             name="surname"
+                            ref={surnameRef}
                             placeholder="Last Name"
-                            onChange={updateFormData}
+                            onChange={ (e) => {
+                                updateFormData(e);
+                                changeStyle(e);
+                            }}
                         />
                         <label className="register-modal__label" htmlFor="lastName">Last Name</label>
                     </div>
@@ -131,8 +149,12 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
                         type="text"
                         id="email"
                         name="email"
+                        ref={emailRef}
                         placeholder="Email"
-                        onChange={updateFormData}
+                        onChange={ (e) => {
+                            updateFormData(e);
+                            changeStyle(e);
+                        }}
                     />
                     <label className="register-modal__label" htmlFor="email">Email</label>
                 </div>
@@ -142,8 +164,12 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
                         type="password"
                         id="password"
                         name="password"
+                        ref={passwordRef}
                         placeholder="Password"
-                        onChange={updateFormData}
+                        onChange={ (e) => {
+                            updateFormData(e);
+                            changeStyle(e);
+                        }}
                     />
                     <label className="register-modal__label" htmlFor="password">Password</label>
                 </div>
@@ -153,8 +179,12 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
                         type="password"
                         id="confirmPassword"
                         name="confirmPassword"
+                        ref={repPasswordRef}
                         placeholder="Confirm Password"
-                        onChange={updateFormData}
+                        onChange={ (e) => {
+                            updateFormData(e);
+                            changeStyle(e);
+                        }}
                     />
                     <label className="register-modal__label" htmlFor="password">Confirm Password</label>
                 </div>
@@ -164,10 +194,14 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
                         type="date"
                         id="birthDate"
                         name="dateOfBirth"
+                        ref={dateRef}
                         placeholder="dateOfBirth"
                         min="1900-01-01"
                         max={getCurrentDate()}
-                        onChange={updateFormData}
+                        onChange={ (e) => {
+                            updateFormData(e);
+                            changeStyle(e);
+                        }}
                     />
                     <label className="register-modal__label" htmlFor="birthDate">Date of birth</label>
                 </div>
