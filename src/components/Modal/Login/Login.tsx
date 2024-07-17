@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState, useContext } from "react";
 import { useInView } from "framer-motion";
-import { sendLoginInfo } from "../../../requests";
+import {registerUser, sendLoginInfo} from "../../../requests";
 import { useAuth } from "../../../hooks/useAuth";
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import * as icon from "../../../assets/icons/navIcons";
@@ -17,10 +17,13 @@ function Login({ setIsActiveLoginPanel } :propTypes) {
     const emailRef = useRef<HTMLInputElement | null >(null);
     const passwordRef = useRef<HTMLInputElement | null >(null)
     const [ errorInfo, setErrorInfo ] = useState<string>("")
+    const [ toggleLoader, setToggleLoader ] = useState<boolean>(false);
+    const [ loadComplete, setLoadComplete ] = useState<boolean>(false);
     const modalRef = useRef<HTMLDivElement | null>(null);
     const isInView = useInView(modalRef);
     const { setAuth } = useAuth();
     const { setSwitchForm }  = useContext(FormContext);
+
 
     const loginSchema = z.object({
         email:z.string().email("Invalid email").min(5).max(30),
@@ -43,16 +46,19 @@ function Login({ setIsActiveLoginPanel } :propTypes) {
         };
 
         try {
+            setToggleLoader(true);
             loginSchema.parse(data);
             const loginData  = await sendLoginInfo(data);
             if (loginData.status) {
-                setIsActiveLoginPanel(false); // TODO: change logic of logging in
+                setLoadComplete(true);
+                setTimeout( () => { setIsActiveLoginPanel(false)},1000)
                 setAuth({token:loginData.accessToken})
             } else if (!loginData.status) {
                 setErrorInfo("Incorrect email or password");
                 //TODO: ADD RED INPUT STYLE HERE
             }
         } catch (err) {
+            setToggleLoader(false);
             console.log(err) // TODO: add messages related to status codes returned from API
         }
     }
@@ -85,6 +91,13 @@ function Login({ setIsActiveLoginPanel } :propTypes) {
                 </div>
                 <p className="login-modal_error-info">{errorInfo}</p>
                 <p>Forgot your password?</p>
+
+                <div className={toggleLoader ? "login-modal__loader" : "login-modal__loader-off"}>
+                    <div className={!loadComplete ? "circle-loader" : "circle-loader load-complete"}>
+                        {loadComplete && <div className="checkmark draw"></div>}
+                    </div>
+                </div>
+
                 <button className="login-modal__button">SIGN IN</button>
                 <p>Don't have an account? <span className="login-modal__link" onClick={() => {
                     setSwitchForm(true)

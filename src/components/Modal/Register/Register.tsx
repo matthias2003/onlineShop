@@ -4,7 +4,8 @@ import { registerUser } from "../../../requests";
 import { z } from "zod";
 import * as icon from "../../../assets/icons/navIcons";
 import { FormContext } from "../Modal";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
+import * as yup from 'yup';
 
 interface propTypes {
     setIsActiveLoginPanel:Dispatch<SetStateAction<boolean>>
@@ -12,6 +13,9 @@ interface propTypes {
 
 function Register({ setIsActiveLoginPanel } :propTypes) {
     const { setSwitchForm }  = useContext(FormContext);
+    const [ formError , setFormError ] = useState<string>("")
+    const [ toggleLoader, setToggleLoader ] = useState<boolean>(false);
+    const [ loadComplete, setLoadComplete ] = useState<boolean>(false);
     const [ formData, setFormData ] = useState({
         name: "",
         surname: "",
@@ -37,11 +41,8 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
         surname:z.string().min(1).max(20),
         email: z.string().email().min(5).max(30).regex(emailReg),
         password: z.string().min(8).max(30).regex(passwordReg),
-        confirmPassword: z.string().min(8),
+        confirmPassword: z.string().min(8).max(30),
         dateOfBirth: z.coerce.date()
-    }).refine((data) => data.password === data.confirmPassword, {
-        message: "Passwords don't match",
-        path: ["confirmPassword"], // path of error
     }).refine((data) => {
         const minDate = new Date('1900-01-01');
         const maxDate = new Date();
@@ -49,8 +50,22 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
     }, {
         message: "Date of birth must be between 1900-01-01 and 2023-12-31",
         path: ["dateOfBirth"],
-    });
+    }).refine((data) => data.password === data.confirmPassword,
+        {
+            message: "Password doesn't match",
+            path: ["confirmPassword"],
+        });
 
+    const registerSchema2 = yup.object({
+        name: yup.string().min(1).max(20).required("Name is required"),
+        surname:yup.string().min(1).max(20).required("Surname is required"),
+        email: yup.string().email().min(5).max(30).matches(emailReg, "Invalid email"),
+        password:yup.string().min(8).max(30).matches(passwordReg,"Invalid password"),
+        confirmPassword:yup.string().min(8).max(30).test('password-should-match', "Passwords doesn't match", function(value){
+            return this.parent.password === value
+        }),
+        dateOfBirth: yup.date()
+    })
 
     const updateFormData = (event:React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -59,13 +74,17 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
 
     const handleSubmit = async (event:SyntheticEvent) => {
         event.preventDefault();
-        try {
-            registerSchema.parse(formData);
-            await registerUser(formData);
-        } catch (err) {
-            console.log(err)
-        }
+        setToggleLoader(true);
 
+        try {
+            await registerSchema2.validate( formData,{abortEarly: false});
+            await registerUser(formData);
+            setLoadComplete(true);
+            setTimeout( () => { setSwitchForm(false)},1000)
+        } catch (err:any) {
+            setToggleLoader(false);
+            // console.log(err.inner)
+        }
     }
     return(
         <div className="register-modal">
@@ -79,6 +98,7 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
             >
                 <img className="modal__icon--close" src={icon.close} alt="Close"/>
             </motion.button>
+
             <h1 className="register-modal__header">Sing up</h1>
             <form className="register-modal__form" onSubmit={handleSubmit}>
                 <div className="register-modal__form-wrap">
@@ -151,6 +171,13 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
                     />
                     <label className="register-modal__label" htmlFor="birthDate">Date of birth</label>
                 </div>
+
+                <div className={ toggleLoader ? "register-modal__loader" : "register-modal__loader-off"} >
+                    <div className={ !loadComplete ? "circle-loader" : "circle-loader load-complete" }>
+                        { loadComplete && <div className="checkmark draw"></div> }
+                    </div>
+                </div>
+
                 <button className="register-modal__button">SING UP</button>
                 <p>Already have an account? <span className="register-modal__link" onClick={() => {
                     setSwitchForm(false)

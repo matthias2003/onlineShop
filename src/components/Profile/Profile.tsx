@@ -4,7 +4,8 @@ import * as icon from "../../assets/icons/profileIcons";
 import { Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { getUserData } from "../../requests";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
+import avatar from "../../assets/avatars/avatar.svg";
 
 interface payloadProps {
     id:string,
@@ -33,15 +34,12 @@ function Profile() {
         setUserInfo(data);
     }
 
-    console.log(userInfo);
-
-
     return(
         <main className="profile">
             <div className="profile__dashboard-wrap">
                 <div className="profile__avatar">
                     <div className="avatar__image-wrap">
-                        <img className="profile__avatar-img" src={ userInfo.profilePicture } alt="Profile picture"/>
+                        <img className="profile__avatar-img" src={ userInfo ? avatar : userInfo.profilePicture } alt="Profile picture"/>
                     </div>
                     <p className="profile__name">
                         { userInfo.name + " " + userInfo.surname }

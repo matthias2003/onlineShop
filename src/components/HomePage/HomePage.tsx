@@ -1,10 +1,11 @@
-import { fetchData } from "../../requests";
+import {fetchData, getBestsellers} from "../../requests";
 import ComingSoonImage from "../../assets/images/Air-Jordan-4-Seafoam-AQ9129-103-04.jpg"
 import { useEffect, useState } from "react";
 import "./HomePage.css";
 
 function HomePage() {
     const [ sneakerData, setSneakerData ] = useState<Array<object>>([]);
+    const [ bestsellersData, setBestsellersData ] = useState<Array<object>>([]);
 
     useEffect( ()=> {
         fetchAndPrepareData();
@@ -12,7 +13,9 @@ function HomePage() {
 
     const fetchAndPrepareData = async () => {
         const data = await fetchData();
+        const bestsellers = await getBestsellers();
         setSneakerData(data);
+        setBestsellersData(bestsellers);
     }
 
     return(
@@ -45,14 +48,13 @@ function HomePage() {
             <div className="home__bestsellers">
                 <h4>Bestsellers</h4>
                 <div className="home__tiles">
-                    {sneakerData.map((element:any ) => {
+                    {bestsellersData.map((element:any ) => {
                         return (
                             <div className="home__tile" key={element._id}>
                                 <div className="home__image-wrap">
                                     <img className="home__sneaker-image" src={element.img} alt="Sneaker preview"/>
                                 </div>
                                 <p>{element.name}</p>
-                                {/*TODO: interface for object*/}
                                 <p>{element.price}</p>
                             </div>
                         )
