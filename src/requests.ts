@@ -12,6 +12,10 @@ export const getBestsellers = async ()=>  {
     return data;
 }
 
+export const getAggregatedData = async ( gender:object ) => {
+    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/api/gender", gender );
+    return data;
+}
 
 export const sendLoginInfo =  async ( loginData:object ) => {
     const { data } =  await axios.post("https://online-shop-backend.maciejkloda.pl/login", JSON.stringify(loginData), {headers:{"Content-Type": 'application/json'}});
@@ -36,7 +40,7 @@ export const registerUser = async ( registerData:object) => {
 }
 
 export const getUserData = async ( id:string, token:string )=> {
-    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/user", {id}, {headers: {"Content-Type": 'application/json',Authorization: `Bearer ${token}`}});
+    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/user", { id }, {headers: {"Content-Type": 'application/json',Authorization: `Bearer ${token}`}});
     //const { data } = await axios.post("http://127.0.0.1:3001/user", {id},{headers:{"Content-Type": 'application/json'}});
     return data;
 }

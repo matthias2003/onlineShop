@@ -88,26 +88,33 @@ function Nav() {
 
                             <div className="nav__mobile">
                                 <ul className="nav__mobile-list">
+                                    <Link to="/stock/men" onClick={() => {
+                                        setIsActiveSideNav(!isActiveSideNav)}} >
                                     <li className="nav__mobile-item">
                                         <div className="nav__mobile-content">
                                             <p className="nav__mobile-p">Men</p>
                                             <img className="nav_mobile-arrow" src={icon.arrow} alt="Arrow icon"/>
                                         </div>
                                     </li>
-
+                                    </Link>
+                                        <Link to="/stock/women" onClick={() => {
+                                            setIsActiveSideNav(!isActiveSideNav)}} >
                                     <li className="nav__mobile-item">
                                         <div className="nav__mobile-content">
                                             <p className="nav__mobile-p">Women</p>
                                             <img className="nav_mobile-arrow" src={icon.arrow} alt="Arrow icon"/>
                                         </div>
                                     </li>
-
+                                        </Link>
+                                            <Link to="/stock/kids" onClick={() => {
+                                                setIsActiveSideNav(!isActiveSideNav)}} >
                                     <li className="nav__mobile-item">
                                         <div className="nav__mobile-content">
                                             <p className="nav__mobile-p">Kids</p>
                                             <img className="nav_mobile-arrow" src={icon.arrow} alt="Arrow icon"/>
                                         </div>
                                     </li>
+                                            </Link>
                                 </ul>
                             </div>
 
@@ -141,18 +148,11 @@ function Nav() {
 
         <nav className="nav">
             <button className={ !toggleButton ? "nav__burger" : "nav__burger opened"}
-                    // onClick={() => {setIsActiveSideNav(!isActiveSideNav)}}
                     onClick={() => {
                         setToggleButton(!toggleButton);
                         setIsActiveSideNav(!isActiveSideNav);
                     }}
             >
-                {/*<svg width="25px" height="25px" viewBox="0 0 24 24" fill="none"*/}
-                {/*     xmlns="http://www.w3.org/2000/svg">*/}
-                {/*    <path d="M4 18H10" stroke="#000000" strokeWidth="2" strokeLinecap="round"/>*/}
-                {/*    <path d="M4 12L16 12" stroke="#000000" strokeWidth="2" strokeLinecap="round"/>*/}
-                {/*    <path d="M4 6L20 6" stroke="#000000" strokeWidth="2" strokeLinecap="round"/>*/}
-                {/*</svg>*/}
                 <svg width="100" height="100" viewBox="0 0 100 100">
                     <path className="line line1"
                           d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058"/>
@@ -162,9 +162,9 @@ function Nav() {
                 </svg>
             </button>
             <ul className="nav__menu">
-                <li className="nav__menu-item">Men</li>
-                <li className="nav__menu-item">Women</li>
-                <li className="nav__menu-item">Kids</li>
+                <Link to="/stock/men" className="nav__menu-link"><li className="nav__menu-item">Men</li></Link>
+                <Link to="/stock/women" className="nav__menu-link"><li className="nav__menu-item">Women</li></Link>
+                <Link to="/stock/kids" className="nav__menu-link"><li className="nav__menu-item">Kids</li></Link>
             </ul>
             <Link to="/" className="nav__logo"><img className="nav__logo" src={logo} alt="Logo"/></Link>
             <div className="nav__icons">

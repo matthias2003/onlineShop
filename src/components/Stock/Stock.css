@@ -1,0 +1,127 @@
+.collection {
+    width: 70%;
+    margin: auto;
+}
+
+.collection__headline {
+    font-family: "Archivo Black", serif;
+    text-align: center;
+}
+
+.collection__container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.collection__item {
+    width: 20vw;
+    height:20vw;
+    margin: 30px 0;
+}
+
+.collection__desc {
+    margin: 5px 0;
+    text-align: center;
+    /*font-size: 0.8rem;*/
+}
+
+.collection__image-wrap {
+    width: 20vw;
+    display: flex;
+    justify-content: center;
+    height: 15vw;
+    background-color: #F5F7F8;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.collection__image {
+    max-width:100%;
+    max-height:100%;
+    object-fit: contain;
+}
+
+@media screen and (max-width: 1200px)  {
+    .collection {
+        width: 80%;
+    }
+
+    .collection__container {
+        justify-content: space-evenly;
+    }
+
+    .collection__item {
+        width: 25vw;
+        height:25vw;
+    }
+
+    .collection__image-wrap {
+        width: 25vw;
+        height: 20vw;
+    }
+}
+
+@media screen and (max-width: 992px)  {
+    .collection {
+        width: 80%;
+    }
+
+    .collection__container {
+        justify-content: space-evenly;
+    }
+
+    .collection__item {
+        width: 30vw;
+        height:30vw;
+    }
+
+    .collection__image-wrap {
+        width: 30vw;
+        height: 25vw;
+    }
+}
+
+@media screen and (max-width: 768px)  {
+    .collection {
+        width: 90%;
+    }
+
+    .collection__container {
+        justify-content: space-evenly;
+    }
+
+    .collection__item {
+        width: 40vw;
+        height:40vw;
+    }
+
+    .collection__desc {
+        font-size: 0.8rem;
+    }
+
+    .collection__image-wrap {
+        width: 40vw;
+        height: 35vw;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .collection {
+        width: 98%;
+    }
+
+    .collection__container {
+        justify-content: space-evenly;
+    }
+
+    .collection__item {
+        width: 45vw;
+        height:45vw;
+    }
+
+    .collection__image-wrap {
+        width: 45vw;
+        height: 40vw;
+    }
+}

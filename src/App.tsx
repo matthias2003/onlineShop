@@ -10,17 +10,19 @@ import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Login from "./components/Modal/Login/Login";
 import Favourites from "./components/Favourites/Favourites";
 import { AuthGate } from "./components/AuthGate/AuthGate";
+import Stock from "./components/Stock/Stock";
 
 function App() {
     return (
         <BrowserRouter>
             <Nav />
             <Routes>
-                <Route element={<UserStatus/>}>
-                <Route path="/" element={<HomePage />}></Route>
-                <Route path="/favourites" element={<Favourites />}></Route>
-                <Route element={<AuthGate />}>
-                    <Route path="/profile" element={<Profile />}></Route>
+                <Route element={ <UserStatus /> }>
+                <Route path="/" element={ <HomePage/> }></Route>
+                <Route path="/favourites" element={ <Favourites/> }></Route>
+                <Route path="/stock/:gender" element={ <Stock/> }></Route>
+                <Route element={ <AuthGate/> }>
+                    <Route path="/profile" element={ <Profile/> }></Route>
                 </Route>
                 </Route>
             </Routes>
