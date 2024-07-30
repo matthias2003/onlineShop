@@ -1,6 +1,6 @@
 import "./Nav.css";
 import Backdrop from "../Backdrop/Backdrop";
-import {useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,7 +9,6 @@ import logo from "../../assets/logo/logo.svg";
 import { useAuth } from "../../hooks/useAuth"
 import Modal from "../Modal/Modal";
 import { useLogout } from "../../hooks/useLogout";
-
 
 function Nav() {
     const [ isActiveLoginPanel, setIsActiveLoginPanel ] = useState<boolean>(false)
@@ -41,6 +40,13 @@ function Nav() {
         const loggedIn = auth.token
         if (!loggedIn) {
             setIsActiveLoginPanel(true);
+        }
+    }
+
+    const searchHandler = () => {
+        let searchParam = searchValue.trim().replaceAll(" ","+").toLowerCase();
+        if (searchParam) {
+            navigate(`/search/${searchParam}`)
         }
     }
 
@@ -106,15 +112,15 @@ function Nav() {
                                         </div>
                                     </li>
                                         </Link>
-                                            <Link to="/stock/kids" onClick={() => {
-                                                setIsActiveSideNav(!isActiveSideNav)}} >
-                                    <li className="nav__mobile-item">
-                                        <div className="nav__mobile-content">
-                                            <p className="nav__mobile-p">Kids</p>
-                                            <img className="nav_mobile-arrow" src={icon.arrow} alt="Arrow icon"/>
-                                        </div>
-                                    </li>
-                                            </Link>
+                                    <Link to="/stock/kids" onClick={() => {
+                                        setIsActiveSideNav(!isActiveSideNav)}} >
+                                        <li className="nav__mobile-item">
+                                            <div className="nav__mobile-content">
+                                                <p className="nav__mobile-p">Kids</p>
+                                                <img className="nav_mobile-arrow" src={icon.arrow} alt="Arrow icon"/>
+                                            </div>
+                                        </li>
+                                    </Link>
                                 </ul>
                             </div>
 
@@ -169,10 +175,12 @@ function Nav() {
             <Link to="/" className="nav__logo"><img className="nav__logo" src={logo} alt="Logo"/></Link>
             <div className="nav__icons">
                 <div className="nav__search-wrap">
-                    <input className="nav__search-input" type="text" value={searchValue} onChange={(event) => {
-                        setSearchValue(event.target.value)
-                    }} placeholder={"Search"}/>
-                    <button className="nav__button nav__button--search"><img className="nav__icon nav__icon--search"
+                    <input className="nav__search-input" type="text" value={searchValue}
+                       onChange={(event) => {
+                        setSearchValue(event.target.value)}}
+                        onKeyPress={ (event) => { if(event.key === "Enter") searchHandler() }}
+                        placeholder={"Search"}/>
+                    <button onClick={searchHandler} className="nav__button nav__button--search"><img className="nav__icon nav__icon--search"
                                                                              src={icon.search} alt="Search"/></button>
                 </div>
                 <button className="nav__button nav__button-heart" onClick={() => navigate("/favourites")}><img className="nav__icon"

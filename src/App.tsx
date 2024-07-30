@@ -11,6 +11,7 @@ import Login from "./components/Modal/Login/Login";
 import Favourites from "./components/Favourites/Favourites";
 import { AuthGate } from "./components/AuthGate/AuthGate";
 import Stock from "./components/Stock/Stock";
+import SearchView from "./components/SearchView/SearchView";
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
                 <Route path="/" element={ <HomePage/> }></Route>
                 <Route path="/favourites" element={ <Favourites/> }></Route>
                 <Route path="/stock/:gender" element={ <Stock/> }></Route>
+                <Route path="/search/:name" element={ <SearchView/> }></Route>
                 <Route element={ <AuthGate/> }>
                     <Route path="/profile" element={ <Profile/> }></Route>
                 </Route>
