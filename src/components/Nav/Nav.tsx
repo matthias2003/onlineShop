@@ -177,34 +177,42 @@ function Nav() {
                 <div className="nav__icons">
                     <div className="nav__search-wrap">
                         <input className="nav__search-input" type="text" value={searchValue}
-                           onChange={(event) => {
-                            setSearchValue(event.target.value)}}
-                            onKeyDown={ (event) => { if(event.key === "Enter") searchHandler() }}
-                            placeholder={"Search"}/>
-                        <button onClick={searchHandler} className="nav__button nav__button--search"><img className="nav__icon nav__icon--search"
-                                                                                 src={icon.search} alt="Search"/></button>
+                               onChange={(event) => {
+                                   setSearchValue(event.target.value)
+                               }}
+                               onKeyDown={(event) => {
+                                   if (event.key === "Enter") searchHandler()
+                               }}
+                               placeholder={"Search"}/>
+                        <button onClick={searchHandler} className="nav__button nav__button--search"><img
+                            className="nav__icon nav__icon--search"
+                            src={icon.search} alt="Search"/></button>
                     </div>
-                    <button className="nav__button nav__button-heart" onClick={() => navigate("/favourites")}><img className="nav__icon"
-                                                                                                 src={icon.heart}
-                                                                                                 alt="Favourites button"/>
+                    <button className="nav__button nav__button-heart" onClick={() => navigate("/favourites")}>
+                        <img className="nav__icon" src={icon.heart} alt="Favourites button"/>
+                    </button>
+                    <button className="nav__button" onClick={() => navigate("/cart")}>
+                        <img className="nav__icon" src={icon.shoppingBag} alt="Shopping cart button"/>
                     </button>
                     <button className="nav__button" onClick={profileHandler}>
-                        <img className="nav__icon" src={Object.keys(auth).length ? icon.avatarLoggedIn : icon.avatar} alt="Avatar button"/>
+                        <img className="nav__icon" src={Object.keys(auth).length ? icon.avatarLoggedIn : icon.avatar}
+                             alt="Avatar button"/>
                     </button>
-                    { auth.token ?
-                    <div className="nav__dropdown">
-                        <div className="dropdown__links">
-                            <Link to="/profile" className="dropdown__link"><p>Profile</p></Link>
-                            <Link to="/favourites" className="dropdown__link"><p>Favourites</p></Link>
-                            <Link to="/profile/orders" className="dropdown__link"><p>Orders</p></Link>
-                            <Link to="/profile/settings" className="dropdown__link"><p>Settings</p></Link>
-                            <p className="dropdown__logout" onClick={logoutHandler}>Logout</p>
-                        </div>
-                    </div> : "" }
+                    {auth.token ?
+                        <div className="nav__dropdown">
+                            <div className="dropdown__links">
+                                <Link to="/profile" className="dropdown__link"><p>Profile</p></Link>
+                                <Link to="/favourites" className="dropdown__link"><p>Favourites</p></Link>
+                                <Link to="/profile/orders" className="dropdown__link"><p>Orders</p></Link>
+                                <Link to="/profile/settings" className="dropdown__link"><p>Settings</p></Link>
+                                <p className="dropdown__logout" onClick={logoutHandler}>Logout</p>
+                            </div>
+                        </div> : ""}
                 </div>
 
                 <AnimatePresence>
-                {isActiveLoginPanel && <Modal isActiveLoginPanel={isActiveLoginPanel} setIsActiveLoginPanel={setIsActiveLoginPanel}></Modal>}
+                    {isActiveLoginPanel && <Modal isActiveLoginPanel={isActiveLoginPanel}
+                                                  setIsActiveLoginPanel={setIsActiveLoginPanel}></Modal>}
                 </AnimatePresence>
             </div>
         </nav>

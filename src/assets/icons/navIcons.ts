@@ -5,3 +5,4 @@ export const search = require('./search.svg');
 export const close = require('./close.svg');
 export const burger = require('./burger.svg')
 export const arrow = require('./arrow.svg')
+export const shoppingBag = require('./orders.svg')

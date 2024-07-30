@@ -1,6 +1,7 @@
 .search {
     width: 70%;
     margin: auto;
+    min-height: 85vh;
 }
 
 .search__headline {
@@ -10,9 +11,12 @@
 
 .search__container {
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+    /*display: flex;*/
+    /*flex-wrap: wrap;*/
+    /*justify-content: space-evenly;*/
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-items: center;
 }
 
 .search__item {
@@ -69,6 +73,7 @@
 
     .search__container {
         justify-content: space-evenly;
+        grid-template-columns: 1fr 1fr;
     }
 
     .search__item {
