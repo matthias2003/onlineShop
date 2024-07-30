@@ -3,6 +3,11 @@
     margin: auto;
 }
 
+.search__headline {
+    font-family: "Archivo Black", serif;
+    text-align: center;
+}
+
 .search__container {
     width: 100%;
     display: flex;

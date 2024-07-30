@@ -3,9 +3,20 @@ import { useEffect, useState } from "react";
 import { getDataByName } from "../../requests";
 import "./SearchView.css"
 
+interface SearchDataItem {
+    _id: string,
+    brand: string,
+    color: string,
+    gender: string,
+    price: string,
+    sold: string,
+    img: string
+    name: string
+}
+
 function SearchView() {
     const { name } = useParams();
-    const [ searchData, setSearchData ] = useState<Array<object>>([]);
+    const [ searchData, setSearchData ] = useState<SearchDataItem[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -26,12 +37,13 @@ function SearchView() {
 
     return (
         <div className="search">
+            <h4 className="search__headline">{`Results for "${name?.replaceAll("+"," ")}"`}</h4>
             <div className="search__container">
-                { searchData && searchData.length > 0 ?
+                {searchData && searchData.length > 0 ?
 
                     searchData.map((item) => {
                         return (
-                            <div className="search__item" key={item.id}>
+                            <div className="search__item" key={item._id}>
                                 <div className="search__image-wrap">
                                     <img className="search__image" src={item.img}/>
                                 </div>
@@ -40,14 +52,14 @@ function SearchView() {
                             </div>
                         )
                     })
-                :
-                    <div>There is nothing to display here</div> }
+                    :
+                    <div>There is nothing to display here</div>}
 
             </div>
         </div>
 
 
-)
+    )
 }
 
 export default SearchView;

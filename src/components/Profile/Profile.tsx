@@ -20,10 +20,17 @@ interface fetchedDataProps {
     profilePicture:string
 }
 
+const defaultUserInfo = {
+    name:"Admin",
+    surname:"Adminowski",
+    email:"admin@gmail.com",
+    profilePicture: avatar
+}
 
 function Profile() {
     const { auth } = useAuth();
-    const [ userInfo, setUserInfo ] = useState<fetchedDataProps | object>({});
+    const [ userInfo, setUserInfo ] = useState<fetchedDataProps>(defaultUserInfo);
+
     useEffect(()=> {
         const { id }:payloadProps = jwtDecode(auth.token);
         fetchUserInfo(id);
@@ -39,7 +46,7 @@ function Profile() {
             <div className="profile__dashboard-wrap">
                 <div className="profile__avatar">
                     <div className="avatar__image-wrap">
-                        <img className="profile__avatar-img" src={ userInfo ? avatar : userInfo.profilePicture } alt="Profile picture"/>
+                        <img className="profile__avatar-img" src={ userInfo.profilePicture } alt="Profile picture"/>
                     </div>
                     <p className="profile__name">
                         { userInfo.name + " " + userInfo.surname }

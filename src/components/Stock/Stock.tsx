@@ -3,9 +3,19 @@ import { getAggregatedData } from "../../requests";
 import { useEffect, useState} from "react";
 import "./Stock.css";
 
+interface SearchDataItem {
+    _id: string,
+    brand: string,
+    color: string,
+    gender: string,
+    price: string,
+    sold: string,
+    img: string
+    name: string
+}
 function Stock() {
     const urlParameter = useParams();
-    const [ stockData, setStockData ] = useState<Array<object>>([])
+    const [ stockData, setStockData ] = useState<SearchDataItem[]>([])
     useEffect(() => {
         fetchData();
     },[urlParameter])
@@ -23,7 +33,7 @@ function Stock() {
                 {
                     stockData.map((item) => {
                         return (
-                            <div className="collection__item" key={item.id}>
+                            <div className="collection__item" key={item._id}>
                                 <div className="collection__image-wrap">
                                     <img className="collection__image" src={item.img}/>
                                 </div>
