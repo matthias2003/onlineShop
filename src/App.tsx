@@ -13,6 +13,7 @@ import { AuthGate } from "./components/AuthGate/AuthGate";
 import Stock from "./components/Stock/Stock";
 import SearchView from "./components/SearchView/SearchView";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
+import DetailedView from "./components/DetailedView/DetailedView";
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                 <Route path="/favourites" element={ <Favourites/> }></Route>
                 <Route path="/stock/:gender" element={ <Stock/> }></Route>
                 <Route path="/search/:name" element={ <SearchView/> }></Route>
+                <Route path="/items/:name" element={ <DetailedView/> }></Route>
                 <Route path="/cart" element={ <ShoppingCart/> }></Route>
                 <Route element={ <AuthGate/> }>
                     <Route path="/profile" element={ <Profile/> }></Route>

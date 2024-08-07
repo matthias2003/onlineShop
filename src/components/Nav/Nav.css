@@ -297,6 +297,12 @@
     cursor: pointer;
 }
 
+@media screen and (max-width: 992px) {
+    .nav__search-input {
+        display: none;
+    }
+}
+
 @media screen and (max-width: 576px) {
     .nav__icons {
         width: auto;
@@ -311,10 +317,6 @@
     }
 
     .nav__menu {
-        display: none;
-    }
-
-    .nav__search-input {
         display: none;
     }
 
