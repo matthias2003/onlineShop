@@ -189,10 +189,6 @@
     opacity: .90;
 }
 
-@media screen and (max-width: 1200px)  {
-
-}
-
 @media screen and (max-width: 992px)  {
     .cart {
         /*min-height: 0;*/

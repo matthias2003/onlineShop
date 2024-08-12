@@ -1,10 +1,10 @@
-import jordan from "./air-jordan-4-retro-sb-pine-green-tnrs8GeNwpUbX2iP0eAUK8neMftEH9.png";
+import jordan from "../DetailedView/air-jordan-4-retro-sb-pine-green-tnrs8GeNwpUbX2iP0eAUK8neMftEH9.png";
 import nike from "./nike-air-force-1-white-umZRglKPI8DvMdHr6Kg0nf06DYqhOF-enlpilfy36fPM96ymznOLnOd1zei8e.png";
 import "./ShoppingCart.css"
 
 function ShoppingCart() {
     return(
-        <div className="cart">
+        <main className="cart">
             <h4 className="cart__headline-main">Shopping Cart</h4>
             <div className="cart__container">
                 <div className="cart__items">
@@ -89,7 +89,7 @@ function ShoppingCart() {
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     )
 }
 
