@@ -142,7 +142,6 @@
 
 .cart__promo-button {
     background-image: linear-gradient(#464d55, #25292e);
-    width: 20%;
     border-radius: 8px;
     border: none;
     box-shadow: 0 10px 20px rgba(0, 0, 0, .1),0 3px 6px rgba(0, 0, 0, .05);
@@ -172,11 +171,9 @@
 .cart__button-submit {
     padding: 10px;
     font-size: 20px;
-    width: 50%;
     color: white;
     background: rgb(116,159,116);
     background: linear-gradient(345deg, rgba(116,159,116,1) 0%, rgba(94,122,94,1) 35%, rgba(76,101,76,1) 68%, rgba(53,68,53,1) 100%);
-    /*background-color: #6D8F6D;*/
     border-radius: 10px;
     border: none;
     margin: 40px auto 0;
