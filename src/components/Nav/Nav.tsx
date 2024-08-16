@@ -9,6 +9,7 @@ import logo from "../../assets/logo/logo.svg";
 import { useAuth } from "../../hooks/useAuth"
 import Modal from "../Modal/Modal";
 import { useLogout } from "../../hooks/useLogout";
+import {useLocalStorage} from "usehooks-ts";
 
 function Nav() {
     const [ isActiveLoginPanel, setIsActiveLoginPanel ] = useState<boolean>(false)
@@ -17,8 +18,10 @@ function Nav() {
     const [ toggleButton, setToggleButton ] = useState<boolean>(false)
     const sideNavRef = useRef<HTMLDivElement | null>(null);
     const navigate = useNavigate();
+    const [ cart, setCart ] = useLocalStorage('cart',{})
     const logout = useLogout();
     const { auth } = useAuth();
+
 
     useEffect(() => {
         if (isActiveSideNav) {
@@ -27,8 +30,6 @@ function Nav() {
             enableBodyScroll(sideNavRef as unknown as Element | HTMLElement);
             setToggleButton(false);
         }
-
-
     },[isActiveSideNav]);
 
     const logoutHandler = async () => {
@@ -192,6 +193,7 @@ function Nav() {
                         <img className="nav__icon" src={icon.heart} alt="Favourites button"/>
                     </button>
                     <button className="nav__button" onClick={() => navigate("/cart")}>
+                        <div className="nav__cart--number">{Object.keys(cart).length > 0 ? Object.keys(cart).length : ""}</div>
                         <img className="nav__icon" src={icon.shoppingBag} alt="Shopping cart button"/>
                     </button>
                     <button className="nav__button" onClick={profileHandler}>

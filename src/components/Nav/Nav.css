@@ -249,12 +249,28 @@
     border: none;
     appearance: none;
     background: transparent;
+    position: relative;
 }
 
 .nav__button--search {
     z-index: 2;
     position: absolute;
     margin: 0 5px;
+}
+
+.nav__cart--number {
+    height:15px;
+    width: 15px;
+    border-radius: 50%;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #3c3c3c;
+    color: white;
 }
 
 .nav__dropdown {
