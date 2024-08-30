@@ -193,7 +193,9 @@ function Nav() {
                         <img className="nav__icon" src={icon.heart} alt="Favourites button"/>
                     </button>
                     <button className="nav__button" onClick={() => navigate("/cart")}>
-                        <div className="nav__cart--number">{Object.keys(cart).length > 0 ? Object.keys(cart).length : ""}</div>
+                        {Object.keys(cart).length > 0 &&
+                            <div className="nav__cart--number">{Object.keys(cart).length > 0 ? Object.keys(cart).length : ""}</div>
+                        }
                         <img className="nav__icon" src={icon.shoppingBag} alt="Shopping cart button"/>
                     </button>
                     <button className="nav__button" onClick={profileHandler}>

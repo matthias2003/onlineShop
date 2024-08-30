@@ -46,9 +46,11 @@ function DetailedView() {
 
     const addToCart = (itemData : SearchDataItem ) => {
         if ( selected !== 0 ) {
-            setCart((prevCart) => ({
+            setCart((prevCart) =>
+                ({
                 ...prevCart,
                 [`${itemData._id}_${selected}`]: {
+                    id: itemData._id,
                     name: itemData.name,
                     color: itemData.color,
                     price: itemData.price,
