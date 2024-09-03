@@ -16,6 +16,21 @@ interface SearchDataItem {
     name: string
 }
 
+interface CartData {
+    id:string
+    name: string,
+    color: string,
+    price: string,
+    img: string,
+    size: number,
+    quantity: number
+}
+
+interface Cart {
+    [key: string]: CartData;
+}
+
+
 function DetailedView() {
     const { name } = useParams();
     const [ itemData, setItemData ] = useState<SearchDataItem>({
@@ -24,7 +39,7 @@ function DetailedView() {
     const sizeArray = [ 36, 36.5, 37.5, 38, 38.5, 39, 40, 40.5, 41, 42, 42.5, 43, 44, 44.5, 45, 45.5, 46, 46.5, 47, 47.5 ]
     const [ toggleFaves, setToggleFaves ] = useState("");
     const [ selected, setSelected ] = useState<number>(0);
-    const [ cart, setCart ] = useLocalStorage('cart',{})
+    const [ cart, setCart ] = useLocalStorage<Cart>('cart',{})
 
     useEffect(() => {
         fetchData();
@@ -45,22 +60,39 @@ function DetailedView() {
     }
 
     const addToCart = (itemData : SearchDataItem ) => {
-        if ( selected !== 0 ) {
-            setCart((prevCart) =>
-                ({
-                ...prevCart,
-                [`${itemData._id}_${selected}`]: {
-                    id: itemData._id,
-                    name: itemData.name,
-                    color: itemData.color,
-                    price: itemData.price,
-                    img: itemData.img,
-                    size: selected,
-                    quantity: 1
-                },
-            }))
+        if (selected !== 0) {
+            setCart((prevCart) => {
+                const key = `${itemData._id}_${selected}`;
+                if (prevCart[key]) {
+                    if (prevCart[key].quantity < 10) {
+                        return {
+                            ...prevCart,
+                            [key]: {
+                                ...prevCart[key],
+                                quantity: prevCart[key].quantity + 1
+                            }
+                        };
+                    } else {
+                        return prevCart
+                    }
+                } else {
+                    return {
+                        ...prevCart,
+                        [key]: {
+                            id: itemData._id,
+                            name: itemData.name,
+                            color: itemData.color,
+                            price: itemData.price,
+                            img: itemData.img,
+                            size: selected,
+                            quantity: 1
+                        },
+                    };
+                }
+            });
         }
-    }
+    };
+
 
     return(
         <main className="detailed">

@@ -11,6 +11,21 @@ import Modal from "../Modal/Modal";
 import { useLogout } from "../../hooks/useLogout";
 import {useLocalStorage} from "usehooks-ts";
 
+interface CartData {
+    id:string
+    name: string,
+    color: string,
+    price: string,
+    img: string,
+    size: number,
+    quantity: number
+}
+
+interface Cart {
+    [key: string]: CartData;
+}
+
+
 function Nav() {
     const [ isActiveLoginPanel, setIsActiveLoginPanel ] = useState<boolean>(false)
     const [ searchValue , setSearchValue ] = useState<string>("");
@@ -18,7 +33,8 @@ function Nav() {
     const [ toggleButton, setToggleButton ] = useState<boolean>(false)
     const sideNavRef = useRef<HTMLDivElement | null>(null);
     const navigate = useNavigate();
-    const [ cart, setCart ] = useLocalStorage('cart',{})
+    const [ cartQuantity, setCartQuantity ] = useState<number>(0);
+    const [ cart, setCart ] = useLocalStorage<Cart>('cart',{})
     const logout = useLogout();
     const { auth } = useAuth();
 
@@ -31,6 +47,15 @@ function Nav() {
             setToggleButton(false);
         }
     },[isActiveSideNav]);
+
+    useEffect(() => {
+        let quantity = 0;
+        for ( const item in cart) {
+           quantity +=  Number(cart[item].quantity);
+        }
+        setCartQuantity(quantity);
+    }, [cart]);
+
 
     const logoutHandler = async () => {
         await logout();
@@ -78,13 +103,6 @@ function Nav() {
                         animate="shown"
                         exit="closed">
                         <motion.div>
-
-                            {/*<button className="aside-nav__close" onClick={() => {*/}
-                            {/*    setIsActiveSideNav(!isActiveSideNav)*/}
-                            {/*}}>*/}
-                            {/*    <img className="aside-nav__icon" src={icon.close} alt="Close"/>*/}
-                            {/*</button>*/}
-
                             <div className="aside-nav__logo-wrap">
                                 <Link to="/" onClick={() => { setIsActiveSideNav(!isActiveSideNav) }}>
                                     <img className="aside-nav__logo" src={logo} alt="Logo" />
@@ -194,7 +212,7 @@ function Nav() {
                     </button>
                     <button className="nav__button" onClick={() => navigate("/cart")}>
                         {Object.keys(cart).length > 0 &&
-                            <div className="nav__cart--number">{Object.keys(cart).length > 0 ? Object.keys(cart).length : ""}</div>
+                            <div className="nav__cart--number">{Object.keys(cart).length > 0 ? cartQuantity : ""}</div>
                         }
                         <img className="nav__icon" src={icon.shoppingBag} alt="Shopping cart button"/>
                     </button>

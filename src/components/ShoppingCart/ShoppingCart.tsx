@@ -1,10 +1,9 @@
 import "./ShoppingCart.css"
 import { useLocalStorage } from "usehooks-ts";
-import {SyntheticEvent, useEffect, useState} from "react";
+import { useEffect, useState} from "react";
 import close from "../../assets/icons/close.svg"
 
-
-interface cartData {
+interface CartData {
     id:string
     name: string,
     color: string,
@@ -14,8 +13,12 @@ interface cartData {
     quantity: number
 }
 
+interface Cart {
+    [key: string]: CartData;
+}
+
 function ShoppingCart() {
-    const [ cart, setCart ] = useLocalStorage('cart',{})
+    const [ cart, setCart ] = useLocalStorage<Cart>('cart',{})
     const [ cartPrice, setCartPrice ] = useState<number>(0)
     const [ cartItemsCounter, setCartItemsCounter ] = useState<number>()
     const cartItems = () => Object.values(cart || {})
@@ -26,12 +29,9 @@ function ShoppingCart() {
         setCart(cart)
     }
 
-    const changeQuantity = ( e:SyntheticEvent, id:string) => {
-        cart[id].quantity = e.target.value;
-        console.log(cart)
-        console.log(e.target.value)
-        console.log(id)
-        setCart(cart)
+    const changeQuantity = ( e:React.ChangeEvent<HTMLSelectElement>, id:string) => {
+        cart[id].quantity = Number(e.target.value);
+        setCart({...cart})
     }
 
     useEffect(() => {

@@ -51,3 +51,8 @@ export const getUserData = async ( id:string, token:string )=> {
     const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/user", { id }, {headers: {"Content-Type": 'application/json',Authorization: `Bearer ${token}`}});
     return data;
 }
+
+export const newsletterSingUp = async ( email:string )=> {
+    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/newsletter", { email }, {headers: {"Content-Type": 'application/json'}});
+    return data;
+}

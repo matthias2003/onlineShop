@@ -27,7 +27,10 @@
 .home__tile {
     font-family: "Roboto", sans-serif;
     width: 20%;
-    height: 50vh;
+}
+
+.home__tile:hover {
+    cursor: pointer;
 }
 
 .home__tile > p {

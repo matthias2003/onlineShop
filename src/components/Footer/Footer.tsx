@@ -2,8 +2,10 @@ import * as icon from "../../assets/icons/footerIcons";
 import { useState, useEffect, FormEvent } from "react";
 import FooterMobile from "../FooterMobile/FooterMobile";
 import "./Footer.css";
+import {newsletterSingUp} from "../../requests";
 function Footer() {
     const [ width, setWidth ] = useState<number>(window.innerWidth);
+    const [ newsletter, setNewsletter ] = useState("");
 
     useEffect( () => {
         const handleWindowResize = () => { setWidth(window.innerWidth) };
@@ -11,10 +13,14 @@ function Footer() {
         return () => window.removeEventListener("resize", handleWindowResize);
     }, [])
 
-    const newsletterSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const newsletterSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
-        //TODO: NEWSLETTER REQUEST TO BACKEND
+        if (newsletter) {
+            const res = await newsletterSingUp(newsletter);
+            console.log(res);
+        } else {
+            return;
+        }
     }
 
     return (
@@ -52,7 +58,7 @@ function Footer() {
                         <p>Turn daily notifications via e-mail to be up to date with our freshly added sneakers.</p>
                         <div className="footer__form">
                             <form onSubmit={newsletterSubmit}>
-                                <input placeholder="Enter your email"></input>
+                                <input value={newsletter} onChange={ (e) => { setNewsletter(e.target.value) }} placeholder="Enter your email"></input>
                                 <button><img className="footer__button-icon" src={icon.sign} alt="Sign into newsletter" /></button>
                             </form>
                         </div>
