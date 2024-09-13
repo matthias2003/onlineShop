@@ -45,7 +45,7 @@ function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
             opacity: 1,
             transition: {
                 duration:0.1,
-                type:"spring",
+                type:`spring`,
                 stiffness:500,
                 damping:25
             },

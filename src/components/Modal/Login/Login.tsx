@@ -24,7 +24,6 @@ function Login({ setIsActiveLoginPanel } :propTypes) {
     const { setAuth } = useAuth();
     const { setSwitchForm }  = useContext(FormContext);
 
-
     const loginSchema = z.object({
         email:z.string().email("Invalid email").min(5).max(30),
         password:z.string().min(5).max(30)
@@ -55,13 +54,23 @@ function Login({ setIsActiveLoginPanel } :propTypes) {
                 setAuth({token:loginData.accessToken})
             } else if (!loginData.status) {
                 setErrorInfo("Incorrect email or password");
-                //TODO: ADD RED INPUT STYLE HERE
+                emailRef.current?.classList.add("login-modal__input--invalid")
+                passwordRef.current?.classList.add("login-modal__input--invalid")
             }
         } catch (err) {
             setToggleLoader(false);
-            console.log(err) // TODO: add messages related to status codes returned from API
+            setErrorInfo("Incorrect email or password");
+            emailRef.current?.classList.add("login-modal__input--invalid")
+            passwordRef.current?.classList.add("login-modal__input--invalid")
         }
     }
+
+    const changeStyle = (event:any) => {
+        emailRef.current?.classList.remove("login-modal__input--invalid")
+        passwordRef.current?.classList.remove("login-modal__input--invalid")
+        setErrorInfo("")
+    };
+
 
     return(
         <div className="login-modal__wrap">
@@ -80,17 +89,19 @@ function Login({ setIsActiveLoginPanel } :propTypes) {
                 }
             }}>
                 <div className="login-modal__form-wrap">
-                    <input ref={emailRef} required className="login-modal__input" type="text" id="email" name="email"
+                    <input onChange={changeStyle} ref={emailRef} required className="login-modal__input" type="text"
+                           id="email" name="email"
                            placeholder="E-mail"/>
                     <label className="login-modal__label" htmlFor="email">E-mail</label>
                 </div>
                 <div className="login-modal__form-wrap">
-                    <input ref={passwordRef} required className="login-modal__input" type="password" id="password"
+                    <input onChange={changeStyle} ref={passwordRef} required className="login-modal__input"
+                           type="password" id="password"
                            name="password" placeholder="Password"/>
                     <label className="login-modal__label" htmlFor="password">Password</label>
                 </div>
-                <p className="login-modal_error-info">{errorInfo}</p>
                 <p>Forgot your password?</p>
+                <p className="login-modal_error-info">{errorInfo}</p>
 
                 <div className={toggleLoader ? "login-modal__loader" : "login-modal__loader-off"}>
                     <div className={!loadComplete ? "circle-loader" : "circle-loader load-complete"}>

@@ -82,6 +82,15 @@
     color: transparent;
 }
 
+.login-modal__input--invalid {
+    border: 1px solid #cc0000;
+}
+
+.login-modal__input--invalid + .login-modal__label {
+    color:red;
+}
+
+
 .login-modal__button {
     color: #fff;
     background: rgb(127,131,135);

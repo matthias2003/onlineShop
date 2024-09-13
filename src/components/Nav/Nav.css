@@ -8,20 +8,9 @@
     z-index: 2;
 }
 
-.aside-nav__close {
-    width: 20px;
-    height: 20px;
-    padding: 0;
+.aside-nav__content {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    outline: none;
-    border: none;
-    appearance: none;
-    background: transparent;
-    position: absolute;
-    left: 12px;
-    top:12px;
+    flex-direction: column;
 }
 
 .aside-nav__icon {
@@ -61,6 +50,10 @@
     color: black;
 }
 
+.nav__mobile-list li {
+    cursor: pointer;
+}
+
 .nav__mobile-content {
     display: flex;
     justify-content: space-between;
@@ -77,6 +70,10 @@
 .nav_mobile-arrow {
     width: 20px;
     height:auto;
+}
+
+.nav__search-wrap--mobile {
+    display: none;
 }
 
 .nav {
@@ -115,6 +112,10 @@
     background: transparent;
 }
 
+.nav__burger--shown {
+    display: flex;
+}
+
 .line {
     fill: none;
     stroke: black;
@@ -122,6 +123,7 @@
     transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
     stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .line1 {
     stroke-dasharray: 60 207;
     stroke-width: 6;
@@ -216,8 +218,22 @@
     cursor: pointer;
 }
 
-.nav__icon--search {
+.nav__search-container--side {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    flex-direction: column;
+    align-items: center;
+}
 
+.nav__close--wrap {
+    width: 97%;
+    height: 50px;
+    display: none;
+    align-items: center;
+    margin: auto;
+    position: absolute;
+    top: 0;
 }
 
 .nav__search-wrap {
@@ -235,6 +251,19 @@
     border: none;
     background-color: #f5f6f6;
     z-index: 1;
+}
+
+.nav__search-input--side {
+    width:80vw ;
+    padding: 10px 30px 10px 10px;;
+}
+
+.nav__search-dropdown {
+    width: 100%;
+    height: 50px;
+    background-color: white;
+    position: fixed;
+    left: 0;
 }
 
 .nav__button {
@@ -314,8 +343,25 @@
 }
 
 @media screen and (max-width: 992px) {
-    .nav__search-input {
+    .nav__search-wrap--mobile {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        position: relative;
+    }
+
+    .nav__search-wrap--hidden {
         display: none;
+    }
+}
+
+@media screen and (min-width: 577px) and (max-width: 992px) {
+    .nav__close--wrap {
+        display: flex;
+    }
+
+    .nav__side--close {
+        display: flex;
     }
 }
 
@@ -333,6 +379,10 @@
     }
 
     .nav__menu {
+        display: none;
+    }
+
+    .nav__button-profile {
         display: none;
     }
 
