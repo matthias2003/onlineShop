@@ -102,11 +102,30 @@ function Nav() {
         },
         shown: {
             x:"0",
+            transition: {
+                staggerChildren: 0.08,
+                type: "ease"
+            }
         },
         closed: {
             x:"-100vw",
         }
     };
+
+    const item = {
+        initial: {
+            x: "-100vw",
+        },
+        shown: {
+            x: "0vw",
+            transition: {
+                type: "ease"
+            }
+        },
+        closed: {
+            x:"-100vw",
+        }
+    }
 
     return (
     <>
@@ -122,18 +141,18 @@ function Nav() {
                         transition={{ type: "ease"}}
                         animate="shown"
                         exit="closed">
-                        <motion.div className="aside-nav__content">
-                            <div className="aside-nav__logo-wrap">
+                        <motion.div className="aside-nav__content" >
+                            <motion.div className="aside-nav__logo-wrap" variants={item}>
                                 <Link to="/" onClick={() => {
                                     setIsActiveSideNav(!isActiveSideNav)
                                 }}>
                                     <img className="aside-nav__logo" src={logo} alt="Logo"/>
                                 </Link>
-                            </div>
+                            </motion.div>
 
-                            <div className="aside-nav__underline"></div>
+                            <motion.div className="aside-nav__underline" variants={item}></motion.div>
 
-                            <div className="nav__mobile">
+                            <motion.div className="nav__mobile" variants={item}>
                                 <ul className="nav__mobile-list">
                                     <Link to="/stock/men" onClick={() => {
                                         setIsActiveSideNav(!isActiveSideNav)
@@ -166,9 +185,9 @@ function Nav() {
                                         </li>
                                     </Link>
                                 </ul>
-                            </div>
+                            </motion.div>
 
-                            <div className="nav__mobile">
+                            <motion.div className="nav__mobile" variants={item}>
                                 <ul className="nav__mobile-list">
                                     <Link to="/profile" onClick={() => {
                                         setIsActiveSideNav(!isActiveSideNav)
@@ -191,9 +210,9 @@ function Nav() {
                                         </li>
                                     </Link>
                                 </ul>
-                            </div>
+                            </motion.div>
 
-                            <div className="nav__mobile">
+                            <motion.div className="nav__mobile" variants={item}>
                                 <ul className="nav__mobile-list">
                                     {auth.token ?
                                         <li className="nav__mobile-item" onClick={() => {
@@ -216,7 +235,7 @@ function Nav() {
                                         </li>
                                     }
                                 </ul>
-                            </div>
+                            </motion.div>
                         </motion.div>
                     </motion.aside>
                 </Backdrop>
@@ -233,11 +252,10 @@ function Nav() {
                             variants={optionsSideNav}
                             ref={sideNavRef}
                             initial="initial"
-                            transition={{type: "ease"}}
                             animate="shown"
                             exit="closed">
                             <motion.div className="nav__search-container--side">
-                                <div className="nav__close--wrap">
+                                <motion.div className="nav__close--wrap"  variants={item}>
                                     <button className="nav__burger opened nav__side--close"
                                             ref={buttonRef}
                                             onClick={(e) => {
@@ -253,8 +271,8 @@ function Nav() {
                                                   d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942"/>
                                         </svg>
                                     </button>
-                                </div>
-                                <div className="nav__search-wrap">
+                                </motion.div>
+                                <motion.div className="nav__search-wrap" variants={item}>
                                     <input className="nav__search-input nav__search-input--side" type="text"
                                            value={searchValue}
                                            onChange={(event) => {
@@ -276,7 +294,7 @@ function Nav() {
                                         className="nav__icon nav__icon--search"
                                         src={icon.search} alt="Search"/>
                                     </button>
-                                </div>
+                                </motion.div>
                             </motion.div>
                         </motion.aside>
                     </Backdrop>

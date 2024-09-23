@@ -49,6 +49,11 @@ function ShoppingCart() {
     },[cart])
 
 
+    useEffect(() => {
+
+    },[])
+
+
     return(
         <main className="cart">
             <h4 className="cart__headline-main">Shopping Cart</h4>
