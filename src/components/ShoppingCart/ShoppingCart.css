@@ -226,7 +226,7 @@
 @media screen and (max-width: 768px) {
     .cart {
         min-height: 60vh;
-        width: 98%;
+            width: 98%;
     }
     .cart__container {
         flex-wrap: wrap;

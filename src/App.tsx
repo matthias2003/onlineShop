@@ -14,6 +14,7 @@ import Stock from "./components/Stock/Stock";
 import SearchView from "./components/SearchView/SearchView";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import DetailedView from "./components/DetailedView/DetailedView";
+import Settings from "./components/Settings/Settings";
 
 function App() {
     return (
@@ -29,6 +30,7 @@ function App() {
                 <Route path="/cart" element={ <ShoppingCart/> }></Route>
                 <Route element={ <AuthGate/> }>
                     <Route path="/profile" element={ <Profile/> }></Route>
+                    <Route path="profile/settings" element={ <Settings/> }></Route>
                 </Route>
                 </Route>
             </Routes>

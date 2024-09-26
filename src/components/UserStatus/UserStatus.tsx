@@ -28,10 +28,7 @@ const UserStatus = () => {
 
     return (
         <>
-            {/*{ !isLoading*/}
-                <Outlet />
-                {/*: <p>Loading...</p>*/}
-            {/*}*/}
+            <Outlet />
         </>
     )
 }
