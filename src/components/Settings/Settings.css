@@ -17,17 +17,19 @@
 .settings__address-wrap {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: center;
 }
 
 .settings__address {
     display: flex;
     flex-direction: column;
-    margin: 10px 0;
+    margin: 10px;
     padding: 30px 15px 5px 15px;
     border: 1px solid #0000001A;
     border-radius: 10px;
-    max-width: 400px;
+    /*max-width: 300px;*/
+    min-width: calc(350px - 52px);
+    max-width: calc(50% - 52px);
     flex-basis:100%;
 }
 
@@ -57,20 +59,23 @@
 .settings__payments-wrap {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: center;
 }
 
 .settings__payment {
     display: flex;
     flex-direction: column;
-    margin: 10px 0;
+    margin: 10px;
     justify-content: space-evenly;
     padding: 10px;
     border: 1px solid #0000001A;
     border-radius: 10px;
     align-items: flex-end;
     aspect-ratio: 1.8 / 1 ;
-    max-width: 400px;
+    /*max-width: 400px;*/
+    flex-basis: 100%;
+    min-width: calc(350px - 42px);
+    max-width: calc(50% - 42px);
 }
 
 .settings__payment-p {
@@ -83,7 +88,7 @@
     display: flex;
     flex-direction: column;
     margin: 10px 0;
-    padding: 30px 15px 5px 15px;
+    padding: 30px 15px 15px 15px;
     border: 1px solid #0000001A;
     border-radius: 10px;
 }
@@ -170,6 +175,38 @@
 
 .settings__file-hidden {
     display: none;
+}
+
+.settings__avatar-wrap {
+    display: flex;
+    align-items: flex-start;
+}
+
+.settings__avatar {
+    width: 140px;
+    height: 140px;
+    margin: 0;
+    border-radius: 8px;
+    border: 1px solid #616467;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+.settings__avatar-img {
+    width: 100%;
+    text-align: center;
+}
+
+@media screen and (max-width: 1040px)  {
+    .settings__container {
+        width: 80%;
+        min-height: 60vh;
+        margin: auto;
+    }
+
 }
 
 @media screen and (max-width: 992px)  {

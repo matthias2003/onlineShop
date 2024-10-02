@@ -30,6 +30,9 @@ interface Cart {
     [key: string]: CartData;
 }
 
+interface Faves {
+    [key: string]: SearchDataItem;
+}
 
 function DetailedView() {
     const { name } = useParams();
@@ -40,6 +43,7 @@ function DetailedView() {
     const [ toggleFaves, setToggleFaves ] = useState("");
     const [ selected, setSelected ] = useState<number>(0);
     const [ cart, setCart ] = useLocalStorage<Cart>('cart',{})
+    const [ faves, setFaves ] = useLocalStorage<Faves>('faves',{})
 
     useEffect(() => {
         fetchData();
@@ -47,9 +51,25 @@ function DetailedView() {
     }, []);
 
 
+
+    useEffect(() => {
+        console.log("Updated faves:", faves);
+    }, [faves]);
+
     const favesHandler = () => {
-        if(toggleFaves === "") setToggleFaves("filter-red ")
-        if(toggleFaves === "filter-red ") setToggleFaves("")
+        if(toggleFaves === "") {
+            setToggleFaves("filter-red ")
+            setFaves({
+                ...faves,
+                [itemData._id]: itemData
+            })
+        }
+        if(toggleFaves === "filter-red ")
+        { setToggleFaves("")
+            const key : string = itemData._id;
+            const { [itemData._id]: _, ...remainingFaves } = faves;
+            setFaves(remainingFaves);
+        }
     }
 
     const fetchData = async () => {

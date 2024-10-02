@@ -107,14 +107,17 @@ function Settings() {
                         <label className="settings__label" htmlFor="dateOfBirth">Date of birth</label>
                     </div>
 
-                    <div>
+                    <div className="settings__avatar-wrap">
+                        <figure className="settings__avatar">
+                            <img className="settings__avatar-img" src={imagePreview} alt="Avatar"/>
+                        </figure>
                         <label htmlFor="file-upload" className="settings__file-upload">
                             <img src={icons.upload} className="settings__icon-sm" alt="Upload profile image"/>
                             <p className="settings__file-p">Custom Upload</p>
                         </label>
-                        <input onChange={fileHanlder} className="settings__file-hidden" id="file-upload" type="file"/>
+                        <input onChange={fileHanlder} accept=".png,.jpg, .svg" className="settings__file-hidden"
+                               id="file-upload" type="file"/>
                     </div>
-                    <img src={imagePreview} />
                 </div>
             </section>
         </main>

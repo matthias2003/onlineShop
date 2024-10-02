@@ -32,7 +32,7 @@ function Stock() {
     }
 
     return(
-        <div className="collection">
+        <main className="collection">
             <h4 className="collection__headline">{`${urlParameter.gender?.charAt(0).toUpperCase()}${urlParameter.gender?.slice(1)}`}</h4>
             <div className="collection__container">
                 {
@@ -49,7 +49,7 @@ function Stock() {
                     })
                 }
             </div>
-        </div>
+        </main>
     )
 }
 
