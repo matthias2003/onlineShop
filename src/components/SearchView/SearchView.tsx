@@ -35,6 +35,10 @@ function SearchView() {
         console.log(searchData)
     }
 
+    const detailedViewHandler = ( id: string ) => {
+        navigate(`/items/${id}`)
+    }
+
     return (
         <div className="search">
             <h4 className="search__headline">{`Results for "${name?.replaceAll("+"," ")}"`}</h4>
@@ -43,7 +47,7 @@ function SearchView() {
 
                     searchData.map((item) => {
                         return (
-                            <div className="search__item" key={item._id}>
+                            <div onClick={() => {detailedViewHandler(item._id)}} className="search__item" key={item._id}>
                                 <div className="search__image-wrap">
                                     <img className="search__image" src={item.img}/>
                                 </div>

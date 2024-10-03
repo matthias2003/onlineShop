@@ -5,6 +5,7 @@
 .favourites {
     width: 70%;
     margin: auto;
+    min-height: 85vh;
 }
 
 .favourites__headline {
@@ -19,6 +20,10 @@
     place-items: center;
 }
 
+.favourites__container.empty {
+    grid-template-columns: 1fr;
+}
+
 .favourites__item {
     width: 20vw;
     height:20vw;
@@ -29,6 +34,7 @@
     cursor: pointer;
 }
 
+
 .favourites__desc {
     margin: 5px 0;
     text-align: center;
@@ -36,6 +42,7 @@
 }
 
 .favourites__image-wrap {
+    position: relative;
     width: 20vw;
     display: flex;
     justify-content: center;
@@ -50,6 +57,17 @@
     object-fit: contain;
 }
 
+.favourites__icon-heart {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    margin: 0;
+}
+
+.favourites__heart {
+    width: 25px;
+    height: 25px;
+}
 
 
 @media screen and (max-width: 768px)  {
@@ -116,6 +134,7 @@
         height: 25vw;
     }
 }
+
 
 @media screen and (max-width: 768px)  {
     .favourites {

@@ -25,6 +25,10 @@
     margin: 30px 0;
 }
 
+.search__item:hover {
+    cursor: pointer ;
+}
+
 .search__desc {
     margin: 5px 0;
     text-align: center;
