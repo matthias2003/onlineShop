@@ -2,6 +2,7 @@ import "./ShoppingCart.css"
 import { useLocalStorage } from "usehooks-ts";
 import { useEffect, useState} from "react";
 import close from "../../assets/icons/close.svg"
+import cartImage from "../../assets/images/cart.svg";
 
 interface CartData {
     id:string
@@ -42,7 +43,6 @@ function ShoppingCart() {
             semiPrice = Number(item.price.split(" ")[0].replace(",","."))
             semiPrice *= Number(item.quantity)
             price += semiPrice
-            // items += Number(item.quantity)
         })
         setCartPrice(price)
         setCartItemsCounter(items);
@@ -53,7 +53,7 @@ function ShoppingCart() {
             <h4 className="cart__headline-main">Shopping Cart</h4>
             <div className="cart__container">
                 <div className="cart__items">
-                    { cartItems().map( (item:any ) => {
+                    { cartItems().length > 0 ? cartItems().map( (item:any ) => {
                         return (
                             <div className="cart__item" key={item.id + item.size}>
                                 <button onClick={() => {removeItem(item.id, item.size)}} className="cart__remove-button">
@@ -85,7 +85,14 @@ function ShoppingCart() {
                                 </div>
                             </div>
                         )
-                    })}
+                    }) :
+                        <div>
+                            <h4 className="cart__headline">Your cart is empty!</h4>
+                            <figure className="cart__empty-wrap">
+                                <img src={cartImage} alt="Cart"/>
+                            </figure>
+                        </div>
+                    }
 
                 </div>
                 <div className="cart__summary">

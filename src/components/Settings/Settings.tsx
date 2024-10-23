@@ -1,21 +1,60 @@
-
 import "./Settings.css";
 import * as icons from "../../assets/icons/settingsIcons"
-import {useState} from "react";
+import React, { useState } from "react";
+import { useUserData } from "../../hooks/useUserData";
+import axios from "axios";
+import {useAuth} from "../../hooks/useAuth";
 
 function Settings() {
-    const [ imagePreview, setImagePreview ] = useState<string>("");
+    const { userData, setUserData } = useUserData();
+    const [ imagePreview, setImagePreview ] = useState<string>(userData.profilePicture);
+    const { auth } = useAuth();
+    const [ isDisabled, setIsDisabled ] = useState(true);
+    const [ image, setImage ] = useState({
+        preview: '',
+        raw: '',
+    });
 
-    const fileHanlder = (e) => {
-        const file = e.target.files[0];
+    const [ userDetails, setUserDetails ] = useState({
+        email: "admin@gmail.com",
+        password: "Admin123!@#",
+        confirmPassword: "Admin123!@#",
+        name:"Admin",
+        surname:"Adminowski"
+    });
+
+    const updateUserDetails = (event:React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        setUserDetails({ ...userDetails, [name]: value });
+    };
+
+    const fileHandler = async (e:React.ChangeEvent<HTMLInputElement>) => {
+        const file : File | undefined= e.target?.files?.[0];
         if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImagePreview(reader.result);
-            };
+            const previewUrl = URL.createObjectURL(file);
+            setImage({
+                preview: previewUrl,
+                raw: file,
+            });
+            setImagePreview(previewUrl);
+        }
+    }
 
-            reader.readAsDataURL(file);
-            console.log(imagePreview)
+    const editPersonalData = async () => {
+        setIsDisabled(false);
+    }
+
+    const updatePersonalData = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('image', image.raw);
+        formData.append('email',userData.email);
+        try {
+
+            const res =  await axios.post("http://127.0.0.1:3001/user/update", formData ,{
+                headers: { 'Content-Type': 'multipart/form-data' }})
+        } catch (err) {
+            console.error('Error uploading image:', err);
         }
     }
 
@@ -77,46 +116,61 @@ function Settings() {
             <section className="settings__details">
                 <div className="settings__details-wrap">
                     <div className="settings__input-wrap">
-                        <input className="settings__input" type="text"
-                               id="email" name="email" value="admin@gmail.com"
-                               placeholder="E-mail"/>
+                        <input className="settings__input" type="text" onChange={updateUserDetails}
+                               id="email" name="email" value={userDetails.email}
+                               placeholder="E-mail" disabled={isDisabled}/>
                         <label className="settings__label" htmlFor="email">E-mail</label>
                     </div>
                     <div className="settings__input-wrap">
-                        <input className="settings__input" type="password"
-                               id="password" name="password" value="**************"
-                               placeholder="Password"/>
+                        <input className="settings__input" type="password" onChange={updateUserDetails}
+                               id="password" name="password" value={userDetails.password}
+                               placeholder="Password" disabled={isDisabled}/>
                         <label className="settings__label" htmlFor="password">Password</label>
                     </div>
                     <div className="settings__input-wrap">
-                        <input className="settings__input" type="text"
-                               id="name" name="name" value="Admin"
-                               placeholder="Name"/>
+                        <input className="settings__input" type="password" onChange={updateUserDetails}
+                               id="confirmPassword" name="password" value={userDetails.password}
+                               placeholder="Password" disabled={isDisabled}/>
+                        <label className="settings__label" htmlFor="password">Confirm Password</label>
+                    </div>
+                    <div className="settings__input-wrap">
+                        <input className="settings__input" type="text" onChange={updateUserDetails}
+                               id="name" name="name" value={userDetails.name}
+                               placeholder="Name" disabled={isDisabled}/>
                         <label className="settings__label" htmlFor="name">Name</label>
                     </div>
                     <div className="settings__input-wrap">
-                        <input className="settings__input" type="text"
-                               id="surname" name="surname" value="Adminowski"
-                               placeholder="Surname"/>
+                        <input className="settings__input" type="text" onChange={updateUserDetails}
+                               id="surname" name="surname" value={userDetails.surname}
+                               placeholder="Surname" disabled={isDisabled}/>
                         <label className="settings__label" htmlFor="surname">Surname</label>
                     </div>
                     <div className="settings__input-wrap">
                         <input className="settings__input" type="date"
                                name="dateOfBirth" id="dateOfBirth" value="2002-01-12"
-                               placeholder="Date of birth"/>
+                               placeholder="Date of birth" disabled/>
                         <label className="settings__label" htmlFor="dateOfBirth">Date of birth</label>
                     </div>
-
-                    <div className="settings__avatar-wrap">
-                        <figure className="settings__avatar">
-                            <img className="settings__avatar-img" src={imagePreview} alt="Avatar"/>
-                        </figure>
-                        <label htmlFor="file-upload" className="settings__file-upload">
-                            <img src={icons.upload} className="settings__icon-sm" alt="Upload profile image"/>
-                            <p className="settings__file-p">Custom Upload</p>
-                        </label>
-                        <input onChange={fileHanlder} accept=".png,.jpg, .svg" className="settings__file-hidden"
-                               id="file-upload" type="file"/>
+                    <div className="setting__last-row">
+                        <div className="settings__avatar-wrap">
+                            <figure className="settings__avatar">
+                                <img className="settings__avatar-img" src={imagePreview} alt="Avatar"/>
+                            </figure>
+                            <label htmlFor="file-upload" className="settings__file-upload">
+                                <img src={icons.upload} className="settings__icon-sm" alt="Upload profile"/>
+                                <p className="settings__file-p">Upload</p>
+                            </label>
+                            <input onChange={fileHandler} accept=".png,.jpg, .svg" className="settings__file-hidden"
+                                   id="file-upload" type="file"/>
+                        </div>
+                        <div className="settings__submit-wrap">
+                            <div className="settings__button--wrap">
+                                <button className="setting__submit" onClick={editPersonalData}>Edit</button>
+                            </div>
+                            <div className="settings__button--wrap">
+                                <button className="setting__submit" onClick={updatePersonalData}>Save</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

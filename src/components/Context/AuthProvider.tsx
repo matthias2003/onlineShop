@@ -6,6 +6,7 @@ interface AuthContextInterface {
 }
 
 export const AuthContext = createContext<AuthContextInterface>({ auth: {}, setAuth: () => {}})
+
 export const AuthProvider = ({ children }:any) => {
     const [ auth, setAuth ] = useState({})
     return(

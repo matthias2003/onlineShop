@@ -1,0 +1,37 @@
+.orders__container {
+    width: 70%;
+    margin: auto;
+    min-height: 85vh;
+    font-family: Roboto, sans-serif;
+}
+
+.orders__headline {
+    text-align: center;
+    font-family: Archivo Black, sans-serif;
+}
+
+@media screen and (max-width: 1040px)  {
+    .orders__container {
+        width: 80%;
+        min-height: 60vh;
+        margin: auto;
+    }
+
+}
+
+@media screen and (max-width: 992px)  {
+    .orders__container {
+        width: 95%;
+        min-height: 60vh;
+        margin: auto;
+    }
+
+}
+
+@media screen and (width <= 768px) {
+    .orders__container {
+        width: 98%;
+        min-height: 60vh;
+        margin: auto;
+    }
+}

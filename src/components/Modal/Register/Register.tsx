@@ -79,12 +79,11 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
 
         try {
             await registerSchema.validate( formData,{abortEarly: false});
-            await registerUser(formData);
+                await registerUser(formData);
             setLoadComplete(true);
             setTimeout( () => { setSwitchForm(false)},1000)
         } catch (err:any) {
             setToggleLoader(false);
-            console.log(err.inner)
 
             err.inner.forEach((item:any) => {
                 if (item.path in registerRefs) {

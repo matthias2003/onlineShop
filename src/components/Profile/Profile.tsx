@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { getUserData } from "../../requests";
 import { useEffect, useState } from "react";
-import avatar from "../../assets/avatars/avatar.svg";
+import { useUserData } from "../../hooks/useUserData";
 
 interface payloadProps {
     id:string,
@@ -20,25 +20,19 @@ interface fetchedDataProps {
     profilePicture:string
 }
 
-const defaultUserInfo = {
-    name:"Admin",
-    surname:"Adminowski",
-    email:"admin@gmail.com",
-    profilePicture: avatar
-}
 
 function Profile() {
     const { auth } = useAuth();
-    const [ userInfo, setUserInfo ] = useState<fetchedDataProps>(defaultUserInfo);
+    const { userData, setUserData } = useUserData();
 
     useEffect(()=> {
         const { id }:payloadProps = jwtDecode(auth.token);
-        fetchUserInfo(id);
+        fetchUserInfo(id)
     },[])
 
     const fetchUserInfo = async (id:string) => {
         const data = await getUserData(id, auth.token);
-        setUserInfo(data);
+        setUserData(data);
     }
 
     return(
@@ -46,19 +40,19 @@ function Profile() {
             <div className="profile__dashboard-wrap">
                 <div className="profile__avatar">
                     <div className="avatar__image-wrap">
-                        <img className="profile__avatar-img" src={ userInfo.profilePicture } alt="Profile picture"/>
+                        <img className="profile__avatar-img" src={ userData.profilePicture } alt="Profile picture"/>
                     </div>
                     <p className="profile__name">
-                        { userInfo.name + " " + userInfo.surname }
+                        { userData.name + " " + userData.surname }
                     </p>
                 </div>
                 <div className="profile__action-box">
-                    <h2 className="profile__headline margin-bottom">Hi, { userInfo.name }!</h2>
-                    <p className="profile__with-us">With us since 2018!</p> {/*   TODO: data from database */}
+                    <h2 className="profile__headline margin-bottom">Hi, { userData.name }!</h2>
+                    <p className="profile__with-us">With us since 2018!</p>
                     <div className="profile__menu-wrap">
                         <div className="profile__menu-item">
                             <img className="profile__menu-img" src={icon.location} alt="Saved addresses"/>
-                            <Link to="/profile/addresses" className="profile__menu-link"><p>Saved addresses</p></Link>
+                            <Link to="/profile/settings" className="profile__menu-link"><p>Saved addresses</p></Link>
                         </div>
                         <div className="profile__menu-item">
                             <img className="profile__menu-img"  src={icon.orders} alt="Orders"/>
@@ -70,7 +64,7 @@ function Profile() {
                         </div>
                         <div className="profile__menu-item">
                             <img className="profile__menu-img" src={icon.payment} alt="Payment methods"/>
-                            <Link to="/profile/payments" className="profile__menu-link"><p>Saved payment methods</p></Link>
+                            <Link to="/profile/settings" className="profile__menu-link"><p>Saved payment methods</p></Link>
                         </div>
                         <div className="profile__menu-item">
                             <img className="profile__menu-img"  src={icon.settings} alt="Settings"/>

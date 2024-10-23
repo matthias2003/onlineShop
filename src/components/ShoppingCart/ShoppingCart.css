@@ -10,6 +10,11 @@
     text-align: center;
 }
 
+.cart__headline {
+    font-family: "Archivo Black",sans-serif;
+    text-align: center;
+}
+
 .cart__container {
     display: flex;
     justify-content: space-between;
@@ -207,9 +212,13 @@
     opacity: .90;
 }
 
+.cart__empty-wrap {
+    margin: 100px auto 0;
+    width: 200px;
+}
+
 @media screen and (max-width: 992px)  {
     .cart {
-        /*min-height: 0;*/
         width: 95%;
     }
 
@@ -218,7 +227,6 @@
     }
 
     .cart__item-preview {
-        /*width: 100%;*/
         height: 100%;
     }
 }

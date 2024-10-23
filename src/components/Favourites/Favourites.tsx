@@ -1,5 +1,5 @@
 import "./Favourites.css"
-import heart from "../../assets/images/broken-heart.png";
+import heart from "../../assets/images/broken-heart.svg";
 import { useAuth } from "../../hooks/useAuth";
 import { useLocalStorage } from "usehooks-ts";
 import { useNavigate} from "react-router-dom";
@@ -34,7 +34,7 @@ function Favourites() {
     const favesHandler = (e:React.MouseEvent<HTMLElement, MouseEvent>, id: string) => {
         e.stopPropagation();
         if(toggleFaves === "filter-red") {
-            //etToggleFaves("")
+            //setToggleFaves("")
             const { [id]: _, ...remainingFaves } = faves;
             setFaves(remainingFaves);
         }
@@ -43,7 +43,7 @@ function Favourites() {
     return (
         <main className="favourites">
             <h4 className="collection__headline">Favourites</h4>
-            {auth.token && Object.entries(faves).length > 0 ?
+            { auth.token && Object.entries(faves).length > 0 ?
                 <div className="favourites__container">
                     {Object.entries(faves).map((item) =>
                         (
@@ -74,7 +74,7 @@ function Favourites() {
                 :
                 <div className="favourites__container empty">
                         <img className="favourites__image-empty" src={heart} alt="Broken heart"/>
-                        <h2 className="favourites__headline">Nothing to display here!</h2>
+                        <h2 className="favourites__headline">{auth.token ? "Nothing to display here!": "You have to login first!"}</h2>
                 </div>
             }
         </main>
