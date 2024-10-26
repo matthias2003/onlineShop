@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useUserData } from "../../hooks/useUserData";
 import axios from "axios";
 import {useAuth} from "../../hooks/useAuth";
+import {updateUser} from "../../requests";
 
 function Settings() {
     const { userData, setUserData } = useUserData();
@@ -50,9 +51,7 @@ function Settings() {
         formData.append('image', image.raw);
         formData.append('email',userData.email);
         try {
-
-            const res =  await axios.post("http://127.0.0.1:3001/user/update", formData ,{
-                headers: { 'Content-Type': 'multipart/form-data' }})
+            await updateUser(formData);
         } catch (err) {
             console.error('Error uploading image:', err);
         }

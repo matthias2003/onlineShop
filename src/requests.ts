@@ -56,3 +56,8 @@ export const newsletterSingUp = async ( email:string )=> {
     const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/newsletter", { email }, {headers: {"Content-Type": 'application/json'}});
     return data;
 }
+
+export const updateUser = async (formData : FormData) => {
+   const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/user/update", formData ,{headers: { 'Content-Type': 'multipart/form-data' }})
+    return data;
+}
