@@ -20,20 +20,19 @@ interface fetchedDataProps {
     profilePicture:string
 }
 
-
 function Profile() {
     const { auth } = useAuth();
     const { userData, setUserData } = useUserData();
 
-    useEffect(()=> {
-        const { id }:payloadProps = jwtDecode(auth.token);
-        fetchUserInfo(id)
-    },[])
-
-    const fetchUserInfo = async (id:string) => {
-        const data = await getUserData(id, auth.token);
-        setUserData(data);
-    }
+    // useEffect(()=> {
+    //     const { id }:payloadProps = jwtDecode(auth.token);
+    //     fetchUserInfo(id)
+    // },[])
+    //
+    // const fetchUserInfo = async (id:string) => {
+    //     const data = await getUserData(id, auth.token);
+    //     setUserData(data);
+    // }
 
     return(
         <main className="profile">

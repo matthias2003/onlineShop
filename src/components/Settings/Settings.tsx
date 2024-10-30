@@ -1,14 +1,22 @@
 import "./Settings.css";
 import * as icons from "../../assets/icons/settingsIcons"
-import React, { useState } from "react";
+import React, {SyntheticEvent, useContext, useEffect, useRef, useState} from "react";
 import { useUserData } from "../../hooks/useUserData";
 import axios from "axios";
 import {useAuth} from "../../hooks/useAuth";
-import {updateUser} from "../../requests";
+import {registerUser, updateUser} from "../../requests";
+import {FormContext} from "../Modal/Modal";
+import * as yup from "yup";
 
 function Settings() {
+    const [ formError , setFormError ] = useState<string>("")
+    const nameRef = useRef<HTMLInputElement | null>(null);
+    const surnameRef = useRef<HTMLInputElement | null>(null);
+    const emailRef = useRef<HTMLInputElement | null>(null);
+    const passwordRef = useRef<HTMLInputElement | null>(null);
+    const repPasswordRef = useRef<HTMLInputElement | null>(null);
     const { userData, setUserData } = useUserData();
-    const [ imagePreview, setImagePreview ] = useState<string>(userData.profilePicture);
+    const [ imagePreview, setImagePreview ] = useState<string>();
     const { auth } = useAuth();
     const [ isDisabled, setIsDisabled ] = useState(true);
     const [ image, setImage ] = useState({
@@ -16,13 +24,39 @@ function Settings() {
         raw: '',
     });
 
-    const [ userDetails, setUserDetails ] = useState({
-        email: "admin@gmail.com",
-        password: "Admin123!@#",
-        confirmPassword: "Admin123!@#",
-        name:"Admin",
-        surname:"Adminowski"
-    });
+    useEffect(() => {
+        setUserDetails(userData);
+        setImagePreview(userData.profilePicture);
+    }, [userData]);
+
+    const updateRefs= {
+        name:nameRef,
+        surname:surnameRef,
+        email:emailRef,
+        password:passwordRef,
+        confirmPassword:repPasswordRef,
+    }
+
+    const [ userDetails, setUserDetails ] = useState({});
+
+    console.log(userDetails)
+
+    const changeStyle = (event:any) => {
+        updateRefs[event.target.name].current.classList.remove("settings__input--invalid")
+    };
+
+    const passwordReg = new RegExp(/^(?=.*[0-9])(?=.*[- ?!@#$%^&*\/\\])(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9- ?!@#$%^&*\/\\]{8,30}$/)
+    const emailReg = new RegExp(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/);
+
+    const editSchema = yup.object({
+        name: yup.string().min(1).max(20).required("Name is required"),
+        surname:yup.string().min(1).max(20).required("Surname is required"),
+        email: yup.string().email().min(5).max(30).matches(emailReg, "Invalid email"),
+        password:yup.string().min(8).max(30).matches(passwordReg,"Invalid password"),
+        confirmPassword:yup.string().min(8).max(30).test('password-should-match', "Passwords doesn't match", function(value){
+            return this.parent.password === value
+        })
+    })
 
     const updateUserDetails = (event:React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -48,12 +82,23 @@ function Settings() {
     const updatePersonalData = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append('image', image.raw);
-        formData.append('email',userData.email);
         try {
+            await editSchema.validate(userDetails,{ abortEarly: false });
+            if (image.raw) {
+                formData.append('image', image.raw);
+            }
+            formData.append('email',userData.email);
+            formData.append('userData', JSON.stringify(userDetails))
             await updateUser(formData);
-        } catch (err) {
-            console.error('Error uploading image:', err);
+            setIsDisabled(true);
+            /// TODO: UPDATE CONTEXT WITH FRESH UPDATED DATA
+        } catch (err:any) {
+            console.log(err)
+            err.inner.forEach((item:any) => {
+                if (item.path in updateRefs) {
+                    updateRefs[item.path].current.classList.add("settings__input--invalid")
+                }
+            })
         }
     }
 
@@ -115,32 +160,47 @@ function Settings() {
             <section className="settings__details">
                 <div className="settings__details-wrap">
                     <div className="settings__input-wrap">
-                        <input className="settings__input" type="text" onChange={updateUserDetails}
-                               id="email" name="email" value={userDetails.email}
+                        <input ref={emailRef} className="settings__input" type="text" onChange={(e) => {
+                            updateUserDetails(e)
+                            changeStyle(e)
+                        }}
+                               id="email" name="email" value={userDetails.email || ""}
                                placeholder="E-mail" disabled={isDisabled}/>
                         <label className="settings__label" htmlFor="email">E-mail</label>
                     </div>
                     <div className="settings__input-wrap">
-                        <input className="settings__input" type="password" onChange={updateUserDetails}
-                               id="password" name="password" value={userDetails.password}
-                               placeholder="Password" disabled={isDisabled}/>
+                        <input ref={passwordRef} className="settings__input" type="password" onChange={(e) => {
+                            updateUserDetails(e)
+                            changeStyle(e)
+                        }}
+                               id="password" name="password" value="placeholder"
+                               placeholder="Password" disabled/>
                         <label className="settings__label" htmlFor="password">Password</label>
                     </div>
                     <div className="settings__input-wrap">
-                        <input className="settings__input" type="password" onChange={updateUserDetails}
-                               id="confirmPassword" name="password" value={userDetails.password}
-                               placeholder="Password" disabled={isDisabled}/>
+                        <input ref={repPasswordRef} className="settings__input" type="password" onChange={(e) => {
+                            updateUserDetails(e)
+                            changeStyle(e)
+                        }}
+                               id="confirmPassword" name="confirmPassword" value="placeholder"
+                               placeholder="Password" disabled/>
                         <label className="settings__label" htmlFor="password">Confirm Password</label>
                     </div>
                     <div className="settings__input-wrap">
-                        <input className="settings__input" type="text" onChange={updateUserDetails}
-                               id="name" name="name" value={userDetails.name}
+                        <input ref={nameRef} className="settings__input" type="text" onChange={(e) => {
+                            updateUserDetails(e)
+                            changeStyle(e)
+                        }}
+                               id="name" name="name" value={userDetails.name || ""}
                                placeholder="Name" disabled={isDisabled}/>
                         <label className="settings__label" htmlFor="name">Name</label>
                     </div>
                     <div className="settings__input-wrap">
-                        <input className="settings__input" type="text" onChange={updateUserDetails}
-                               id="surname" name="surname" value={userDetails.surname}
+                        <input ref={surnameRef} className="settings__input" type="text" onChange={(e) => {
+                            updateUserDetails(e)
+                            changeStyle(e)
+                        }}
+                               id="surname" name="surname" value={userDetails.surname || ""}
                                placeholder="Surname" disabled={isDisabled}/>
                         <label className="settings__label" htmlFor="surname">Surname</label>
                     </div>

@@ -16,6 +16,7 @@ const UserStatus = () => {
                 await refresh();
             }
             catch (err) {
+                console.log(err)
             }
             finally {
                 isMounted && setIsLoading(false);

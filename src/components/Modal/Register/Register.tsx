@@ -42,7 +42,6 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
     }
 
     const changeStyle = (event:any) => {
-        // registerRefs[event.target.name].current.style.border = "";
         registerRefs[event.target.name].current.classList.remove("register-modal__input--invalid")
     };
 

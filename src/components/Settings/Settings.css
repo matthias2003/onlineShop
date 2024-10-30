@@ -231,6 +231,13 @@
     grid-template-columns: 1fr 1fr;
 }
 
+.settings__input--invalid {
+    border: 1px solid #cc0000;
+}
+
+.settings__input--invalid  + .settings__label {
+    color:red;
+}
 @media screen and (max-width: 1040px)  {
     .settings__container {
         width: 80%;
