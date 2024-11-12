@@ -1,15 +1,22 @@
 import "./Settings.css";
 import * as icons from "../../assets/icons/settingsIcons"
-import React, {SyntheticEvent, useContext, useEffect, useRef, useState} from "react";
+import React, { MutableRefObject, useEffect, useRef, useState} from "react";
 import { useUserData } from "../../hooks/useUserData";
-import axios from "axios";
-import {useAuth} from "../../hooks/useAuth";
-import {registerUser, updateUser} from "../../requests";
-import {FormContext} from "../Modal/Modal";
+import { updateUser } from "../../requests";
 import * as yup from "yup";
 
+interface IUpdateRefs {
+    [key: string]: MutableRefObject<HTMLInputElement | null>;
+}
+
+interface IUserDetails {
+    email: string,
+    name: string,
+    profilePicture: string,
+    surname: string
+}
+
 function Settings() {
-    const [ formError , setFormError ] = useState<string>("")
     const nameRef = useRef<HTMLInputElement | null>(null);
     const surnameRef = useRef<HTMLInputElement | null>(null);
     const emailRef = useRef<HTMLInputElement | null>(null);
@@ -17,9 +24,17 @@ function Settings() {
     const repPasswordRef = useRef<HTMLInputElement | null>(null);
     const { userData, setUserData } = useUserData();
     const [ imagePreview, setImagePreview ] = useState<string>();
-    const { auth } = useAuth();
     const [ isDisabled, setIsDisabled ] = useState(true);
-    const [ image, setImage ] = useState({
+    const [ userDetails, setUserDetails ] = useState<IUserDetails>({
+        email: "",
+        name: "",
+        profilePicture: "",
+        surname: ""
+    });
+    const [image, setImage] = useState<{
+        preview: string;
+        raw: File | string;
+    }>({
         preview: '',
         raw: '',
     });
@@ -29,7 +44,7 @@ function Settings() {
         setImagePreview(userData.profilePicture);
     }, [userData]);
 
-    const updateRefs= {
+    const updateRefs: IUpdateRefs = {
         name:nameRef,
         surname:surnameRef,
         email:emailRef,
@@ -37,12 +52,11 @@ function Settings() {
         confirmPassword:repPasswordRef,
     }
 
-    const [ userDetails, setUserDetails ] = useState({});
-
-    console.log(userDetails)
-
-    const changeStyle = (event:any) => {
-        updateRefs[event.target.name].current.classList.remove("settings__input--invalid")
+    const changeStyle = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const ref = updateRefs[event.target.name];
+        if (ref?.current) {
+            ref?.current.classList.remove("settings__input--invalid")
+        }
     };
 
     const passwordReg = new RegExp(/^(?=.*[0-9])(?=.*[- ?!@#$%^&*\/\\])(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9- ?!@#$%^&*\/\\]{8,30}$/)
@@ -79,7 +93,7 @@ function Settings() {
         setIsDisabled(false);
     }
 
-    const updatePersonalData = async (e) => {
+    const updatePersonalData = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
         const formData = new FormData();
         try {
@@ -91,12 +105,13 @@ function Settings() {
             formData.append('userData', JSON.stringify(userDetails))
             await updateUser(formData);
             setIsDisabled(true);
-            /// TODO: UPDATE CONTEXT WITH FRESH UPDATED DATA
+            setUserData(userDetails);
         } catch (err:any) {
             console.log(err)
             err.inner.forEach((item:any) => {
                 if (item.path in updateRefs) {
-                    updateRefs[item.path].current.classList.add("settings__input--invalid")
+                    const ref = updateRefs[item.path].current;
+                    ref?.classList.add("settings__input--invalid")
                 }
             })
         }

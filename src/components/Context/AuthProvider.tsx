@@ -1,14 +1,18 @@
 import { createContext, Dispatch, SetStateAction, useState } from "react";
 
-interface AuthContextInterface {
-    auth: any
-    setAuth: Dispatch<SetStateAction<any>> //TODO: FIX INTERFACE
+interface AuthState {
+    token: string;
 }
 
-export const AuthContext = createContext<AuthContextInterface>({ auth: {}, setAuth: () => {}})
+interface AuthContextInterface {
+    auth: AuthState;
+    setAuth: Dispatch<SetStateAction<AuthState>>;
+}
+
+export const AuthContext = createContext<AuthContextInterface>({ auth: {token:""}, setAuth: () => {}})
 
 export const AuthProvider = ({ children }:any) => {
-    const [ auth, setAuth ] = useState({})
+    const [ auth, setAuth ] = useState<AuthState>({token:""})
     return(
         <AuthContext.Provider value={{ auth, setAuth }} >
             {children}

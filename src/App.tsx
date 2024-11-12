@@ -15,30 +15,35 @@ import DetailedView from "./components/DetailedView/DetailedView";
 import Settings from "./components/Settings/Settings";
 import UserData from "./components/UserData/UserData";
 import Orders from "./components/Orders/Orders";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 function App() {
     return (
-        <BrowserRouter>
-            <Nav />
-            <Routes>
-                <Route element={ <UserStatus /> }>
-                <Route path="/" element={ <HomePage/> }></Route>
-                <Route path="/favourites" element={ <Favourites/> }></Route>
-                <Route path="/stock/:gender" element={ <Stock/> }></Route>
-                <Route path="/search/:name" element={ <SearchView/> }></Route>
-                <Route path="/items/:name" element={ <DetailedView/> }></Route>
-                <Route path="/cart" element={ <ShoppingCart/> }></Route>
-                <Route element={ <AuthGate/> }>
-                    <Route element={ <UserData />} >
-                        <Route path="/profile" element={ <Profile/> }></Route>
-                        <Route path="profile/settings" element={ <Settings /> }></Route>
-                        <Route path="profile/orders" element={ <Orders /> }></Route>
+        <QueryClientProvider client={queryClient}>
+            <BrowserRouter>
+                <Nav />
+                <Routes>
+                    <Route element={ <UserStatus /> }>
+                    <Route path="/" element={ <HomePage/> }></Route>
+                    <Route path="/favourites" element={ <Favourites/> }></Route>
+                    <Route path="/stock/:gender" element={ <Stock/> }></Route>
+                    <Route path="/search/:name" element={ <SearchView/> }></Route>
+                    <Route path="/items/:name" element={ <DetailedView/> }></Route>
+                    <Route path="/cart" element={ <ShoppingCart/> }></Route>
+                    <Route element={ <AuthGate/> }>
+                        <Route element={ <UserData />} >
+                            <Route path="/profile" element={ <Profile/> }></Route>
+                            <Route path="profile/settings" element={ <Settings /> }></Route>
+                            <Route path="profile/orders" element={ <Orders /> }></Route>
+                        </Route>
                     </Route>
-                </Route>
-                </Route>
-            </Routes>
-            <Footer />
-        </BrowserRouter>
+                    </Route>
+                </Routes>
+                <Footer />
+            </BrowserRouter>
+        </QueryClientProvider>
     );
 }
 

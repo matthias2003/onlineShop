@@ -73,12 +73,14 @@ function Favourites() {
                 </div>
                 :
                 <div className="favourites__container empty">
+                    <div className="favourites__empty-content">
                         <img className="favourites__image-empty" src={heart} alt="Broken heart"/>
-                        <h2 className="favourites__headline">{auth.token ? "Nothing to display here!": "You have to login first!"}</h2>
-                </div>
+                        <h2 className="favourites__headline">{auth.token ? "Nothing to display here!" : "You have to login first!"}</h2>
+                        </div>
+                    </div>
+                    }
+                </main>
+                )
             }
-        </main>
-    )
-}
 
-export default Favourites;
+            export default Favourites;

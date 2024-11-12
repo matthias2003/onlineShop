@@ -1,10 +1,9 @@
 import "./FooterMobile.css";
 import * as icon from "../../assets/icons/footerIcons";
-import React, { useState } from "react";
+import React from "react";
 import Collapsible from "./Collapsible/Collapsible";
-function FooterMobile() {
-    const [ height, setHeight] = useState(0); /*TODO: move page when list is expanded */
 
+function FooterMobile() {
     return (
     <div className="footer-mobile">
         <Collapsible title={<h4>Customer Service</h4>}>

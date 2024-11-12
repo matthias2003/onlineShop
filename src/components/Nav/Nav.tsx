@@ -126,7 +126,6 @@ function Nav() {
             x:"-100vw",
         }
     }
-
     return (
     <>
             <AnimatePresence>
@@ -311,7 +310,7 @@ function Nav() {
                                 openSidePanel("search")
                             } else {
                                 openSidePanel("nav")
-                            }  // TODO: NEEDS A REWORK
+                            }
                         }}
                 >
                     <svg width="25" height="25" viewBox="0 0 100 100">

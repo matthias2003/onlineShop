@@ -1,8 +1,10 @@
 import { createContext, Dispatch, SetStateAction, useEffect, useState } from "react";
 import avatar from "../../assets/avatars/avatar.svg";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import {getUserData} from "../../requests";
 import { useAuth } from "../../hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
+
 
 interface UserInfo {
     name: string;
@@ -37,7 +39,10 @@ interface fetchedDataProps {
     profilePicture:string
 }
 
-export const UserDataContext = createContext<UserDataInterface>({ userData: defaultUserInfo, setUserData: () => {}})
+export const UserDataContext = createContext<UserDataInterface>({
+    userData: defaultUserInfo,
+    setUserData: () => {},
+})
 
 export const UserDataProvider = ({ children }:any) => {
     const { auth } = useAuth();

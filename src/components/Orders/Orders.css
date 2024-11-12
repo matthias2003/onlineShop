@@ -2,12 +2,31 @@
     width: 70%;
     margin: auto;
     min-height: 85vh;
+    display: grid;
     font-family: Roboto, sans-serif;
 }
 
 .orders__headline {
     text-align: center;
     font-family: Archivo Black, sans-serif;
+}
+
+
+.orders__container.empty {
+    grid-template-columns: 1fr;
+    justify-content: center;
+    place-items: center;
+    height: calc(85vh - 18px);
+}
+
+.orders__empty-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.orders__image-empty {
+    width: 200px;
 }
 
 @media screen and (max-width: 1040px)  {

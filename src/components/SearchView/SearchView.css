@@ -11,9 +11,6 @@
 
 .search__container {
     width: 100%;
-    /*display: flex;*/
-    /*flex-wrap: wrap;*/
-    /*justify-content: space-evenly;*/
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     place-items: center;
@@ -133,4 +130,9 @@
         width: 45vw;
         height: 40vw;
     }
+}
+
+.search__container--override {
+    grid-template-columns: 1fr;
+    height: calc(85vh - 18px);
 }

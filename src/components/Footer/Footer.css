@@ -1,11 +1,9 @@
 .footer {
     background-color: #F5F7F8;
-    height: 100%;
     width: 100vw;
     margin-top: 10vh;
     font-weight: 500;
     font-size: 14px;
-    padding: 20px 0;
 }
 
 .footer__main-row {

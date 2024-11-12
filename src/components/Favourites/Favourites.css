@@ -22,6 +22,15 @@
 
 .favourites__container.empty {
     grid-template-columns: 1fr;
+    justify-content: center;
+    place-items: center;
+    height: calc(85vh - 18px);
+}
+
+.favourites__empty-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .favourites__item {

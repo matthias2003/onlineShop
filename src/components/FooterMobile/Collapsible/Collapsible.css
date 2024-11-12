@@ -1,18 +1,19 @@
 .collapsible {
-    display: grid;
-    grid-template-rows: auto 0fr;
+    display: block;
     margin: 0;
     padding: 0;
     grid-row-gap: 0;
-    transition: grid-template-rows 0.3s ease;
-}
-
-.collapsible--expanded {
-    grid-template-rows: auto 1fr;
 }
 
 .collapsible__content {
+    margin-left: 10px;
     overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+}
+
+.collapsible--expanded {
+    max-height: 100px;
 }
 
 .collapsible__header {

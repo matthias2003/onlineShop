@@ -1,7 +1,9 @@
 import {useNavigate, useParams} from "react-router-dom";
 import { getAggregatedData } from "../../requests";
-import {useEffect, useRef, useState} from "react";
+import { useRef } from "react";
 import "./Stock.css";
+import {Oval} from "react-loader-spinner";
+import { useQuery } from "@tanstack/react-query";
 
 interface SearchDataItem {
     _id: string,
@@ -13,30 +15,36 @@ interface SearchDataItem {
     img: string
     name: string
 }
+
 function Stock() {
     const urlParameter = useParams();
-    const [ stockData, setStockData ] = useState<SearchDataItem[]>([])
     const navigate = useNavigate();
     const itemRef= useRef<HTMLParagraphElement | null>(null);
-    useEffect(() => {
-        fetchData();
-    },[urlParameter])
+    const { data: stockData = [], isLoading, error } = useQuery({
+        queryKey: ["stockData", urlParameter],
+        queryFn: () => getAggregatedData(urlParameter),
+        enabled: !!urlParameter,
+    });
 
-    const fetchData = async () => {
-        const data = await getAggregatedData(urlParameter);
-        setStockData(data);
-    }
 
     const detailedViewHandler = ( id: string ) => {
         navigate(`/items/${id}`)
     }
-
     return(
         <main className="collection">
             <h4 className="collection__headline">{`${urlParameter.gender?.charAt(0).toUpperCase()}${urlParameter.gender?.slice(1)}`}</h4>
-            <div className="collection__container">
-                {
-                    stockData.map((item) => {
+            <div className={`collection__container ${isLoading ? "collection__container--override": ""}`}>
+                { isLoading ? (<Oval
+                        visible={true}
+                        height="80"
+                        width="80"
+                        color="#6d8f6d"
+                        ariaLabel="oval-loading"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                    />)
+                :
+                    (stockData.map((item : SearchDataItem) => {
                         return (
                             <div onClick={() => {detailedViewHandler(item._id)}} className="collection__item" key={item._id}>
                                 <div className="collection__image-wrap">
@@ -46,7 +54,8 @@ function Stock() {
                                 <p className="collection__desc">{item.price}</p>
                             </div>
                         )
-                    })
+                    }
+                    ))
                 }
             </div>
         </main>

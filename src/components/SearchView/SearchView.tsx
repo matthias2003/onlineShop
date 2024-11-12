@@ -1,7 +1,8 @@
 import { useNavigate, useParams} from "react-router-dom";
-import { useEffect, useState } from "react";
 import { getDataByName } from "../../requests";
 import "./SearchView.css"
+import {Oval} from "react-loader-spinner";
+import {useQuery} from "@tanstack/react-query";
 
 interface SearchDataItem {
     _id: string,
@@ -16,23 +17,17 @@ interface SearchDataItem {
 
 function SearchView() {
     const { name } = useParams();
-    const [ searchData, setSearchData ] = useState<SearchDataItem[]>([]);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        fetchData();
-    },[name])
+    const { data: searchData = [], isLoading, error } = useQuery({
+        queryKey: ["searchData", name],
+        queryFn: () => getDataByName(name!),
+        enabled: !!name
+    });
 
-    const fetchData = async () => {
-        const searchValue = name?.replaceAll("+"," ");
-        if (searchValue) {
-            const data  = await getDataByName(searchValue)
-            setSearchData(data)
-        }
-        else {
-            navigate('/')
-        }
-        console.log(searchData)
+    if (error) {
+        navigate('/');
+        return <p>Error fetching data. Redirecting...</p>;
     }
 
     const detailedViewHandler = ( id: string ) => {
@@ -42,10 +37,19 @@ function SearchView() {
     return (
         <div className="search">
             <h4 className="search__headline">{`Results for "${name?.replaceAll("+"," ")}"`}</h4>
-            <div className="search__container">
-                {searchData && searchData.length > 0 ?
-
-                    searchData.map((item) => {
+            <div className={`search__container ${isLoading || searchData?.length === 0 ? "search__container--override": ""}`}>
+                { isLoading ? (<Oval
+                    visible={true}
+                    height="80"
+                    width="80"
+                    color="#6d8f6d"
+                    ariaLabel="oval-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                />)
+                    :
+                    ( searchData && searchData.length > 0 ?
+                    searchData.map((item : SearchDataItem) => {
                         return (
                             <div onClick={() => {detailedViewHandler(item._id)}} className="search__item" key={item._id}>
                                 <div className="search__image-wrap">
@@ -57,8 +61,8 @@ function SearchView() {
                         )
                     })
                     :
-                    <div>There is nothing to display here</div>}
-
+                    <div>There is nothing to display here!</div>
+                    )}
             </div>
         </div>
 
