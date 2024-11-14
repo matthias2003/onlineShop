@@ -26,7 +26,6 @@ function Stock() {
         enabled: !!urlParameter,
     });
 
-
     const detailedViewHandler = ( id: string ) => {
         navigate(`/items/${id}`)
     }

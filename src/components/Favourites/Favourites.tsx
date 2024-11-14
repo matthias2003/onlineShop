@@ -34,7 +34,6 @@ function Favourites() {
     const favesHandler = (e:React.MouseEvent<HTMLElement, MouseEvent>, id: string) => {
         e.stopPropagation();
         if(toggleFaves === "filter-red") {
-            //setToggleFaves("")
             const { [id]: _, ...remainingFaves } = faves;
             setFaves(remainingFaves);
         }

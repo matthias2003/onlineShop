@@ -11,7 +11,6 @@ function Collapsible( props:any ) {
             setTimeout(() => {
                 endDivRef.current?.scrollIntoView({
                     behavior: "smooth",
-                    block: "nearest"
                 });
             },100);
         }

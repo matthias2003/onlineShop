@@ -39,14 +39,15 @@ interface Faves {
 
 function DetailedView() {
     const { name } = useParams();
-    // const [ itemData, setItemData ] = useState<SearchDataItem>({
-    //     _id:'0',brand:"",color:"",gender:"",price:"",sold:0,img:"",name:""
-    // })
     const sizeArray = [ 36, 36.5, 37.5, 38, 38.5, 39, 40, 40.5, 41, 42, 42.5, 43, 44, 44.5, 45, 45.5, 46, 46.5, 47, 47.5 ]
     const [ toggleFaves, setToggleFaves ] = useState("");
     const [ selected, setSelected ] = useState<number>(0);
     const [ cart, setCart ] = useLocalStorage<Cart>('cart',{})
     const [ faves, setFaves ] = useLocalStorage<Faves>('faves',{})
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const { data, isLoading, error } = useQuery<SearchDataItem[], Error>({
         queryKey: ['itemData', name],

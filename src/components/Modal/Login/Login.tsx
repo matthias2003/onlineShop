@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState, useContext } from "react";
 import { useInView } from "framer-motion";
-import {registerUser, sendLoginInfo} from "../../../requests";
+import { sendLoginInfo } from "../../../requests";
 import { useAuth } from "../../../hooks/useAuth";
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import * as icon from "../../../assets/icons/navIcons";

@@ -1,8 +1,9 @@
-import {fetchData, getBestsellers} from "../../requests";
+import {fetchData, getAggregatedData, getBestsellers} from "../../requests";
 import ComingSoonImage from "../../assets/images/Air-Jordan-4-Seafoam-AQ9129-103-04.jpg"
 import { useEffect, useState } from "react";
 import "./HomePage.css";
 import {useNavigate} from "react-router-dom";
+import {useQuery} from "@tanstack/react-query";
 
 interface SearchDataItem {
     _id: string,
@@ -16,19 +17,17 @@ interface SearchDataItem {
 }
 
 function HomePage() {
-    const [ sneakerData, setSneakerData ] = useState<SearchDataItem[]>([]);
-    const [ bestsellersData, setBestsellersData ] = useState<SearchDataItem[]>([]);
     const navigate = useNavigate();
-    useEffect( ()=> {
-        fetchAndPrepareData();
-    },[]);
 
-    const fetchAndPrepareData = async () => {
-        const data = await fetchData();
-        const bestsellers = await getBestsellers();
-        setSneakerData(data);
-        setBestsellersData(bestsellers);
-    }
+    const { data: sneakerData = [] } = useQuery<SearchDataItem[]>({
+        queryKey: ["sneakerData", "featured"],
+        queryFn: () =>  fetchData()
+    });
+
+    const { data: bestsellersData = [] } = useQuery<SearchDataItem[]>({
+        queryKey: ["sneakerData", "bestsellers"],
+        queryFn: () =>  getBestsellers()
+    });
 
     const detailedViewHandler = ( id: string ) => {
         navigate(`/items/${id}`)
@@ -41,7 +40,7 @@ function HomePage() {
             <div className="home__new">
                 <h4>Freshly added</h4>
                 <div className="home__tiles">
-                    {sneakerData.map( (element  ) => {
+                    { sneakerData.map( (element  ) => {
                         return(
                             <div onClick={() => {detailedViewHandler(element._id)}} className="home__tile" key={element._id}>
                                 <div className="home__image-wrap">
@@ -50,8 +49,8 @@ function HomePage() {
                                 <p>{ element.name }</p>
                                 <p>{ element.price }</p>
                             </div>
-                        )
-                    })}
+                        )})
+                    }
                 </div>
             </div>
             <div className="home__coming">

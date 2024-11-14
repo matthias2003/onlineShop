@@ -1,7 +1,7 @@
 import "./Nav.css";
 import Backdrop from "../Backdrop/Backdrop";
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useInView, Variants } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { Link, useNavigate } from "react-router-dom";
 import * as icon from "../../assets/icons/navIcons";
@@ -365,7 +365,7 @@ function Nav() {
                         <img className="nav__icon" src={icon.shoppingBag} alt="Shopping cart button"/>
                     </button>
                     <button className="nav__button nav__button-profile" onClick={profileHandler}>
-                        <img className="nav__icon" src={Object.keys(auth).length ? icon.avatarLoggedIn : icon.avatar}
+                        <img className="nav__icon" src={auth.token.length ? icon.avatarLoggedIn : icon.avatar}
                              alt="Avatar button"/>
                     </button>
                     {auth.token ?

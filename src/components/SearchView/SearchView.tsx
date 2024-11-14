@@ -19,16 +19,11 @@ function SearchView() {
     const { name } = useParams();
     const navigate = useNavigate();
 
-    const { data: searchData = [], isLoading, error } = useQuery({
+    const { data: searchData = [], isLoading } = useQuery({
         queryKey: ["searchData", name],
         queryFn: () => getDataByName(name!),
         enabled: !!name
     });
-
-    if (error) {
-        navigate('/');
-        return <p>Error fetching data. Redirecting...</p>;
-    }
 
     const detailedViewHandler = ( id: string ) => {
         navigate(`/items/${id}`)

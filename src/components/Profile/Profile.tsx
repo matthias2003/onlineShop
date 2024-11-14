@@ -2,37 +2,11 @@ import "./Profile.css";
 import {useAuth} from "../../hooks/useAuth";
 import * as icon from "../../assets/icons/profileIcons";
 import { Link } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
-import { getUserData } from "../../requests";
-import { useEffect, useState } from "react";
 import { useUserData } from "../../hooks/useUserData";
-
-interface payloadProps {
-    id:string,
-    iat:number,
-    exp:number
-}
-
-interface fetchedDataProps {
-    name: string,
-    surname: string,
-    email: string,
-    profilePicture:string
-}
 
 function Profile() {
     const { auth } = useAuth();
     const { userData, setUserData } = useUserData();
-
-    // useEffect(()=> {
-    //     const { id }:payloadProps = jwtDecode(auth.token);
-    //     fetchUserInfo(id)
-    // },[])
-    //
-    // const fetchUserInfo = async (id:string) => {
-    //     const data = await getUserData(id, auth.token);
-    //     setUserData(data);
-    // }
 
     return(
         <main className="profile">

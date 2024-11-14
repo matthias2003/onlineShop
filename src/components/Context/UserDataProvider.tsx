@@ -32,13 +32,6 @@ interface payloadProps {
     exp:number
 }
 
-interface fetchedDataProps {
-    name: string,
-    surname: string,
-    email: string,
-    profilePicture:string
-}
-
 export const UserDataContext = createContext<UserDataInterface>({
     userData: defaultUserInfo,
     setUserData: () => {},
@@ -46,21 +39,21 @@ export const UserDataContext = createContext<UserDataInterface>({
 
 export const UserDataProvider = ({ children }:any) => {
     const { auth } = useAuth();
-    const fetchUserInfo = async (id:string) => {
-        try {
-            const data = await getUserData(id, auth.token);
-            setUserData(data)
-        } catch (error) {
-            console.log(error)
+    const [ userData, setUserData ] = useState<UserInfo>(defaultUserInfo)
+    const { id } = jwtDecode<payloadProps>(auth.token);
+
+    const { data } = useQuery<UserInfo, Error>({
+        queryKey: ["userData", id],
+        queryFn: () => getUserData(id, auth.token),
+        refetchOnWindowFocus: false
+    });
+
+    useEffect(() => {
+        if (data) {
+            setUserData(data);
         }
-    }
+    }, [data]);
 
-    useEffect(()=> {
-        const { id }:payloadProps = jwtDecode(auth.token);
-        fetchUserInfo(id)
-    },[])
-
-    const [ userData, setUserData ] = useState(defaultUserInfo)
     return(
         <UserDataContext.Provider value={{ userData, setUserData }} >
             {children}

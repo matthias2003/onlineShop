@@ -58,6 +58,5 @@ export const newsletterSingUp = async ( email:string )=> {
 
 export const updateUser = async (formData : FormData) => {
     const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/user/update", formData ,{headers: { 'Content-Type': 'multipart/form-data' }})
-    // const { data } = await axios.post("http://127.0.0.1:3001/user/update", formData ,{headers: { 'Content-Type': 'multipart/form-data' }})
     return data;
 }

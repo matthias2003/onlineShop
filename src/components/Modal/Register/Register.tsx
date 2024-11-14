@@ -78,7 +78,7 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
 
         try {
             await registerSchema.validate( formData,{abortEarly: false});
-                await registerUser(formData);
+            await registerUser(formData);
             setLoadComplete(true);
             setTimeout( () => { setSwitchForm(false)},1000)
         } catch (err:any) {
@@ -86,7 +86,6 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
 
             err.inner.forEach((item:any) => {
                 if (item.path in registerRefs) {
-                    // registerRefs[item.path].current.style.border = "1px solid #cc0000";
                     registerRefs[item.path].current.classList.add("register-modal__input--invalid")
                 }
             })
