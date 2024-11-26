@@ -6,6 +6,6 @@ export const useLogout = () => {
 
     return async () => {
         await logoutUser();
-        setAuth({});
+        setAuth({token:""});
     }
 }

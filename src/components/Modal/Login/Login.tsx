@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState, useContext } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
 import { sendLoginInfo } from "../../../requests";
 import { useAuth } from "../../../hooks/useAuth";
@@ -6,14 +6,11 @@ import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import * as icon from "../../../assets/icons/navIcons";
 import "./Login.css"
 import { z } from "zod";
-import { FormContext } from "../Modal";
 import { motion } from "framer-motion";
+import { useFormSwitch } from "../../../hooks/useFormSwitch";
+import { ModalSetActive } from "../../../utilities/interfaces";
 
-interface propTypes {
-    setIsActiveLoginPanel:Dispatch<SetStateAction<boolean>>
-}
-
-function Login({ setIsActiveLoginPanel } :propTypes) {
+function Login({ setIsActiveLoginPanel } :ModalSetActive) {
     const emailRef = useRef<HTMLInputElement | null >(null);
     const passwordRef = useRef<HTMLInputElement | null >(null)
     const [ errorInfo, setErrorInfo ] = useState<string>("")
@@ -22,7 +19,7 @@ function Login({ setIsActiveLoginPanel } :propTypes) {
     const modalRef = useRef<HTMLDivElement | null>(null);
     const isInView = useInView(modalRef);
     const { setAuth } = useAuth();
-    const { setSwitchForm }  = useContext(FormContext);
+    const { setSwitchForm } = useFormSwitch();
 
     const loginSchema = z.object({
         email:z.string().email("Invalid email").min(5).max(30),

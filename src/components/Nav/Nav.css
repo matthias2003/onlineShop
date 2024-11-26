@@ -17,8 +17,6 @@
     width: 20px;
     height: auto;
     cursor: pointer;
-    /*position: absolute;*/
-    /*right: 0;*/
 }
 
 .aside-nav__logo-wrap {
@@ -312,6 +310,7 @@
     top:50px;
     padding: 10px 30px;
     width: 150px;
+    right: 0;
     background-color: #ffffff;
     transition: visibility 0.1s ease;
     z-index: 10;

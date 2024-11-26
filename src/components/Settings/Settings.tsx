@@ -4,17 +4,7 @@ import React, { MutableRefObject, useEffect, useRef, useState} from "react";
 import { useUserData } from "../../hooks/useUserData";
 import { updateUser } from "../../requests";
 import * as yup from "yup";
-
-interface IUpdateRefs {
-    [key: string]: MutableRefObject<HTMLInputElement | null>;
-}
-
-interface IUserDetails {
-    email: string,
-    name: string,
-    profilePicture: string,
-    surname: string
-}
+import { UserData, UpdateRefs } from "../../utilities/interfaces";
 
 function Settings() {
     const nameRef = useRef<HTMLInputElement | null>(null);
@@ -25,7 +15,7 @@ function Settings() {
     const { userData, setUserData } = useUserData();
     const [ imagePreview, setImagePreview ] = useState<string>();
     const [ isDisabled, setIsDisabled ] = useState(true);
-    const [ userDetails, setUserDetails ] = useState<IUserDetails>({
+    const [ userDetails, setUserDetails ] = useState<UserData>({
         email: "",
         name: "",
         profilePicture: "",
@@ -44,7 +34,7 @@ function Settings() {
         setImagePreview(userData.profilePicture);
     }, [userData]);
 
-    const updateRefs: IUpdateRefs = {
+    const updateRefs: UpdateRefs = {
         name:nameRef,
         surname:surnameRef,
         email:emailRef,

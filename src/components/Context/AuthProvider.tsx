@@ -1,13 +1,5 @@
-import { createContext, Dispatch, SetStateAction, useState } from "react";
-
-interface AuthState {
-    token: string;
-}
-
-interface AuthContextInterface {
-    auth: AuthState;
-    setAuth: Dispatch<SetStateAction<AuthState>>;
-}
+import { createContext, useState } from "react";
+import { AuthContextInterface, AuthState } from "../../utilities/interfaces";
 
 export const AuthContext = createContext<AuthContextInterface>({ auth: {token:""}, setAuth: () => {}})
 

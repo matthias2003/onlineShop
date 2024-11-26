@@ -4,22 +4,8 @@ import { useAuth } from "../../hooks/useAuth";
 import { useLocalStorage } from "usehooks-ts";
 import { useNavigate} from "react-router-dom";
 import React, {useState} from "react";
+import { Faves} from "../../utilities/interfaces";
 
-
-interface SearchDataItem {
-    _id: string,
-    brand: string,
-    color: string,
-    gender: string,
-    price: string,
-    sold: number,
-    img: string
-    name: string
-}
-
-interface Faves {
-    [key: string]: SearchDataItem;
-}
 
 function Favourites() {
     const { auth } = useAuth();

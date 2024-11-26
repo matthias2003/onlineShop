@@ -4,17 +4,7 @@ import { useRef } from "react";
 import "./Stock.css";
 import {Oval} from "react-loader-spinner";
 import { useQuery } from "@tanstack/react-query";
-
-interface SearchDataItem {
-    _id: string,
-    brand: string,
-    color: string,
-    gender: string,
-    price: string,
-    sold: string,
-    img: string
-    name: string
-}
+import { SearchDataItem } from "../../utilities/interfaces";
 
 function Stock() {
     const urlParameter = useParams();

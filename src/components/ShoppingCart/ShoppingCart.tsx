@@ -3,20 +3,7 @@ import { useLocalStorage } from "usehooks-ts";
 import { useEffect, useState} from "react";
 import close from "../../assets/icons/close.svg"
 import cartImage from "../../assets/images/cart.svg";
-
-interface CartData {
-    id:string
-    name: string,
-    color: string,
-    price: string,
-    img: string,
-    size: number,
-    quantity: number
-}
-
-interface Cart {
-    [key: string]: CartData;
-}
+import { Cart } from "../../utilities/interfaces";
 
 function ShoppingCart() {
     const [ cart, setCart ] = useLocalStorage<Cart>('cart',{})

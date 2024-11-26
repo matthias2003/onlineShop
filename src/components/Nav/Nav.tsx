@@ -9,21 +9,9 @@ import logo from "../../assets/logo/logo.svg";
 import { useAuth } from "../../hooks/useAuth"
 import Modal from "../Modal/Modal";
 import { useLogout } from "../../hooks/useLogout";
-import {useLocalStorage} from "usehooks-ts";
-
-interface CartData {
-    id:string
-    name: string,
-    color: string,
-    price: string,
-    img: string,
-    size: number,
-    quantity: number
-}
-
-interface Cart {
-    [key: string]: CartData;
-}
+import { useLocalStorage } from "usehooks-ts";
+import { FormSwitchProvider } from "../Context/FormSwitchProvider";
+import { Cart } from "../../utilities/interfaces";
 
 function Nav() {
     const [ isActiveLoginPanel, setIsActiveLoginPanel ] = useState<boolean>(false)
@@ -381,8 +369,12 @@ function Nav() {
                 </div>
 
                 <AnimatePresence>
-                    {isActiveLoginPanel && <Modal isActiveLoginPanel={isActiveLoginPanel}
-                                                  setIsActiveLoginPanel={setIsActiveLoginPanel}></Modal>}
+                    {isActiveLoginPanel &&
+                        <FormSwitchProvider>
+                            <Modal
+                                isActiveLoginPanel={isActiveLoginPanel} setIsActiveLoginPanel={setIsActiveLoginPanel}>
+                            </Modal>
+                        </FormSwitchProvider>}
                 </AnimatePresence>
             </div>
         </nav>

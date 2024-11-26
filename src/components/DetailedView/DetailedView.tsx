@@ -6,36 +6,8 @@ import { useLocalStorage } from 'usehooks-ts'
 import * as icons from "../../assets/icons/navIcons";
 import {useQuery} from "@tanstack/react-query";
 import {Oval} from "react-loader-spinner";
+import { Cart, SearchDataItem, Faves,} from "../../utilities/interfaces";
 
-
-interface SearchDataItem {
-    _id: string,
-    brand: string,
-    color: string,
-    gender: string,
-    price: string,
-    sold: number,
-    img: string
-    name: string
-}
-
-interface CartData {
-    id:string
-    name: string,
-    color: string,
-    price: string,
-    img: string,
-    size: number,
-    quantity: number
-}
-
-interface Cart {
-    [key: string]: CartData;
-}
-
-interface Faves {
-    [key: string]: SearchDataItem;
-}
 
 function DetailedView() {
     const { name } = useParams();

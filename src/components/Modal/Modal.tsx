@@ -1,31 +1,17 @@
-import {createContext, Dispatch, SetStateAction, useEffect, useRef, useState} from "react";
+import { useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Backdrop from "../Backdrop/Backdrop";
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import "./Modal.css";
 import Login from "./Login/Login";
 import Register from "./Register/Register";
+import { useFormSwitch } from "../../hooks/useFormSwitch";
+import { ModalActive } from "../../utilities/interfaces";
 
-interface propTypes {
-    setIsActiveLoginPanel:Dispatch<SetStateAction<boolean>>,
-    isActiveLoginPanel: boolean,
-}
-
-interface SwitchFormContextType {
-    switchForm: boolean;
-    setSwitchForm: Dispatch<SetStateAction<boolean>>;
-}
-
-export const FormContext = createContext<SwitchFormContextType>({
-    switchForm: false,
-    setSwitchForm: () => {}
-});
-
-
-function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
+function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :ModalActive) {
     const modalRef = useRef<HTMLDivElement | null>(null);
     const isInView = useInView(modalRef);
-    const [ switchForm, setSwitchForm ] = useState(false);
+    const { switchForm } = useFormSwitch();
 
     useEffect(() => {
         if (isInView) {
@@ -66,13 +52,11 @@ function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :propTypes) {
                 animate="visible"
                 ref={modalRef}
                 exit="exit">
-                <FormContext.Provider value={ { switchForm, setSwitchForm }}>
                     { !switchForm ?
                         <Login setIsActiveLoginPanel={ setIsActiveLoginPanel }/>
                         :
                         <Register setIsActiveLoginPanel={ setIsActiveLoginPanel } />
                     }
-                </FormContext.Provider>
             </motion.div>
         </Backdrop>
     )

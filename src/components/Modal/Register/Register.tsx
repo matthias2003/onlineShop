@@ -1,20 +1,14 @@
 import "./Register.css";
-import {createRef, Dispatch, SetStateAction, SyntheticEvent, useContext, useRef, useState} from "react";
+import { SyntheticEvent, useRef, useState} from "react";
 import { registerUser } from "../../../requests";
-import {util, z} from "zod";
 import * as icon from "../../../assets/icons/navIcons";
-import { FormContext } from "../Modal";
 import { motion } from "framer-motion";
 import * as yup from 'yup';
-import objectKeys = util.objectKeys;
+import { useFormSwitch } from "../../../hooks/useFormSwitch";
+import { ModalSetActive } from "../../../utilities/interfaces";
 
-interface propTypes {
-    setIsActiveLoginPanel:Dispatch<SetStateAction<boolean>>
-}
-
-function Register({ setIsActiveLoginPanel } :propTypes) {
-    const { setSwitchForm }  = useContext(FormContext);
-    const [ formError , setFormError ] = useState<string>("")
+function Register({ setIsActiveLoginPanel } :ModalSetActive) {
+    const { setSwitchForm } = useFormSwitch();
     const [ toggleLoader, setToggleLoader ] = useState<boolean>(false);
     const [ loadComplete, setLoadComplete ] = useState<boolean>(false);
     const [ formData, setFormData ] = useState({
@@ -25,6 +19,7 @@ function Register({ setIsActiveLoginPanel } :propTypes) {
         confirmPassword: "",
         dateOfBirth: Date
     })
+
     const nameRef = useRef<HTMLInputElement | null>(null);
     const surnameRef = useRef<HTMLInputElement | null>(null);
     const emailRef = useRef<HTMLInputElement | null>(null);

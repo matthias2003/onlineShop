@@ -1,12 +1,10 @@
 import "./Profile.css";
-import {useAuth} from "../../hooks/useAuth";
 import * as icon from "../../assets/icons/profileIcons";
 import { Link } from "react-router-dom";
 import { useUserData } from "../../hooks/useUserData";
 
 function Profile() {
-    const { auth } = useAuth();
-    const { userData, setUserData } = useUserData();
+    const { userData } = useUserData();
 
     return(
         <main className="profile">

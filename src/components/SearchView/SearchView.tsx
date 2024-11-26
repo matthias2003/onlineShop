@@ -1,19 +1,9 @@
 import { useNavigate, useParams} from "react-router-dom";
 import { getDataByName } from "../../requests";
 import "./SearchView.css"
-import {Oval} from "react-loader-spinner";
-import {useQuery} from "@tanstack/react-query";
-
-interface SearchDataItem {
-    _id: string,
-    brand: string,
-    color: string,
-    gender: string,
-    price: string,
-    sold: string,
-    img: string
-    name: string
-}
+import { Oval } from "react-loader-spinner";
+import { useQuery } from "@tanstack/react-query";
+import { SearchDataItem } from "../../utilities/interfaces";
 
 function SearchView() {
     const { name } = useParams();

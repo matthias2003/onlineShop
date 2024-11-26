@@ -1,20 +1,10 @@
-import {fetchData, getAggregatedData, getBestsellers} from "../../requests";
+import { fetchData, getBestsellers } from "../../requests";
 import ComingSoonImage from "../../assets/images/Air-Jordan-4-Seafoam-AQ9129-103-04.jpg"
-import { useEffect, useState } from "react";
 import "./HomePage.css";
-import {useNavigate} from "react-router-dom";
-import {useQuery} from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { SearchDataItem } from "../../utilities/interfaces";
 
-interface SearchDataItem {
-    _id: string,
-    brand: string,
-    color: string,
-    gender: string,
-    price: string,
-    sold: string,
-    img: string
-    name: string
-}
 
 function HomePage() {
     const navigate = useNavigate();
