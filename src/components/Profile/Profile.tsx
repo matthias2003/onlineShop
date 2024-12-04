@@ -1,7 +1,7 @@
-import "./Profile.css";
-import * as icon from "../../assets/icons/profileIcons";
 import { Link } from "react-router-dom";
 import { useUserData } from "../../hooks/useUserData";
+import * as icon from "../../assets/icons/profileIcons";
+import "./Profile.css";
 
 function Profile() {
     const { userData } = useUserData();
@@ -11,7 +11,7 @@ function Profile() {
             <div className="profile__dashboard-wrap">
                 <div className="profile__avatar">
                     <div className="avatar__image-wrap">
-                        <img className="profile__avatar-img" src={ userData.profilePicture } alt="Profile picture"/>
+                        <img className="profile__avatar-img" src={userData.profilePicture} alt="Profile picture"/>
                     </div>
                     <p className="profile__name">
                         { userData.name + " " + userData.surname }
@@ -26,11 +26,11 @@ function Profile() {
                             <Link to="/profile/settings" className="profile__menu-link"><p>Saved addresses</p></Link>
                         </div>
                         <div className="profile__menu-item">
-                            <img className="profile__menu-img"  src={icon.orders} alt="Orders"/>
+                            <img className="profile__menu-img" src={icon.orders} alt="Orders"/>
                             <Link to="/profile/orders" className="profile__menu-link"><p>Orders</p></Link>
                         </div>
                         <div className="profile__menu-item">
-                            <img className="profile__menu-img"  src={icon.heart} alt="Favourites"/>
+                            <img className="profile__menu-img" src={icon.heart} alt="Favourites"/>
                             <Link to="/favourites" className="profile__menu-link"><p>Favourites</p></Link>
                         </div>
                         <div className="profile__menu-item">
@@ -38,7 +38,7 @@ function Profile() {
                             <Link to="/profile/settings" className="profile__menu-link"><p>Saved payment methods</p></Link>
                         </div>
                         <div className="profile__menu-item">
-                            <img className="profile__menu-img"  src={icon.settings} alt="Settings"/>
+                            <img className="profile__menu-img" src={icon.settings} alt="Settings"/>
                             <Link to="/profile/settings" className="profile__menu-link"><p>Settings</p></Link>
                         </div>
                     </div>

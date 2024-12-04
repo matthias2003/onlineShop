@@ -1,39 +1,39 @@
-import "./ShoppingCart.css"
 import { useLocalStorage } from "usehooks-ts";
 import { useEffect, useState} from "react";
-import close from "../../assets/icons/close.svg"
-import cartImage from "../../assets/images/cart.svg";
 import { Cart } from "../../utilities/interfaces";
+import cartImage from "../../assets/images/cart.svg";
+import close from "../../assets/icons/close.svg";
+import "./ShoppingCart.css";
 
 function ShoppingCart() {
-    const [ cart, setCart ] = useLocalStorage<Cart>('cart',{})
-    const [ cartPrice, setCartPrice ] = useState<number>(0)
-    const [ cartItemsCounter, setCartItemsCounter ] = useState<number>()
-    const cartItems = () => Object.values(cart || {})
+    const [ cart, setCart ] = useLocalStorage<Cart>('cart', {});
+    const [ cartPrice, setCartPrice ] = useState<number>(0);
+    const [ cartItemsCounter, setCartItemsCounter ] = useState<number>();
+    const cartItems = () => Object.values(cart || {});
 
     const removeItem = ( id : string, size : number )  => {
         const key : string = `${id}_${size}`;
-        delete cart[key]
-        setCart(cart)
+        delete cart[key];
+        setCart(cart);
     }
 
     const changeQuantity = ( e:React.ChangeEvent<HTMLSelectElement>, id:string) => {
         cart[id].quantity = Number(e.target.value);
-        setCart({...cart})
+        setCart({ ...cart });
     }
 
     useEffect(() => {
         let price = 0;
         let semiPrice = 0;
         let items = 0;
-        cartItems().map( (item:any ) => {
-            semiPrice = Number(item.price.split(" ")[0].replace(",","."))
-            semiPrice *= Number(item.quantity)
-            price += semiPrice
+        cartItems().map(( item:any ) => {
+            semiPrice = Number(item.price.split(" ")[0].replace(",","."));
+            semiPrice *= Number(item.quantity);
+            price += semiPrice;
         })
-        setCartPrice(price)
+        setCartPrice(price);
         setCartItemsCounter(items);
-    },[cart])
+    },[cart]);
 
     return(
         <main className="cart">
@@ -43,7 +43,7 @@ function ShoppingCart() {
                     { cartItems().length > 0 ? cartItems().map( (item:any ) => {
                         return (
                             <div className="cart__item" key={item.id + item.size}>
-                                <button onClick={() => {removeItem(item.id, item.size)}} className="cart__remove-button">
+                                <button onClick={() => { removeItem(item.id, item.size) }} className="cart__remove-button">
                                     <img className="cart__remove-icon" src={close} alt="Close button"/>
                                 </button>
                                 <div className="cart__item-image">
@@ -51,9 +51,9 @@ function ShoppingCart() {
                                 </div>
                                 <div className="cart__delimiter"></div>
                                 <div className="cart__description">
-                                    <p className="cart__description-bold">{item.name}</p>
-                                    <p className="cart__description-small">Color: {item.color}</p>
-                                    <p className="cart__description-small">Size: {item.size}</p>
+                                    <p className="cart__description-bold">{ item.name }</p>
+                                    <p className="cart__description-small">Color: { item.color }</p>
+                                    <p className="cart__description-small">Size: { item.size }</p>
                                 </div>
                                 <div className="cart__item-price">
                                     <p className="cart__price-paragraph">{`${ (Number(item.price.split(" ")[0].replace(",",".")) * Number(item.quantity)).toFixed(2)} zł`}</p>
@@ -72,7 +72,8 @@ function ShoppingCart() {
                                 </div>
                             </div>
                         )
-                    }) :
+                        })
+                        :
                         <div>
                             <h4 className="cart__headline">Your cart is empty!</h4>
                             <figure className="cart__empty-wrap">
@@ -80,14 +81,13 @@ function ShoppingCart() {
                             </figure>
                         </div>
                     }
-
                 </div>
                 <div className="cart__summary">
                     <div className="cart__summary-wrap">
                         <h4 className="cart__summary-headline">Order summary</h4>
                         <div className="cart__price-wrap">
                             <p className="cart__price">Subtotal</p>
-                            <p className="cart__price">{cartPrice.toFixed(2)} zł</p>
+                            <p className="cart__price">{ cartPrice.toFixed(2) } zł</p>
                         </div>
                         <div className="cart__price-wrap">
                             <p className="cart__price">Shipping</p>

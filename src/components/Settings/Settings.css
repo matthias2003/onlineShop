@@ -27,7 +27,6 @@
     padding: 30px 15px 5px 15px;
     border: 1px solid #0000001A;
     border-radius: 10px;
-    /*max-width: 300px;*/
     min-width: calc(350px - 52px);
     max-width: calc(50% - 52px);
     flex-basis:100%;
@@ -72,7 +71,6 @@
     border-radius: 10px;
     align-items: flex-end;
     aspect-ratio: 1.8 / 1 ;
-    /*max-width: 400px;*/
     flex-basis: 100%;
     min-width: calc(350px - 42px);
     max-width: calc(50% - 42px);
@@ -100,7 +98,6 @@
     justify-content: center;
     margin: 5px auto;
 }
-
 
 .settings__input {
     width: 100%;
@@ -156,7 +153,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /*margin: 5px 0;*/
     border-radius: 8px;
     border: 1px solid #616467;
 }
@@ -238,13 +234,13 @@
 .settings__input--invalid  + .settings__label {
     color:red;
 }
+
 @media screen and (max-width: 1040px)  {
     .settings__container {
         width: 80%;
         min-height: 60vh;
         margin: auto;
     }
-
 }
 
 @media screen and (max-width: 992px)  {
@@ -253,7 +249,6 @@
         min-height: 60vh;
         margin: auto;
     }
-
 }
 
 @media screen and (width <= 768px) {

@@ -1,5 +1,5 @@
-import "./Orders.css";
 import emptyBox from "../../assets/images/empty-box.svg";
+import "./Orders.css";
 
 function Orders () {
     return (
@@ -12,7 +12,7 @@ function Orders () {
                     </div>
                 </div>
         </main>
-)
+    )
 }
 
 export default Orders;

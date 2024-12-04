@@ -1,17 +1,17 @@
-import "./FooterMobile.css";
-import * as icon from "../../assets/icons/footerIcons";
 import React from "react";
 import Collapsible from "./Collapsible/Collapsible";
+import * as icon from "../../assets/icons/footerIcons";
+import "./FooterMobile.css";
 
 function FooterMobile() {
     return (
     <div className="footer-mobile">
         <Collapsible title={<h4>Customer Service</h4>}>
-        <ul className="footer-mobile__list">
-                <li>Contact Us</li>
-                <li>Size Guide</li>
-                <li>Order Tracking</li>
-                <li>Shipping & Delivery</li>
+            <ul className="footer-mobile__list">
+                    <li>Contact Us</li>
+                    <li>Size Guide</li>
+                    <li>Order Tracking</li>
+                    <li>Shipping & Delivery</li>
             </ul>
         </Collapsible>
 

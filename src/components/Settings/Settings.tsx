@@ -1,18 +1,12 @@
-import "./Settings.css";
-import * as icons from "../../assets/icons/settingsIcons"
-import React, { MutableRefObject, useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState} from "react";
 import { useUserData } from "../../hooks/useUserData";
 import { updateUser } from "../../requests";
-import * as yup from "yup";
 import { UserData, UpdateRefs } from "../../utilities/interfaces";
+import * as yup from "yup";
+import * as icons from "../../assets/icons/settingsIcons";
+import "./Settings.css";
 
 function Settings() {
-    const nameRef = useRef<HTMLInputElement | null>(null);
-    const surnameRef = useRef<HTMLInputElement | null>(null);
-    const emailRef = useRef<HTMLInputElement | null>(null);
-    const passwordRef = useRef<HTMLInputElement | null>(null);
-    const repPasswordRef = useRef<HTMLInputElement | null>(null);
-    const { userData, setUserData } = useUserData();
     const [ imagePreview, setImagePreview ] = useState<string>();
     const [ isDisabled, setIsDisabled ] = useState(true);
     const [ userDetails, setUserDetails ] = useState<UserData>({
@@ -28,6 +22,13 @@ function Settings() {
         preview: '',
         raw: '',
     });
+    const surnameRef = useRef<HTMLInputElement | null>(null);
+    const emailRef = useRef<HTMLInputElement | null>(null);
+    const passwordRef = useRef<HTMLInputElement | null>(null);
+    const repPasswordRef = useRef<HTMLInputElement | null>(null);
+    const nameRef = useRef<HTMLInputElement | null>(null);
+
+    const { userData, setUserData } = useUserData();
 
     useEffect(() => {
         setUserDetails(userData);
@@ -40,16 +41,16 @@ function Settings() {
         email:emailRef,
         password:passwordRef,
         confirmPassword:repPasswordRef,
-    }
+    };
 
-    const changeStyle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const changeStyle = ( event: React.ChangeEvent<HTMLInputElement> ) => {
         const ref = updateRefs[event.target.name];
         if (ref?.current) {
-            ref?.current.classList.remove("settings__input--invalid")
+            ref?.current.classList.remove("settings__input--invalid");
         }
     };
 
-    const passwordReg = new RegExp(/^(?=.*[0-9])(?=.*[- ?!@#$%^&*\/\\])(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9- ?!@#$%^&*\/\\]{8,30}$/)
+    const passwordReg = new RegExp(/^(?=.*[0-9])(?=.*[- ?!@#$%^&*\/\\])(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9- ?!@#$%^&*\/\\]{8,30}$/);
     const emailReg = new RegExp(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/);
 
     const editSchema = yup.object({
@@ -60,14 +61,14 @@ function Settings() {
         confirmPassword:yup.string().min(8).max(30).test('password-should-match', "Passwords doesn't match", function(value){
             return this.parent.password === value
         })
-    })
+    });
 
-    const updateUserDetails = (event:React.ChangeEvent<HTMLInputElement>) => {
+    const updateUserDetails = ( event:React.ChangeEvent<HTMLInputElement> ) => {
         const { name, value } = event.target;
         setUserDetails({ ...userDetails, [name]: value });
     };
 
-    const fileHandler = async (e:React.ChangeEvent<HTMLInputElement>) => {
+    const fileHandler = async ( e:React.ChangeEvent<HTMLInputElement> ) => {
         const file : File | undefined= e.target?.files?.[0];
         if (file) {
             const previewUrl = URL.createObjectURL(file);
@@ -77,13 +78,13 @@ function Settings() {
             });
             setImagePreview(previewUrl);
         }
-    }
+    };
 
     const editPersonalData = async () => {
         setIsDisabled(false);
-    }
+    };
 
-    const updatePersonalData = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const updatePersonalData = async ( e: React.MouseEvent<HTMLButtonElement, MouseEvent> ) => {
         e.preventDefault();
         const formData = new FormData();
         try {
@@ -92,20 +93,19 @@ function Settings() {
                 formData.append('image', image.raw);
             }
             formData.append('email',userData.email);
-            formData.append('userData', JSON.stringify(userDetails))
+            formData.append('userData', JSON.stringify(userDetails));
             await updateUser(formData);
             setIsDisabled(true);
             setUserData(userDetails);
         } catch (err:any) {
-            console.log(err)
             err.inner.forEach((item:any) => {
                 if (item.path in updateRefs) {
                     const ref = updateRefs[item.path].current;
-                    ref?.classList.add("settings__input--invalid")
+                    ref?.classList.add("settings__input--invalid");
                 }
             })
         }
-    }
+    };
 
     return(
         <main className="settings__container">
@@ -165,7 +165,7 @@ function Settings() {
             <section className="settings__details">
                 <div className="settings__details-wrap">
                     <div className="settings__input-wrap">
-                        <input ref={emailRef} className="settings__input" type="text" onChange={(e) => {
+                        <input ref={emailRef} className="settings__input" type="text" onChange={( e ) => {
                             updateUserDetails(e)
                             changeStyle(e)
                         }}
@@ -174,7 +174,7 @@ function Settings() {
                         <label className="settings__label" htmlFor="email">E-mail</label>
                     </div>
                     <div className="settings__input-wrap">
-                        <input ref={passwordRef} className="settings__input" type="password" onChange={(e) => {
+                        <input ref={passwordRef} className="settings__input" type="password" onChange={( e ) => {
                             updateUserDetails(e)
                             changeStyle(e)
                         }}
@@ -183,7 +183,7 @@ function Settings() {
                         <label className="settings__label" htmlFor="password">Password</label>
                     </div>
                     <div className="settings__input-wrap">
-                        <input ref={repPasswordRef} className="settings__input" type="password" onChange={(e) => {
+                        <input ref={repPasswordRef} className="settings__input" type="password" onChange={( e ) => {
                             updateUserDetails(e)
                             changeStyle(e)
                         }}
@@ -192,7 +192,7 @@ function Settings() {
                         <label className="settings__label" htmlFor="password">Confirm Password</label>
                     </div>
                     <div className="settings__input-wrap">
-                        <input ref={nameRef} className="settings__input" type="text" onChange={(e) => {
+                        <input ref={nameRef} className="settings__input" type="text" onChange={( e ) => {
                             updateUserDetails(e)
                             changeStyle(e)
                         }}
@@ -201,7 +201,7 @@ function Settings() {
                         <label className="settings__label" htmlFor="name">Name</label>
                     </div>
                     <div className="settings__input-wrap">
-                        <input ref={surnameRef} className="settings__input" type="text" onChange={(e) => {
+                        <input ref={surnameRef} className="settings__input" type="text" onChange={( e ) => {
                             updateUserDetails(e)
                             changeStyle(e)
                         }}
@@ -224,15 +224,15 @@ function Settings() {
                                 <img src={icons.upload} className="settings__icon-sm" alt="Upload profile"/>
                                 <p className="settings__file-p">Upload</p>
                             </label>
-                            <input onChange={fileHandler} accept=".png,.jpg, .svg" className="settings__file-hidden"
+                            <input onChange={ fileHandler } accept=".png,.jpg, .svg" className="settings__file-hidden"
                                    id="file-upload" type="file"/>
                         </div>
                         <div className="settings__submit-wrap">
                             <div className="settings__button--wrap">
-                                <button className="setting__submit" onClick={editPersonalData}>Edit</button>
+                                <button className="setting__submit" onClick={ editPersonalData }>Edit</button>
                             </div>
                             <div className="settings__button--wrap">
-                                <button className="setting__submit" onClick={updatePersonalData}>Save</button>
+                                <button className="setting__submit" onClick={ updatePersonalData }>Save</button>
                             </div>
                         </div>
                     </div>

@@ -1,12 +1,12 @@
 import { useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import Backdrop from "../Backdrop/Backdrop";
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
-import "./Modal.css";
-import Login from "./Login/Login";
-import Register from "./Register/Register";
+import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { useFormSwitch } from "../../hooks/useFormSwitch";
 import { ModalActive } from "../../utilities/interfaces";
+import Backdrop from "../Backdrop/Backdrop";
+import Login from "./Login/Login";
+import Register from "./Register/Register";
+import "./Modal.css";
 
 function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :ModalActive) {
     const modalRef = useRef<HTMLDivElement | null>(null);

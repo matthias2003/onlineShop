@@ -11,7 +11,6 @@
     font-family: Archivo Black, sans-serif;
 }
 
-
 .orders__container.empty {
     grid-template-columns: 1fr;
     justify-content: center;
@@ -35,7 +34,6 @@
         min-height: 60vh;
         margin: auto;
     }
-
 }
 
 @media screen and (max-width: 992px)  {
@@ -44,7 +42,6 @@
         min-height: 60vh;
         margin: auto;
     }
-
 }
 
 @media screen and (width <= 768px) {

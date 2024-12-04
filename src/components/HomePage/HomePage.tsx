@@ -1,10 +1,9 @@
 import { fetchData, getBestsellers } from "../../requests";
-import ComingSoonImage from "../../assets/images/Air-Jordan-4-Seafoam-AQ9129-103-04.jpg"
-import "./HomePage.css";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { SearchDataItem } from "../../utilities/interfaces";
-
+import ComingSoonImage from "../../assets/images/Air-Jordan-4-Seafoam-AQ9129-103-04.jpg";
+import "./HomePage.css";
 
 function HomePage() {
     const navigate = useNavigate();
@@ -20,9 +19,8 @@ function HomePage() {
     });
 
     const detailedViewHandler = ( id: string ) => {
-        navigate(`/items/${id}`)
-    }
-
+        navigate(`/items/${id}`);
+    };
 
     return(
         <main className="home__container">
@@ -32,7 +30,7 @@ function HomePage() {
                 <div className="home__tiles">
                     { sneakerData.map( (element  ) => {
                         return(
-                            <div onClick={() => {detailedViewHandler(element._id)}} className="home__tile" key={element._id}>
+                            <div onClick={() => { detailedViewHandler(element._id) }} className="home__tile" key={element._id}>
                                 <div className="home__image-wrap">
                                     <img className="home__sneaker-image" src={element.img} alt="Sneaker preview" />
                                 </div>
@@ -54,14 +52,14 @@ function HomePage() {
             <div className="home__bestsellers">
                 <h4>Bestsellers</h4>
                 <div className="home__tiles">
-                    {bestsellersData.map((element ) => {
+                    { bestsellersData.map((element ) => {
                         return (
-                            <div onClick={() => {detailedViewHandler(element._id)}} className="home__tile" key={element._id}>
+                            <div onClick={() => { detailedViewHandler(element._id) }} className="home__tile" key={element._id}>
                                 <div className="home__image-wrap">
                                     <img className="home__sneaker-image" src={element.img} alt="Sneaker preview"/>
                                 </div>
-                                <p>{element.name}</p>
-                                <p>{element.price}</p>
+                                <p>{ element.name }</p>
+                                <p>{ element.price }</p>
                             </div>
                         )
                     })}
