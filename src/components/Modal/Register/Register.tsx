@@ -200,8 +200,7 @@ function Register({ setIsActiveLoginPanel } :ModalSetActive) {
                     </div>
                 </div>
                 <button className="register-modal__button">SING UP</button>
-                <p>Already have an account?
-                    <span className="register-modal__link" onClick={() => { setSwitchForm(false) }}>Sign In</span>
+                <p>Already have an account? <span className="register-modal__link" onClick={() => { setSwitchForm(false) }}>Sign In</span>
                 </p>
             </form>
         </div>

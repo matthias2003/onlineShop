@@ -60,3 +60,8 @@ export const updateUser = async (formData : FormData) => {
     const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/user/update", formData ,{headers: { 'Content-Type': 'multipart/form-data' }})
     return data;
 }
+
+export const resetPassword = async ( email : string) => {
+    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/api/reset-password");
+    return data;
+}

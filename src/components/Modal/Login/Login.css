@@ -115,6 +115,14 @@
     font-size: 12px;
 }
 
+.login-modal__link-text {
+    text-decoration-line: underline;
+}
+
+.login-modal__link-text:hover {
+    cursor: pointer;
+}
+
 .login-modal_error-info {
     color: red;
 }
