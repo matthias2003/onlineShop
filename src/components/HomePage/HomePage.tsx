@@ -1,5 +1,5 @@
 import { fetchData, getBestsellers } from "../../requests";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { SearchDataItem } from "../../utilities/interfaces";
 import ComingSoonImage from "../../assets/images/Air-Jordan-4-Seafoam-AQ9129-103-04.jpg";
@@ -65,6 +65,7 @@ function HomePage() {
                     })}
                 </div>
             </div>
+            <Outlet />
         </main>
     );
 }

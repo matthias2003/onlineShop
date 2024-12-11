@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
-import { Link, useNavigate } from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import { FormSwitchProvider } from "../Context/FormSwitchProvider";
 import { useAuth } from "../../hooks/useAuth";
 import { useLogout } from "../../hooks/useLogout";
@@ -20,6 +20,7 @@ function Nav() {
     const [ toggleButton, setToggleButton ] = useState<boolean>(false);
     const [ cartQuantity, setCartQuantity ] = useState<number>(0);
     const [ searchValue , setSearchValue ] = useState<string>("");
+    const [ isReset, setIsReset ] = useState<boolean>(false);
 
     const sideNavRef = useRef<HTMLDivElement | null>(null);
     const buttonRef = useRef<HTMLButtonElement | null>(null);
@@ -28,6 +29,16 @@ function Nav() {
     const logout = useLogout();
     const navigate = useNavigate();
     const { auth } = useAuth();
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.pathname === "/reset-password") {
+            setIsActiveLoginPanel(true);
+            setIsReset(true);
+        } else {
+            setIsActiveLoginPanel(false);
+        }
+    }, [location.pathname]);
 
     useEffect(() => {
         if (isActiveSideNav) {
@@ -340,7 +351,10 @@ function Nav() {
                     { isActiveLoginPanel &&
                         <FormSwitchProvider>
                             <Modal
-                                isActiveLoginPanel={isActiveLoginPanel} setIsActiveLoginPanel={setIsActiveLoginPanel}>
+                                isActiveLoginPanel={isActiveLoginPanel}
+                                setIsActiveLoginPanel={setIsActiveLoginPanel}
+                                isReset={isReset}
+                                setIsReset={setIsReset}>
                             </Modal>
                         </FormSwitchProvider>}
                 </AnimatePresence>

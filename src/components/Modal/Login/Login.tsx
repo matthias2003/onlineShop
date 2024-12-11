@@ -62,7 +62,7 @@ function Login({ setIsActiveLoginPanel } :ModalSetActive) {
                 setTimeout(() => {
                     setResetPasswordStatus(false);
                     setResetPasswordMessage(" ");
-                },3000);
+                },5000);
             } catch (err) {
                 setResetPasswordMessage("Please enter valid email");
                 emailRefReset.current?.classList.add("login-modal__input--invalid");

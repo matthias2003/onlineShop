@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import {useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { useFormSwitch } from "../../hooks/useFormSwitch";
@@ -7,8 +7,9 @@ import Backdrop from "../Backdrop/Backdrop";
 import Login from "./Login/Login";
 import Register from "./Register/Register";
 import "./Modal.css";
+import ResetPassword from "./ResetPassword/ResetPassword";
 
-function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :ModalActive) {
+function Modal({ isActiveLoginPanel, setIsActiveLoginPanel, isReset, setIsReset } :ModalActive) {
     const modalRef = useRef<HTMLDivElement | null>(null);
     const isInView = useInView(modalRef);
     const { switchForm } = useFormSwitch();
@@ -43,7 +44,7 @@ function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :ModalActive) {
     };
 
     return(
-        <Backdrop setIsActive={ setIsActiveLoginPanel }>
+        <Backdrop setIsActive={ setIsActiveLoginPanel } setIsReset={ setIsReset } isReset={ isReset }>
             <motion.div
                 onClick={( event ) => { event.stopPropagation() }}
                 className="modal"
@@ -52,11 +53,14 @@ function Modal({ isActiveLoginPanel, setIsActiveLoginPanel } :ModalActive) {
                 animate="visible"
                 ref={modalRef}
                 exit="exit">
-                    { !switchForm ?
-                        <Login setIsActiveLoginPanel={ setIsActiveLoginPanel }/>
-                        :
-                        <Register setIsActiveLoginPanel={ setIsActiveLoginPanel } />
-                    }
+                { isReset ?
+                    ( <ResetPassword setIsActiveLoginPanel={setIsActiveLoginPanel} setIsReset={setIsReset}/> )
+                    :
+                    ( switchForm ?
+                            ( <Register setIsActiveLoginPanel={setIsActiveLoginPanel} />)
+                            :
+                            ( <Login setIsActiveLoginPanel={setIsActiveLoginPanel} /> )
+                )}
             </motion.div>
         </Backdrop>
     )

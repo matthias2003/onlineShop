@@ -2,7 +2,9 @@ import { Dispatch, MutableRefObject, SetStateAction } from "react";
 
 export interface BackdropProps {
     children: any,
-    setIsActive:Dispatch<SetStateAction<boolean>>
+    setIsActive:Dispatch<SetStateAction<boolean>>,
+    setIsReset?:Dispatch<SetStateAction<boolean>>,
+    isReset?:boolean
 }
 
 export interface AuthState {
@@ -69,10 +71,17 @@ export interface Faves {
 export interface ModalActive {
     setIsActiveLoginPanel:Dispatch<SetStateAction<boolean>>,
     isActiveLoginPanel: boolean,
+    setIsReset:Dispatch<SetStateAction<boolean>>,
+    isReset: boolean
 }
 
 export interface ModalSetActive {
     setIsActiveLoginPanel:Dispatch<SetStateAction<boolean>>
+}
+
+export interface ModalResetPassword {
+    setIsActiveLoginPanel:Dispatch<SetStateAction<boolean>>,
+    setIsReset:Dispatch<SetStateAction<boolean>>
 }
 
 export interface UpdateRefs {
