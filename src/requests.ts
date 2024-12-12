@@ -62,13 +62,11 @@ export const updateUser = async (formData : FormData) => {
 }
 
 export const resetPassword = async ( email : string) => {
-    // const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/reset-password", email);
-    const { data } = await axios.post("http://127.0.0.1:3001/reset-password", { email });
+    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/reset-password", { email });
     return data;
 }
 
 export const setNewPassword = async ( password : string) => {
-    // const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/reset-password/set", { password });
-    const { data } = await axios.post("http://127.0.0.1:3001/reset-password/set", { password });
+    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/reset-password/set", { password });
     return data;
 }
