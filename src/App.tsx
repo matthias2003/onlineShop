@@ -28,7 +28,7 @@ function App() {
                 <Routes>
                     <Route element={ <UserStatus /> }>
                     <Route path="/" element={ <HomePage/> }></Route>
-                    <Route path="/reset-password" element={ <HomePage/> }></Route>
+                    <Route path="/reset-password/:token" element={ <HomePage/> }></Route>
                     <Route path="/favourites" element={ <Favourites/> }></Route>
                     <Route path="/stock/:gender" element={ <Stock/> }></Route>
                     <Route path="/search/:name" element={ <SearchView/> }></Route>

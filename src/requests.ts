@@ -66,7 +66,7 @@ export const resetPassword = async ( email : string) => {
     return data;
 }
 
-export const setNewPassword = async ( password : string) => {
-    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/reset-password/set", { password });
+export const setNewPassword = async ( password : string, confirmPassword: string, token:string) => {
+    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/reset-password/set", { password, confirmPassword, token });
     return data;
 }

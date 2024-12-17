@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
 import { setNewPassword } from "../../../requests";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
-import { useNavigate } from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import { ModalResetPassword } from "../../../utilities/interfaces";
 import { motion } from "framer-motion";
 import * as yup from "yup";
@@ -19,6 +19,7 @@ function ResetPassword({ setIsActiveLoginPanel, setIsReset } :ModalResetPassword
     const modalRef = useRef<HTMLDivElement | null>(null);
     const navigate = useNavigate();
     const isInView = useInView(modalRef);
+    const { pathname }  = useLocation();
 
     const passwordReg = new RegExp(/^(?=.*[0-9])(?=.*[- ?!@#$%^&*\/\\])(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9- ?!@#$%^&*\/\\]{8,30}$/);
 
@@ -49,18 +50,18 @@ function ResetPassword({ setIsActiveLoginPanel, setIsReset } :ModalResetPassword
         event.preventDefault();
         passwordRef.current?.classList.remove("modal__input--invalid");
         confirmPasswordRef.current?.classList.remove("modal__input--invalid");
+        const match = pathname.match(/\/reset-password\/(.+)/);
 
         const data = {
             password:passwordRef.current?.value,
             confirmPassword:confirmPasswordRef.current?.value
         };
 
-        if (data.password && data.confirmPassword) {
+        if (data.password && data.confirmPassword && match) {
             try {
                 setToggleLoader(true);
                 await resetSchema.validate( data, { abortEarly: false });
-                const resetData  = await setNewPassword(data.password);
-                console.log(resetData);
+                const resetData  = await setNewPassword(data.password, data.confirmPassword, match[1]);
                 if (resetData) {
                     setLoadComplete(true);
                     setTimeout( () => { setIsActiveLoginPanel(false)}, 1000);

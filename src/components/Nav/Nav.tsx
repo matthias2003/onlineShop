@@ -32,7 +32,7 @@ function Nav() {
     const location = useLocation();
 
     useEffect(() => {
-        if (location.pathname === "/reset-password") {
+        if (location.pathname.startsWith("/reset-password")) {
             setIsActiveLoginPanel(true);
             setIsReset(true);
         } else {
