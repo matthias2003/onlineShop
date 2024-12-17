@@ -82,7 +82,7 @@ function DetailedView() {
 
     return(
         <main className="detailed">
-            <div className="detailed__content">
+            <div className={`detailed__content ${isLoading ? "detailed__content--override": ""}`}>
                 { isLoading ?
                     (
                         <Oval
