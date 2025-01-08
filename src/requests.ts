@@ -26,23 +26,38 @@ export const getDataById = async ( id: string )  => {
     return data;
 }
 
+export const newsletterSingUp = async ( email:string )=> {
+    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/newsletter", { email }, {headers: {"Content-Type": 'application/json'}});
+    return data;
+}
+
 export const sendLoginInfo =  async ( loginData:object ) => {
-    const { data } =  await axios.post("https://online-shop-backend.maciejkloda.pl/login", JSON.stringify(loginData), {headers:{"Content-Type": 'application/json'}});
+    const { data } =  await axios.post("https://online-shop-backend.maciejkloda.pl/auth/login", JSON.stringify(loginData), {headers:{"Content-Type": 'application/json'}});
+    return data;
+}
+
+
+export const registerUser = async ( registerData:object) => {
+    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/auth/register", JSON.stringify(registerData), {headers:{"Content-Type": 'application/json'}});
     return data;
 }
 
  export const getNewToken = async () => {
-    const { data } = await axios.get("https://online-shop-backend.maciejkloda.pl/refresh");
+    const { data } = await axios.get("https://online-shop-backend.maciejkloda.pl/auth/refresh");
+    return data;
+ }
+export const logoutUser = async () => {
+    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/auth/logout");
     return data;
  }
 
- export const logoutUser = async () => {
-    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/logout");
+export const resetPassword = async ( email : string) => {
+    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/auth/reset-password", { email });
     return data;
- }
+}
 
-export const registerUser = async ( registerData:object) => {
-    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/register", JSON.stringify(registerData), {headers:{"Content-Type": 'application/json'}});
+export const setNewPassword = async ( password : string, confirmPassword: string, token:string) => {
+    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/auth/reset-password/set", { password, confirmPassword, token });
     return data;
 }
 
@@ -51,22 +66,7 @@ export const getUserData = async ( id:string, token:string )=> {
     return data;
 }
 
-export const newsletterSingUp = async ( email:string )=> {
-    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/newsletter", { email }, {headers: {"Content-Type": 'application/json'}});
-    return data;
-}
-
 export const updateUser = async (formData : FormData) => {
     const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/user/update", formData ,{headers: { 'Content-Type': 'multipart/form-data' }})
-    return data;
-}
-
-export const resetPassword = async ( email : string) => {
-    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/reset-password", { email });
-    return data;
-}
-
-export const setNewPassword = async ( password : string, confirmPassword: string, token:string) => {
-    const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/reset-password/set", { password, confirmPassword, token });
     return data;
 }
