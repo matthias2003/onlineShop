@@ -45,11 +45,12 @@ export const registerUser = async ( registerData:object) => {
  export const getNewToken = async () => {
     const { data } = await axios.get("https://online-shop-backend.maciejkloda.pl/auth/refresh");
     return data;
- }
+}
+
 export const logoutUser = async () => {
     const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/auth/logout");
     return data;
- }
+}
 
 export const resetPassword = async ( email : string) => {
     const { data } = await axios.post("https://online-shop-backend.maciejkloda.pl/auth/reset-password", { email });
